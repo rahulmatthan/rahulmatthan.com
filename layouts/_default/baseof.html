@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=21">
+    <link rel="stylesheet" href="/style.css?v=22">
 </head>
 <body>
     <!-- Reading Progress Bar -->
@@ -121,14 +121,14 @@
                                 <div class="card-content">
                                     <div class="card-title">{{ .Title }}</div>
                                     <div class="card-summary">
-                                        {{ .Plain | truncate 300 }}
+                                        {{ .Summary | truncate 300 | safeHTML }}
                                     </div>
                                 </div>
                                 <div class="card-arrow">→</div>
                                 <div class="link-preview">
                                     <div class="preview-title">{{ .Title }}</div>
                                     <div class="preview-excerpt">
-                                        {{ .Plain | truncate 200 }}
+                                        {{ .Summary | truncate 200 | safeHTML }}
                                     </div>
                                     <div class="preview-meta">{{ .Date.Format "January 2, 2006" }} • {{ .ReadingTime }} min read</div>
                                 </div>
