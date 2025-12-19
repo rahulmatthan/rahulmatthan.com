@@ -1,0 +1,27 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+<div class="section-description">
+    Here is a list of articles I have written outside of my weekly Ex Machina column:
+</div>
+
+<div class="archive-list">
+    {{ range sort .Sections "Title" }}
+    <details id="other-writing-{{ .Title | urlize }}" class="other-writing-accordion">
+        <summary class="year-heading">{{ .Title }}</summary>
+        <ul class="post-list">
+            {{ range .Pages.ByDate.Reverse }}
+            <li>
+                {{ if .Date }}
+                <span class="date-short" style="width: 150px;">{{ .Date.Format "2 January, 2006" }}</span>
+                {{ end }}
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </li>
+            {{ end }}
+        </ul>
+    </details>
+    {{ end }}
+</div>
+{{ end }}
+
+

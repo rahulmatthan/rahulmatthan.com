@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} | Rahul</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/style.css?v=19">
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress"></div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" aria-label="Scroll to top">↑</button>
+
+    <div class="layout-grid {{ if and .IsPage .Params.tags }}has-sidebar{{ end }}">
+        
+        <aside class="sidebar-left">
+            <div class="logo">
+                <a href="/">Rahul Matthan</a>
+            </div>
+            <nav class="side-nav">
+                {{ $exMachinaSection := .Site.GetPage "/ex-machina" }}
+                {{ $isExMachinaPage := or (eq .Section "ex-machina") (in .RelPermalink "ex-machina") }}
+                <details class="ex-machina-details" {{ if $isExMachinaPage }}open{{ end }}>
+                    <summary class="ex-machina-summary">
+                        <a href="/ex-machina" class="{{ if $isExMachinaPage }}active{{ end }}" onclick="event.stopPropagation();">Ex Machina</a>
+                    </summary>
+                    {{ if $exMachinaSection }}
+                    <nav class="ex-machina-nav">
+                        {{ range sort $exMachinaSection.Sections ".Title" "desc" }}
+                        {{ $year := .Title }}
+                        {{ $isCurrentYear := false }}
+                        {{ if $.IsPage }}
+                            {{ $isCurrentYear = eq ($.Date.Format "2006") $year }}
+                        {{ else if $.IsSection }}
+                            {{ $isCurrentYear = eq .RelPermalink $.RelPermalink }}
+                        {{ end }}
+                        {{ if not $isCurrentYear }}
+                            {{ range .Pages }}
+                                {{ if eq .RelPermalink $.RelPermalink }}
+                                    {{ $isCurrentYear = true }}
+                                {{ end }}
+                            {{ end }}
+                        {{ end }}
+                        <details id="year-{{ $year | urlize }}" {{ if $isCurrentYear }}open{{ end }}>
+                            <summary class="year-nav-heading">{{ $year }}</summary>
+                            <ul class="year-nav-posts">
+                                {{ range .Pages.ByDate.Reverse }}
+                                <li>
+                                    <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $.RelPermalink }}active{{ end }}">{{ .Title }}</a>
+                                </li>
+                                {{ end }}
+                            </ul>
+                        </details>
+                        {{ end }}
+                    </nav>
+                    {{ end }}
+                </details>
+                <a href="/other-writing" class="{{ if in .RelPermalink "other-writing" }}active{{ end }}">Other Writing</a>
+                <a href="/podcasts" class="{{ if in .RelPermalink "podcasts" }}active{{ end }}">Podcasts</a>
+                <a href="/talks" class="{{ if in .RelPermalink "talks" }}active{{ end }}">Talks</a>
+            </nav>
+        </aside>
+
+        <div class="content-wrapper">
+            {{ if not .IsHome }}
+            <header class="top-bar">
+                <nav class="breadcrumbs">
+                    <a href="/">Home</a>
+                    
+                    {{ if .Section }}
+                    <span class="divider">/</span>
+                    <a href="/{{ .Section }}">{{ .Section | humanize }}</a>
+                    {{ end }}
+                    
+                    {{ if .IsPage }}
+                        <span class="divider">/</span>
+                        <span class="current">{{ .Title }}</span>
+                    
+                    {{ else if not .IsSection }}
+                        <span class="divider">/</span>
+                        <span class="current">{{ .Title }}</span>
+                    {{ end }}
+                </nav>
+            </header>
+            {{ end }}
+
+            <main>
+                {{ block "main" . }}{{ end }}
+            </main>
+        </div>
+
+        {{ if and .IsPage .Params.tags }}
+        <aside class="sidebar-right">
+            <div class="tag-header">Related</div>
+            <div class="tag-list">
+                
+                {{ range .Params.tags }}
+                
+                {{ $tagName := . }}
+                {{ $tagData := index $.Site.Taxonomies.tags (urlize $tagName) }}
+                
+                <details name="tag-accordion">
+                    <summary class="tag-summary">
+                        {{ $tagName | humanize | upper }} 
+                        <span class="count">{{ len $tagData.Pages }}</span>
+                    </summary>
+                    
+                    <div class="tag-posts-grid">
+                        {{ range $tagData.Pages }}
+                            {{ if ne .RelPermalink $.RelPermalink }}
+                            <a href="{{ .RelPermalink }}" class="related-card">
+                                <div class="card-content">
+                                    <div class="card-title">{{ .Title }}</div>
+                                    <div class="card-summary">
+                                        {{ $content := .RawContent }}
+                                        {{ $parts := split $content "---" }}
+                                        {{ if gt (len $parts) 1 }}
+                                            {{ $firstPara := index $parts 0 | plainify | strings.TrimSpace }}
+                                            {{ $firstPara | truncate 300 }}
+                                        {{ else }}
+                                            {{ .Summary | plainify | truncate 300 }}
+                                        {{ end }}
+                                    </div>
+                                </div>
+                                <div class="card-arrow">→</div>
+                                <div class="link-preview">
+                                    <div class="preview-title">{{ .Title }}</div>
+                                    <div class="preview-excerpt">
+                                        {{ $content := .RawContent }}
+                                        {{ $parts := split $content "---" }}
+                                        {{ if gt (len $parts) 1 }}
+                                            {{ $firstPara := index $parts 0 | plainify | strings.TrimSpace }}
+                                            {{ $firstPara | truncate 200 }}
+                                        {{ else }}
+                                            {{ .Summary | plainify | truncate 200 }}
+                                        {{ end }}
+                                    </div>
+                                    <div class="preview-meta">{{ .Date.Format "January 2, 2006" }} • {{ .ReadingTime }} min read</div>
+                                </div>
+                            </a>
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                </details>
+                
+                {{ end }} </div>
+        </aside>
+        {{ end }}
+
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Year accordion behavior - only one open at a time
+            var yearAccordions = document.querySelectorAll('details[id^="year-"], details[id^="folder-"]');
+            yearAccordions.forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open) return;
+                    yearAccordions.forEach(function(other) {
+                        if (other !== details && other.open) {
+                            other.open = false;
+                        }
+                    });
+                });
+            });
+
+            // Handle URL hash to open specific year
+            var hash = window.location.hash;
+            if (hash) {
+                var targetDetails = document.querySelector(hash);
+                if (targetDetails && targetDetails.tagName === 'DETAILS') {
+                    targetDetails.open = true;
+                    if (targetDetails.closest('.sidebar-left')) {
+                        targetDetails.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    } else {
+                        targetDetails.scrollIntoView({ behavior: "smooth" });
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Find all links in the main content area
+            var links = document.querySelectorAll('.post-content a');
+            
+            links.forEach(function(link) {
+                // If the link starts with "http", it is external
+                if (link.href.startsWith('http')) {
+                    // Check if it's pointing to your own site (localhost or production)
+                    if (link.hostname !== window.location.hostname) {
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Single-open accordion behavior for Podcasts
+            var podcastAccordions = document.querySelectorAll('.podcast-accordion');
+            if (podcastAccordions.length) {
+                podcastAccordions.forEach(function(details) {
+                    details.addEventListener('toggle', function() {
+                        if (!details.open) return;
+                        podcastAccordions.forEach(function(other) {
+                            if (other !== details && other.open) {
+                                other.open = false;
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Single-open accordion behavior for Other Writing
+            var otherWritingAccordions = document.querySelectorAll('.other-writing-accordion');
+            if (otherWritingAccordions.length) {
+                otherWritingAccordions.forEach(function(details) {
+                    details.addEventListener('toggle', function() {
+                        if (!details.open) return;
+                        otherWritingAccordions.forEach(function(other) {
+                            if (other !== details && other.open) {
+                                other.open = false;
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Reading Progress Bar
+            var progressBar = document.getElementById('reading-progress');
+            if (progressBar) {
+                window.addEventListener('scroll', function() {
+                    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    var scrolled = (winScroll / height) * 100;
+                    progressBar.style.width = scrolled + '%';
+                });
+            }
+
+            // Scroll to Top Button
+            var scrollToTopBtn = document.getElementById('scroll-to-top');
+            if (scrollToTopBtn) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        scrollToTopBtn.classList.add('visible');
+                    } else {
+                        scrollToTopBtn.classList.remove('visible');
+                    }
+                });
+
+                scrollToTopBtn.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Enhanced link animations with stagger effect
+            var links = document.querySelectorAll('.post-list a, .year-nav-posts a');
+            links.forEach(function(link, index) {
+                link.style.animationDelay = (index * 0.02) + 's';
+            });
+
+            // Related cards - open in new tab with Cmd/Ctrl click or middle click
+            var relatedCards = document.querySelectorAll('.related-card');
+            relatedCards.forEach(function(card) {
+                card.addEventListener('click', function(e) {
+                    // If Cmd/Ctrl key is pressed or middle mouse button, open in new tab
+                    if (e.metaKey || e.ctrlKey || e.button === 1) {
+                        e.preventDefault();
+                        window.open(card.href, '_blank', 'noopener,noreferrer');
+                    }
+                });
+
+                // Handle middle mouse button click
+                card.addEventListener('auxclick', function(e) {
+                    if (e.button === 1) {
+                        e.preventDefault();
+                        window.open(card.href, '_blank', 'noopener,noreferrer');
+                    }
+                });
+
+                // Add subtle animation on load
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(10px)';
+                setTimeout(function() {
+                    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * Array.from(relatedCards).indexOf(card));
+            });
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+{{ if .Content }}
+<div class="section-description">
+    {{ .Content }}
+</div>
+{{ end }}
+
+{{ $showArchive := true }}
+{{ if .IsHome }}
+    {{ $showArchive = false }}
+{{ else if eq .Section "ex-machina" }}
+    {{ $showArchive = false }}
+{{ else if eq .Section "podcasts" }}
+    {{ if eq .RelPermalink "/podcasts/" }}
+        {{ $showArchive = false }}
+    {{ end }}
+{{ else if eq .Section "other-writing" }}
+    {{ if eq .RelPermalink "/other-writing/" }}
+        {{ $showArchive = false }}
+    {{ end }}
+{{ end }}
+
+{{ if $showArchive }}
+<div class="archive-list">
+    
+    {{ if .Sections }}
+        
+        {{ range sort .Sections ".Title" "desc" }}
+        <details id="folder-{{ .Title | urlize }}">
+            <summary class="year-heading">{{ .Title }}</summary>
+            
+            <div class="year-content">
+                
+                {{ $isYear := findRE "^\\d{4}$" .Title }}
+                
+                {{ if $isYear }}
+                    {{ range .Pages.GroupByDate "January" }}
+                    <h3 class="month-heading">{{ .Key }}</h3>
+                    <ul class="post-list">
+                        {{ range .Pages }}
+                        <li>
+                            <span class="date-short">{{ .Date.Format "02" }}</span>
+                            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+
+                {{ else }}
+                    <ul class="post-list">
+                        {{ range .Pages.ByDate.Reverse }}
+                        <li>
+                            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                {{ end }}
+
+            </div>
+        </details>
+        {{ end }}
+
+    {{ else }}
+        
+        <ul class="post-list" style="margin-top: 20px;">
+            {{ range .RegularPages.ByDate.Reverse }}
+            <li>
+                {{ if .Date }}
+                <span class="date-short" style="width: 50px;">{{ .Date.Format "2006" }}</span>
+                {{ end }}
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </li>
+            {{ end }}
+        </ul>
+
+    {{ end }}
+
+</div>
+{{ end }}
+{{ end }}

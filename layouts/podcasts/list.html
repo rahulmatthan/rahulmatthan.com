@@ -1,0 +1,26 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+<div class="section-description">
+    These are the podcasts that I have apeared on over the years:
+</div>
+
+<div class="archive-list">
+    {{ range sort .Sections "Title" }}
+    <details id="podcast-{{ .Title | urlize }}" class="podcast-accordion">
+        <summary class="year-heading">{{ .Title }}</summary>
+        <ul class="post-list">
+            {{ range .Pages.ByDate.Reverse }}
+            <li>
+                {{ if .Date }}
+                <span class="date-short" style="width: 150px;">{{ .Date.Format "2 January, 2006" }}</span>
+                {{ end }}
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </li>
+            {{ end }}
+        </ul>
+    </details>
+    {{ end }}
+</div>
+{{ end }}
+

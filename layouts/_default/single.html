@@ -1,0 +1,58 @@
+{{ define "main" }}
+<article>
+    <h1>{{ .Title }}</h1>
+    <span class="date">{{ .Date.Format "January 2, 2006" }}</span>
+    
+    {{ if .Params.video }}
+    <div class="video-container">
+        {{ $id := replaceRE "^.*(?:youtu.be\\/|v\\/|u\\/\\w\\/|embed\\/|watch\\?v=)([^#\\&\\?]*).*" "$1" .Params.video }}
+        {{ if eq (len $id) 11 }}
+            <iframe src="https://www.youtube.com/embed/{{ $id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {{ else }}
+            <div class="video-fallback"><a href="{{ .Params.video }}" target="_blank">Watch Video →</a></div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="post-content">
+        {{ .Content }}
+    </div>
+
+    {{ if or .Params.spotify .Params.applePodcasts }}
+    <div class="sources-section" style="margin-top: 40px; border-top: none;"> <div class="source-label">Listen on</div>
+        <nav class="source-links">
+            
+            {{ if .Params.spotify }}
+            <a href="{{ .Params.spotify }}" target="_blank">Spotify</a>
+            {{ end }}
+
+            {{ if .Params.applePodcasts }}
+            <a href="{{ .Params.applePodcasts }}" target="_blank">Apple Podcasts</a>
+            {{ end }}
+            
+        </nav>
+    </div>
+    {{ end }}
+
+    {{ $canonLink := .Params.urlCanonical }}
+    {{ $mintLink := .Params.urlSecondary }}
+    {{ $hasMint := and $mintLink (in $mintLink "livemint.com") }}
+
+    {{ if or $canonLink $hasMint }}
+    <div class="sources-section">
+        <div class="source-label">Sources</div>
+        <nav class="source-links">
+            {{ if $canonLink }}
+                {{ $label := "Original Source" }}
+                {{ if in $canonLink "exmachina.in" }} {{ $label = "Ex Machina" }}
+                {{ else if .Params.publication }} {{ $label = .Params.publication }}
+                {{ end }}
+                <a href="{{ $canonLink }}" target="_blank">{{ $label }}</a>
+            {{ end }}
+            {{ if $hasMint }}<a href="{{ $mintLink }}" target="_blank">The Mint</a>{{ end }}
+        </nav>
+    </div>
+    {{ end }}
+
+</article>
+{{ end }}

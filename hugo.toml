@@ -1,0 +1,4 @@
+baseURL = 'https://example.org/'
+pluralizeListTitles = false
+languageCode = 'en-us'
+title = 'My New Hugo Site'
