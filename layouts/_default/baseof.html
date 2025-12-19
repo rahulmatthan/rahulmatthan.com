@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=22">
+    <link rel="stylesheet" href="/style.css?v=20">
 </head>
 <body>
     <!-- Reading Progress Bar -->
@@ -121,14 +121,28 @@
                                 <div class="card-content">
                                     <div class="card-title">{{ .Title }}</div>
                                     <div class="card-summary">
-                                        {{ .Summary | default .Content | truncate 300 | safeHTML }}
+                                        {{ $content := .RawContent }}
+                                        {{ $parts := split $content "---" }}
+                                        {{ if gt (len $parts) 1 }}
+                                            {{ $firstPara := index $parts 0 | plainify | strings.TrimSpace }}
+                                            {{ $firstPara | truncate 300 }}
+                                        {{ else }}
+                                            {{ .Summary | plainify | truncate 300 }}
+                                        {{ end }}
                                     </div>
                                 </div>
                                 <div class="card-arrow">→</div>
                                 <div class="link-preview">
                                     <div class="preview-title">{{ .Title }}</div>
                                     <div class="preview-excerpt">
-                                        {{ .Summary | default .Content | truncate 200 | safeHTML }}
+                                        {{ $content := .RawContent }}
+                                        {{ $parts := split $content "---" }}
+                                        {{ if gt (len $parts) 1 }}
+                                            {{ $firstPara := index $parts 0 | plainify | strings.TrimSpace }}
+                                            {{ $firstPara | truncate 200 }}
+                                        {{ else }}
+                                            {{ .Summary | plainify | truncate 200 }}
+                                        {{ end }}
                                     </div>
                                     <div class="preview-meta">{{ .Date.Format "January 2, 2006" }} • {{ .ReadingTime }} min read</div>
                                 </div>

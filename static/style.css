@@ -358,7 +358,7 @@ a:hover { color: #000; }
 .card-summary {
     font-size: 0.68rem;
     color: #666;
-    font-style: normal !important;
+    font-style: italic;
     line-height: 1.4;
     margin-top: 0;
     max-height: 0;
@@ -367,10 +367,6 @@ a:hover { color: #000; }
     transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 opacity 0.3s ease 0.05s,
                 margin-top 0.3s ease;
-}
-
-.card-summary * {
-    font-style: normal !important;
 }
 
 .related-card:hover .card-summary {
@@ -440,13 +436,8 @@ a:hover { color: #000; }
 .preview-excerpt {
     font-size: 0.75rem;
     color: #666;
-    font-style: normal !important;
     line-height: 1.5;
     margin-bottom: 10px;
-}
-
-.preview-excerpt * {
-    font-style: normal !important;
 }
 
 .preview-meta {
