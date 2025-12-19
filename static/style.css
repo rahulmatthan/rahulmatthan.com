@@ -783,7 +783,8 @@ article h3 {
 }
 
 /* --- FIX: Make links inside articles visible --- */
-.post-content a {
+.post-content a,
+.section-description a {
     color: #000;
     text-decoration: none;
     background-image: linear-gradient(to right, #ccc 0%, #ccc 100%);
@@ -797,13 +798,15 @@ article h3 {
     position: relative;
 }
 
-.post-content a:hover {
+.post-content a:hover,
+.section-description a:hover {
     background-color: rgba(0,0,0,0.05);
     background-image: linear-gradient(to right, #000 0%, #000 100%);
 }
 
 /* External link tooltip - just URL */
-.post-content a[href^="http"]::after {
+.post-content a[href^="http"]::after,
+.section-description a[href^="http"]::after {
     content: attr(href);
     position: absolute;
     bottom: calc(100% + 8px);
@@ -825,7 +828,8 @@ article h3 {
     text-overflow: ellipsis;
 }
 
-.post-content a[href^="http"]:hover::after {
+.post-content a[href^="http"]:hover::after,
+.section-description a[href^="http"]:hover::after {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
@@ -833,7 +837,8 @@ article h3 {
 }
 
 /* External link tooltip arrow */
-.post-content a[href^="http"]::before {
+.post-content a[href^="http"]::before,
+.section-description a[href^="http"]::before {
     content: '';
     position: absolute;
     bottom: calc(100% + 2px);
@@ -851,7 +856,8 @@ article h3 {
     z-index: 1000;
 }
 
-.post-content a[href^="http"]:hover::before {
+.post-content a[href^="http"]:hover::before,
+.section-description a[href^="http"]:hover::before {
     opacity: 1;
     visibility: visible;
     transition-delay: 0.3s;
