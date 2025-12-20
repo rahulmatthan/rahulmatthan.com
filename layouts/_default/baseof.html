@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=20">
+    <link rel="stylesheet" href="/style.css?v=21">
 </head>
 <body>
     <!-- Reading Progress Bar -->
@@ -19,6 +19,18 @@
 
     <!-- Scroll to Top Button -->
     <button id="scroll-to-top" aria-label="Scroll to top">↑</button>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
 
     <div class="layout-grid {{ if and .IsPage .Params.tags }}has-sidebar{{ end }}">
         
@@ -303,6 +315,61 @@
                 }, 100 * Array.from(relatedCards).indexOf(card));
             });
 
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Mobile menu functionality
+            var menuToggle = document.querySelector('.mobile-menu-toggle');
+            var menuOverlay = document.querySelector('.mobile-menu-overlay');
+            var sidebar = document.querySelector('.sidebar-left');
+
+            if (menuToggle && menuOverlay && sidebar) {
+                // Toggle menu on hamburger click
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menuToggle.classList.toggle('active');
+                    menuOverlay.classList.toggle('active');
+                    sidebar.classList.toggle('active');
+
+                    // Prevent body scroll when menu is open
+                    if (sidebar.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
+                });
+
+                // Close menu when overlay is clicked
+                menuOverlay.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+
+                // Close menu when a navigation link is clicked
+                var navLinks = sidebar.querySelectorAll('a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        menuToggle.classList.remove('active');
+                        menuOverlay.classList.remove('active');
+                        sidebar.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+
+                // Close menu on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+                        menuToggle.classList.remove('active');
+                        menuOverlay.classList.remove('active');
+                        sidebar.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
         });
     </script>
 </body>
