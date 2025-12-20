@@ -7,13 +7,6 @@
 </div>
 {{ end }}
 
-{{/* Helper to strip leading numbers from titles */}}
-{{ define "stripNumber" }}
-    {{ $title := . }}
-    {{ $title = replaceRE "^\\d+\\.\\s*" "" $title }}
-    {{ return $title }}
-{{ end }}
-
 {{ $showArchive := true }}
 {{ if .IsHome }}
     {{ $showArchive = false }}
@@ -47,7 +40,7 @@
                         {{ range .Pages }}
                         <li>
                             <span class="date-short">{{ .Date.Format "02" }}</span>
-                            <a href="{{ .RelPermalink }}">{{ template "stripNumber" .Title }}</a>
+                            <a href="{{ .RelPermalink }}">{{ replaceRE "^\\d+\\.\\s*" "" .Title }}</a>
                         </li>
                         {{ end }}
                     </ul>
@@ -57,7 +50,7 @@
                     <ul class="post-list">
                         {{ range .Pages.ByDate.Reverse }}
                         <li>
-                            <a href="{{ .RelPermalink }}">{{ template "stripNumber" .Title }}</a>
+                            <a href="{{ .RelPermalink }}">{{ replaceRE "^\\d+\\.\\s*" "" .Title }}</a>
                         </li>
                         {{ end }}
                     </ul>
@@ -75,7 +68,7 @@
                 {{ if .Date }}
                 <span class="date-short" style="width: 50px;">{{ .Date.Format "2006" }}</span>
                 {{ end }}
-                <a href="{{ .RelPermalink }}">{{ template "stripNumber" .Title }}</a>
+                <a href="{{ .RelPermalink }}">{{ replaceRE "^\\d+\\.\\s*" "" .Title }}</a>
             </li>
             {{ end }}
         </ul>
