@@ -66,8 +66,9 @@
                             <summary class="year-nav-heading">{{ $year }}</summary>
                             <ul class="year-nav-posts">
                                 {{ range .Pages.ByDate.Reverse }}
+                                {{ $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title }}
                                 <li>
-                                    <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $.RelPermalink }}active{{ end }}">{{ .Title }}</a>
+                                    <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $.RelPermalink }}active{{ end }}">{{ $cleanTitle }}</a>
                                 </li>
                                 {{ end }}
                             </ul>
@@ -129,9 +130,10 @@
                     <div class="tag-posts-grid">
                         {{ range $tagData.Pages }}
                             {{ if ne .RelPermalink $.RelPermalink }}
+                            {{ $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title }}
                             <a href="{{ .RelPermalink }}" class="related-card">
                                 <div class="card-content">
-                                    <div class="card-title">{{ .Title }}</div>
+                                    <div class="card-title">{{ $cleanTitle }}</div>
                                     <div class="card-summary">
                                         {{ $content := .RawContent }}
                                         {{ $parts := split $content "---" }}
@@ -145,7 +147,7 @@
                                 </div>
                                 <div class="card-arrow">→</div>
                                 <div class="link-preview">
-                                    <div class="preview-title">{{ .Title }}</div>
+                                    <div class="preview-title">{{ $cleanTitle }}</div>
                                     <div class="preview-excerpt">
                                         {{ $content := .RawContent }}
                                         {{ $parts := split $content "---" }}

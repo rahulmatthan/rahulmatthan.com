@@ -1,6 +1,7 @@
 {{ define "main" }}
 <article>
-    <h1>{{ .Title }}</h1>
+    {{ $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title }}
+    <h1>{{ $cleanTitle }}</h1>
     <span class="date">{{ .Date.Format "January 2, 2006" }}</span>
     
     {{ if .Params.video }}
