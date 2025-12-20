@@ -10,8 +10,6 @@
 {{ $showArchive := true }}
 {{ if .IsHome }}
     {{ $showArchive = false }}
-{{ else if eq .Section "ex-machina" }}
-    {{ $showArchive = false }}
 {{ else if eq .Section "podcasts" }}
     {{ if eq .RelPermalink "/podcasts/" }}
         {{ $showArchive = false }}

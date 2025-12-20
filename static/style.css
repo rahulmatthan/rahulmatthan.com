@@ -858,6 +858,34 @@ article h3 {
         max-height: none;
     }
 
+    /* Collapse Ex Machina by default on mobile for cleaner menu */
+    .ex-machina-details {
+        margin-bottom: 0;
+    }
+
+    .ex-machina-details[open] {
+        margin-bottom: 20px;
+    }
+
+    /* Better spacing for Ex Machina year accordions on mobile */
+    .ex-machina-nav details {
+        margin-bottom: 4px;
+    }
+
+    .year-nav-heading {
+        font-size: 0.9rem;
+        padding: 6px 0;
+    }
+
+    .year-nav-posts {
+        margin: 6px 0 8px 0;
+    }
+
+    .year-nav-posts a {
+        font-size: 0.8rem;
+        padding: 4px 0;
+    }
+
     /* On mobile, context sidebar goes to bottom */
     .sidebar-right {
         position: relative;

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=21">
+    <link rel="stylesheet" href="/style.css?v=22">
 </head>
 <body>
     <!-- Reading Progress Bar -->
@@ -324,6 +324,54 @@
             var menuToggle = document.querySelector('.mobile-menu-toggle');
             var menuOverlay = document.querySelector('.mobile-menu-overlay');
             var sidebar = document.querySelector('.sidebar-left');
+            var exMachinaDetails = document.querySelector('.ex-machina-details');
+
+            // On mobile, collapse Ex Machina by default for cleaner menu
+            function handleMobileExMachina() {
+                if (window.innerWidth <= 1100 && exMachinaDetails) {
+                    // Store the desktop state
+                    if (!exMachinaDetails.hasAttribute('data-desktop-open')) {
+                        exMachinaDetails.setAttribute('data-desktop-open', exMachinaDetails.open ? 'true' : 'false');
+                    }
+                    // Collapse on mobile
+                    exMachinaDetails.open = false;
+                } else if (exMachinaDetails && exMachinaDetails.hasAttribute('data-desktop-open')) {
+                    // Restore desktop state
+                    exMachinaDetails.open = exMachinaDetails.getAttribute('data-desktop-open') === 'true';
+                }
+            }
+
+            // Reset menu state - ensure clean state on page load/navigation
+            function resetMenuState() {
+                if (menuToggle) menuToggle.classList.remove('active');
+                if (menuOverlay) menuOverlay.classList.remove('active');
+                if (sidebar) sidebar.classList.remove('active');
+                document.body.style.overflow = '';
+                handleMobileExMachina();
+            }
+
+            // Run on load
+            resetMenuState();
+
+            // Handle back/forward navigation (bfcache)
+            window.addEventListener('pageshow', function(event) {
+                // Reset state when coming back via browser navigation
+                resetMenuState();
+            });
+
+            // Handle page visibility changes
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    resetMenuState();
+                }
+            });
+
+            // Run on resize
+            var resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(handleMobileExMachina, 250);
+            });
 
             if (menuToggle && menuOverlay && sidebar) {
                 // Toggle menu on hamburger click
@@ -349,14 +397,18 @@
                     document.body.style.overflow = '';
                 });
 
-                // Close menu when a navigation link is clicked
+                // Close menu when a navigation link is clicked (except Ex Machina summary)
                 var navLinks = sidebar.querySelectorAll('a');
                 navLinks.forEach(function(link) {
-                    link.addEventListener('click', function() {
-                        menuToggle.classList.remove('active');
-                        menuOverlay.classList.remove('active');
-                        sidebar.classList.remove('active');
-                        document.body.style.overflow = '';
+                    link.addEventListener('click', function(e) {
+                        // Don't close menu if clicking Ex Machina toggle or year headings
+                        var isToggle = link.closest('summary');
+                        if (!isToggle) {
+                            menuToggle.classList.remove('active');
+                            menuOverlay.classList.remove('active');
+                            sidebar.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
                     });
                 });
 
