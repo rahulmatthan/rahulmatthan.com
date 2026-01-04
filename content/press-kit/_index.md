@@ -31,6 +31,3 @@ All photographs are available in three resolutions for different use cases.
 - [High Resolution (4000×6000)](/press-kit/photos/high-res/Rahul%20Matthan%201%20hi-res.jpg) - For print
 
 
----
-
-*For media inquiries, please contact [your contact information].*
