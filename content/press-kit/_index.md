@@ -7,7 +7,7 @@ created: 2026-01-04T21:58
 ---
 
 
-Media resources for Rahul Matthan, including biography in multiple formats and high-resolution photographs.
+This is the consolidated repository of media resources for Rahul Matthan. In these pages, you will find links to different versions of his biography as well as photographs in various resolutions that can be used in print and web collaterals.
 
 ## Biography
 
