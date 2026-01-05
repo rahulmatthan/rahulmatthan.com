@@ -9,4 +9,4 @@ created: 2025-10-01T23:41
 date: 2018-10-12
 ---
 
-As part of the Algebra Conversations I sit down with Shoma Choudhary to discuss the ideas in my book Privacy 3.0.
+As part of the Algebra Conversations, I sit down with Shoma Choudhary to discuss the evolution of privacy in India and the world and the many ideas around the future of data protection that I've discussed in my book Privacy 3.0.
