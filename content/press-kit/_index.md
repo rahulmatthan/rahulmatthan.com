@@ -33,4 +33,4 @@ All photographs are available in three resolutions for different use cases.
 ### Portrait
 - [Web Resolution (800×1200)](/press-kit/photos/web-res/Rahul%20Matthan%201%20web-res.jpg) - For web use
 - [Medium Resolution (2000×3000)](/press-kit/photos/medium-res/Rahul%20Matthan%201%20mid-res.jpg) - For print/web
-- [High Resolution (4000×6000)](/press-kit/photos/high-res/Rahul%20Matthan%201%20hi-res.jpg) - For print
+- [High Resolution (4001×6000)](/press-kit/photos/high-res/Rahul%20Matthan%201%20hi-res.jpg) - For print
