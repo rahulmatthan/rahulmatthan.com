@@ -40,6 +40,50 @@ Syncs content from Obsidian vault at `/Users/Rahul/Vaults/Eden/Writing/Published
 - Maps Obsidian folders to Hugo sections per `SECTION_CONFIG`
 - Creates hierarchical content structure with `_index.md` files for Hugo sections
 
+### Automated Deployment
+An automated file watcher (`auto_deploy.py`) monitors the Obsidian vault and automatically deploys changes to GitHub Pages.
+
+**How it works:**
+1. Watches `/Users/Rahul/Vaults/Eden/Writing/Published` for markdown file changes
+2. Debounces changes (waits 30 seconds after last change)
+3. **Checks frontmatter** of all changed files for `writingStatus: published`
+4. Only deploys if at least one file has `writingStatus: published` (skips drafts)
+5. Runs `build.py`, commits changes, and pushes to GitHub
+6. GitHub Actions automatically deploys to production
+
+**Important:** The watcher will NOT deploy files with `writingStatus: draft` or any other status. This prevents accidental publication of draft content.
+
+**Editing Published Files:**
+When you edit a file that's already published (has `writingStatus: published`), the watcher will automatically deploy your edits:
+1. Make changes to the published file in Obsidian
+2. Save the file (frontmatter must still have `writingStatus: published`)
+3. Wait 30 seconds (debounce period)
+4. Changes automatically deploy to the live site
+
+You can monitor deployments in real-time:
+```bash
+tail -f /Users/rahul/Hugo/rahul-site/auto_deploy.log
+```
+
+**Control commands:**
+```bash
+# Start watcher (runs automatically at system boot via launchd)
+./watcher_start.sh
+
+# Stop watcher
+./watcher_stop.sh
+
+# Check status and view recent activity
+./watcher_status.sh
+
+# View live logs
+tail -f auto_deploy.log
+```
+
+**Workflow:**
+- **Old way**: Edit Obsidian → Run `build.py` → Commit → Push → Deploy
+- **New way**: Edit Obsidian → Change `writingStatus` to `published` → Save → Automatic deployment
+
 ## Architecture
 
 ### Content Pipeline

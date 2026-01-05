@@ -113,6 +113,7 @@
                 <a href="/other-writing" class="{{ if in .RelPermalink "other-writing" }}active{{ end }}">Other Writing</a>
                 <a href="/podcasts" class="{{ if in .RelPermalink "podcasts" }}active{{ end }}">Podcasts</a>
                 <a href="/talks" class="{{ if in .RelPermalink "talks" }}active{{ end }}">Talks</a>
+                <a href="/books" class="{{ if in .RelPermalink "books" }}active{{ end }}">Reading</a>
             </nav>
 
             <!-- Search Button -->
@@ -280,6 +281,21 @@
                     details.addEventListener('toggle', function() {
                         if (!details.open) return;
                         otherWritingAccordions.forEach(function(other) {
+                            if (other !== details && other.open) {
+                                other.open = false;
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Single-open accordion behavior for Book Recommendations
+            var bookAccordions = document.querySelectorAll('.book-accordion');
+            if (bookAccordions.length) {
+                bookAccordions.forEach(function(details) {
+                    details.addEventListener('toggle', function() {
+                        if (!details.open) return;
+                        bookAccordions.forEach(function(other) {
                             if (other !== details && other.open) {
                                 other.open = false;
                             }

@@ -1,0 +1,121 @@
+{
+  "categories": [
+    {
+      "name": "Technology",
+      "needs_review": false,
+      "books": [
+        {
+          "title": "Breakneck",
+          "author": "Dan Wang",
+          "rating": 7,
+          "image": "https://m.media-amazon.com/images/I/814dMeutLEL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "A Brief History of Intelligence",
+          "author": "Max Bennett",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/71KHPnjFUKL._SL1500_.jpg",
+          "completed": "2025-08-25"
+        },
+        {
+          "title": "Jacquard's Web",
+          "author": "James Essinger",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/712NGcnuKmL._SL1360_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Algorithms to Live By",
+          "author": "Brian Christian, Tom Griffiths",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/71fOYASS85L._SL1500_.jpg",
+          "completed": ""
+        }
+      ]
+    },
+    {
+      "name": "Science",
+      "needs_review": false,
+      "books": [
+        {
+          "title": "Anaximander",
+          "author": "Carlo Rovelli",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/71oFsx75LgL._SL1500_.jpg",
+          "completed": "2024-01-26"
+        },
+        {
+          "title": "An Immense World",
+          "author": "Ed Yong",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81okDznkX0L._SL1500_.jpg",
+          "completed": "2024-01-17"
+        },
+        {
+          "title": "The Battle for your Brain",
+          "author": "Nita A. Farahany",
+          "rating": 6,
+          "image": "http://books.google.com/books/content?id=FFdrEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "completed": ""
+        },
+        {
+          "title": "A Dominant Character",
+          "author": "Samanth Subramanian",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/A1O4jsoNTkL._SL1500_.jpg",
+          "completed": "2021-04-03"
+        },
+        {
+          "title": "Dust",
+          "author": "Jay Owens",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/81-YfU4hCuL._SL1500_.jpg",
+          "completed": ""
+        }
+      ]
+    },
+    {
+      "name": "Social Sciences",
+      "needs_review": false,
+      "books": [
+        {
+          "title": "A Promised Land",
+          "author": "Barack Obama",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/91+NBrXG-PL._SL1500_.jpg",
+          "completed": "2022-06-02"
+        }
+      ]
+    },
+    {
+      "name": "Politics & Economics",
+      "needs_review": false,
+      "books": []
+    },
+    {
+      "name": "Making of Modern India",
+      "needs_review": false,
+      "books": [
+        {
+          "title": "A Sixth of Humanity",
+          "author": "Devesh Kapur, Arvind Subramanian",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/91V2mDGggkL._SL1500_.jpg",
+          "completed": "2025-10-31"
+        },
+        {
+          "title": "Accelerating India’s Development",
+          "author": "Karthik Muralidharan",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/71B+PsUEuDL._SL1500_.jpg",
+          "completed": "2024-04-15"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "generated": "2026-01-05T21:16:05.240767",
+    "total_books": 12
+  }
+}

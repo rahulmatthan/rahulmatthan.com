@@ -1,0 +1,36 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+<div class="section-description">
+    {{ .Content }}
+</div>
+
+{{ $booksData := .Site.Data.books }}
+
+{{ if $booksData }}
+<div class="archive-list">
+    {{ range $booksData.categories }}
+    <details id="book-category-{{ .name | urlize }}" class="book-accordion">
+        <summary class="year-heading">
+            {{ .name }}
+            {{ if .needs_review }}
+            <span class="review-warning" title="More than 10 books with 7-star rating. Please review and downrank some.">⚠️</span>
+            {{ end }}
+        </summary>
+        <ul class="book-list">
+            {{ range .books }}
+            <li class="book-item">
+                <span class="book-title">{{ .title }}</span>
+                {{ if .author }}<span class="book-author"> by {{ .author }}</span>{{ end }}
+            </li>
+            {{ end }}
+        </ul>
+    </details>
+    {{ end }}
+</div>
+
+{{ else }}
+<p>No book recommendations available yet.</p>
+{{ end }}
+
+{{ end }}
