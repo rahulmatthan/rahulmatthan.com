@@ -7,8 +7,6 @@ created: 2026-01-04T21:58
 ---
 
 
-# Press Kit
-
 Media resources for Rahul Matthan, including biography in multiple formats and high-resolution photographs.
 
 ## Biography
