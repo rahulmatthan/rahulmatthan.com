@@ -12,6 +12,20 @@
           "completed": ""
         },
         {
+          "title": "Conspiracy - A True Story of Power, Sex, and a Billionaire’s Secret Plot to Destroy a Media Empire",
+          "author": "Ryan Holiday",
+          "rating": 7,
+          "image": "https://m.media-amazon.com/images/I/81G-WxIP8hL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Life on the Edge",
+          "author": "Jim Al-Khalili, Johnjoe McFadden",
+          "rating": 7,
+          "image": "https://m.media-amazon.com/images/I/71aaFrLCpyL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
           "title": "A Brief History of Intelligence",
           "author": "Max Bennett",
           "rating": 6,
@@ -19,10 +33,38 @@
           "completed": "2025-08-25"
         },
         {
+          "title": "I Contain Multitudes",
+          "author": "Ed Yong",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81O9phWTYPL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Hello World",
+          "author": "Hannah Fry",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/51irVzp8vIL._SL1200_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "AI Super-Powers",
+          "author": "Kai-Fu Lee",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/61i863EUqPL._SL1500_.jpg",
+          "completed": "2020-06-05"
+        },
+        {
           "title": "Jacquard's Web",
           "author": "James Essinger",
           "rating": 5,
           "image": "https://m.media-amazon.com/images/I/712NGcnuKmL._SL1360_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Careless People",
+          "author": "Sarah Wynn-Williams",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/71sgS51VyCL._SL1500_.jpg",
           "completed": ""
         },
         {
@@ -39,6 +81,13 @@
       "needs_review": false,
       "books": [
         {
+          "title": "Entangled Life",
+          "author": "Merlin Sheldrake",
+          "rating": 7,
+          "image": "https://m.media-amazon.com/images/I/81EgkvuMZHL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
           "title": "Anaximander",
           "author": "Carlo Rovelli",
           "rating": 6,
@@ -51,6 +100,34 @@
           "rating": 6,
           "image": "https://m.media-amazon.com/images/I/81okDznkX0L._SL1500_.jpg",
           "completed": "2024-01-17"
+        },
+        {
+          "title": "Frostbite",
+          "author": "Nicola Twilley",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81EsMInIgLL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Every Living Thing",
+          "author": "Jason Roberts",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81o6ipxMQPL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Fantastic Numbers and Where to Find Them",
+          "author": "Antonio Padilla",
+          "rating": 6,
+          "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1634034472i/57693564.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Engineering a Nation",
+          "author": "Aparajith Ramanath",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/813darsfYUL._SL1500_.jpg",
+          "completed": ""
         },
         {
           "title": "The Battle for your Brain",
@@ -67,10 +144,10 @@
           "completed": "2021-04-03"
         },
         {
-          "title": "Dust",
-          "author": "Jay Owens",
+          "title": "Doughnut Economics",
+          "author": "Kate Raworth",
           "rating": 5,
-          "image": "https://m.media-amazon.com/images/I/81-YfU4hCuL._SL1500_.jpg",
+          "image": "https://m.media-amazon.com/images/I/91IFJEoqmlL._SL1500_.jpg",
           "completed": ""
         }
       ]
@@ -80,11 +157,39 @@
       "needs_review": false,
       "books": [
         {
+          "title": "Fire on the Ganges",
+          "author": "Radhika Iyengar",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81yU7WrkonL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "I Am On The Hit List",
+          "author": "Rollo Romig",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/91ahJShhemL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "Indira Gandhi and the Years That Transformed India",
+          "author": "Srinath Raghavan",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81wT8Y8qpkL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
           "title": "A Promised Land",
           "author": "Barack Obama",
           "rating": 5,
           "image": "https://m.media-amazon.com/images/I/91+NBrXG-PL._SL1500_.jpg",
           "completed": "2022-06-02"
+        },
+        {
+          "title": "Gods, Guns and Missionaries",
+          "author": "Manu Pillai",
+          "rating": 5,
+          "image": "https://m.media-amazon.com/images/I/91r80p8CCgL._SL1500_.jpg",
+          "completed": ""
         }
       ]
     },
@@ -98,6 +203,13 @@
       "needs_review": false,
       "books": [
         {
+          "title": "In Service of the Republic",
+          "author": "Ajay Shah, Vijay Kelkar",
+          "rating": 7,
+          "image": "https://m.media-amazon.com/images/I/81jiFlwjRaL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
           "title": "A Sixth of Humanity",
           "author": "Devesh Kapur, Arvind Subramanian",
           "rating": 6,
@@ -110,12 +222,26 @@
           "rating": 6,
           "image": "https://m.media-amazon.com/images/I/71B+PsUEuDL._SL1500_.jpg",
           "completed": "2024-04-15"
+        },
+        {
+          "title": "Dreamers",
+          "author": "Snigdha Poonam",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/81igaRqPyJL._SL1500_.jpg",
+          "completed": ""
+        },
+        {
+          "title": "H-Pop",
+          "author": "Kunal Purohit",
+          "rating": 6,
+          "image": "https://m.media-amazon.com/images/I/71sS2H+3C0L._SL1400_.jpg",
+          "completed": ""
         }
       ]
     }
   ],
   "metadata": {
-    "generated": "2026-01-05T21:16:05.240767",
-    "total_books": 12
+    "generated": "2026-01-05T21:57:55.665277",
+    "total_books": 32
   }
 }
