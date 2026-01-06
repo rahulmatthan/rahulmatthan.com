@@ -642,26 +642,6 @@ summary.year-heading:hover { color: #000; transform: translateX(2px); }
     width: 100%;
 }
 
-/* --- BOOK LIST STYLES --- */
-.book-list { list-style: none; padding: 0 0 0 20px; margin: 0; }
-.book-list li {
-    margin-bottom: 8px;
-    padding: 4px 0;
-    transition: var(--transition-smooth);
-}
-.book-list .book-title {
-    font-size: 0.9rem;
-    color: #111;
-    font-weight: 500;
-    display: inline;
-}
-.book-list .book-author {
-    font-size: 0.85rem;
-    color: #666;
-    font-weight: 400;
-    display: inline;
-}
-
 /* --- ARTICLE STYLES (Single Page) --- */
 article h1 {
     font-size: 2rem;
