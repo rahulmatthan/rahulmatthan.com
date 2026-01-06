@@ -1,7 +1,7 @@
 ---
 title: Long Bio
 date: 2026-01-04
-writingStatus: draft
+writingStatus: published
 created: 2026-01-04T22:17
 
 ---
