@@ -3,7 +3,8 @@ created: 2024-12-23
 published: 2023-05-15
 tags:
   - DPI
-category: article
+category:
+  - "[[article]]"
 writingStatus: published
 urlCanonical: https://carnegieendowment.org/research/2023/05/what-is-the-dpi-approach?lang=en
 publication: Carnegie India
