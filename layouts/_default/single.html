@@ -35,22 +35,14 @@
     </div>
     {{ end }}
 
-    {{ $canonLink := .Params.urlCanonical }}
     {{ $mintLink := .Params.urlSecondary }}
     {{ $hasMint := and $mintLink (in $mintLink "livemint.com") }}
 
-    {{ if or $canonLink $hasMint }}
+    {{ if $hasMint }}
     <div class="sources-section">
         <div class="source-label">Sources</div>
         <nav class="source-links">
-            {{ if $canonLink }}
-                {{ $label := "Original Source" }}
-                {{ if in $canonLink "exmachina.in" }} {{ $label = "Ex Machina" }}
-                {{ else if .Params.publication }} {{ $label = .Params.publication }}
-                {{ end }}
-                <a href="{{ $canonLink }}" target="_blank">{{ $label }}</a>
-            {{ end }}
-            {{ if $hasMint }}<a href="{{ $mintLink }}" target="_blank">The Mint</a>{{ end }}
+            <a href="{{ $mintLink }}" target="_blank">The Mint</a>
         </nav>
     </div>
     {{ end }}
