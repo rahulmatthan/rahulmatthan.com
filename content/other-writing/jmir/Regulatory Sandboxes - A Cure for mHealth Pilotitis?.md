@@ -7,8 +7,9 @@ tags:
   - healthcare
 category: article
 writingStatus: published
-urlCanonical: https://pmc.ncbi.nlm.nih.gov/articles/PMC7525408/
+urlCanonical:
 publication: Journal of Medical Internet Research
+urlSecondary: https://pmc.ncbi.nlm.nih.gov/articles/PMC7525408/
 
 title: "Regulatory Sandboxes - A Cure for mHealth Pilotitis?"
 date: 2020-09-15
