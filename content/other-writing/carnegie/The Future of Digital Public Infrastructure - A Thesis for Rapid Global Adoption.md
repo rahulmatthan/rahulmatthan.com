@@ -153,33 +153,32 @@ In this paper, we have proposed that DPI adoption within countries can be signif
 The DaaS model promises significant value to countries. It potentially allows for rapid procurement and deployment. It ensures that there is no vendor/technology lock-in of critical digital infrastructure. The DaaS model uses open-source DPG assets. It ensures that countries retain the management of data and, most importantly, their ability to achieve digital transformation outcomes without losing quality, security, or sovereignty.
 
 
----
-[^1]: Keyzom Ngodup Massally, Rahul Matthan, and Rudra Chaudhuri, “What Is the DPI Approach?” Carnegie India, May 15, 2023, [https://carnegieindia.org/2023/05/15/what-is-dpi-approach-pub-89721.](https://carnegieindia.org/2023/05/15/what-is-dpi-approach-pub-89721.)
+[^1]: *Keyzom Ngodup Massally, Rahul Matthan, and Rudra Chaudhuri, “What Is the DPI Approach?” Carnegie India, May 15, 2023, [https://carnegieindia.org/2023/05/15/what-is-dpi-approach-pub-89721.](https://carnegieindia.org/2023/05/15/what-is-dpi-approach-pub-89721.*)
 
-[^2]: Rudra Chaudhuri, “Decoding the G20 Consensus on Digital Public Infrastructure: A Key Outcome of India’s Presidency,” Carnegie India, September 1, 2023, [https://carnegieindia.org/2023/09/01/decoding-g20-consensus-on-digital-public-infrastructure-key-outcome-of-india-s-presidency-pub-90467.](https://carnegieindia.org/2023/09/01/decoding-g20-consensus-on-digital-public-infrastructure-key-outcome-of-india-s-presidency-pub-90467.)
+[^2]: *Rudra Chaudhuri, “Decoding the G20 Consensus on Digital Public Infrastructure: A Key Outcome of India’s Presidency,” Carnegie India, September 1, 2023, [https://carnegieindia.org/2023/09/01/decoding-g20-consensus-on-digital-public-infrastructure-key-outcome-of-india-s-presidency-pub-90467.](https://carnegieindia.org/2023/09/01/decoding-g20-consensus-on-digital-public-infrastructure-key-outcome-of-india-s-presidency-pub-90467.)*
 
-[^3]: “G20 Digital Economy Working Group (DEWG) Identified Three Priority Areas Namely Digital Public Infrastructure, Security in the Digital Economy, and Digital Skilling and So Far, Held Meetings at Lucknow, Hyderabad and Pune Respectively to Build Consensus on These Priority Areas,” press release, Press Information Bureau Bengaluru, August 16, 2023, [https://pib.gov.in/PressReleasePage.aspx?PRID=1949529.](https://pib.gov.in/PressReleasePage.aspx?PRID=1949529.)
+[^3]: *“G20 Digital Economy Working Group (DEWG) Identified Three Priority Areas Namely Digital Public Infrastructure, Security in the Digital Economy, and Digital Skilling and So Far, Held Meetings at Lucknow, Hyderabad and Pune Respectively to Build Consensus on These Priority Areas,” press release, Press Information Bureau Bengaluru, August 16, 2023, [https://pib.gov.in/PressReleasePage.aspx?PRID=1949529.](https://pib.gov.in/PressReleasePage.aspx?PRID=1949529.)*
 
-[^4]: “GPFI,” Global Partnership for Financial Inclusion, accessed January 2024, [https://www.gpfi.org/.](https://www.gpfi.org/)
+[^4]: *“GPFI,” Global Partnership for Financial Inclusion, accessed January 2024, [https://www.gpfi.org/.](https://www.gpfi.org/)*
 
-[^5]: “Creating Digital Public Infrastructure for Empowerment, Inclusion, and Resilience,” World Bank, October 12, 2023, [https://www.worldbank.org/en/results/2023/10/12/creating-digital-public-infrastructure-for-empowerment-inclusion-and-resilience.](https://www.worldbank.org/en/results/2023/10/12/creating-digital-public-infrastructure-for-empowerment-inclusion-and-resilience.)
+[^5]: *“Creating Digital Public Infrastructure for Empowerment, Inclusion, and Resilience,” World Bank, October 12, 2023, [https://www.worldbank.org/en/results/2023/10/12/creating-digital-public-infrastructure-for-empowerment-inclusion-and-resilience.](https://www.worldbank.org/en/results/2023/10/12/creating-digital-public-infrastructure-for-empowerment-inclusion-and-resilience.)*
 
-[^6]: Chaudhuri, “Decoding the G20 Consensus on Digital Public Infrastructure.”
+[^6]: *Chaudhuri, “Decoding the G20 Consensus on Digital Public Infrastructure.”*
 
-[^7]: For more details regarding this initiative, see “UN High Impact Initiative: Digital Public Infrastructure,” International Telecommunications Union, accessed January 2024, [https://www.itu.int/initiatives/sdgdigital/digital-public-infrastructure.](https://www.itu.int/initiatives/sdgdigital/digital-public-infrastructure.)
+[^7]: *For more details regarding this initiative, see “UN High Impact Initiative: Digital Public Infrastructure,” International Telecommunications Union, accessed January 2024, [https://www.itu.int/initiatives/sdgdigital/digital-public-infrastructure.](https://www.itu.int/initiatives/sdgdigital/digital-public-infrastructure.)*
 
-[^8]: For more details regarding this campaign, see “50-in-5,” 50-in-5, accessed January 2024, [https://50in5.net.](https://50in5.net./)
+[^8]: *For more details regarding this campaign, see “50-in-5,” 50-in-5, accessed January 2024, [https://50in5.net.](https://50in5.net./)*
 
-[^9]: Cristian Alonso et al., “Stacking Up the Benefits: Lessons From India’s Digital Journey,” International Monetary Fund, Working Paper No. 2023/078, March 31, 2023, [https://www.imf.org/en/Publications/WP/Issues/2023/03/31/Stacking-up-the-Benefits-Lessons-from-Indias-Digital-Journey-531692.](https://www.imf.org/en/Publications/WP/Issues/2023/03/31/Stacking-up-the-Benefits-Lessons-from-Indias-Digital-Journey-531692.)
+[^9]: *Cristian Alonso et al., “Stacking Up the Benefits: Lessons From India’s Digital Journey,” International Monetary Fund, Working Paper No. 2023/078, March 31, 2023, [https://www.imf.org/en/Publications/WP/Issues/2023/03/31/Stacking-up-the-Benefits-Lessons-from-Indias-Digital-Journey-531692.](https://www.imf.org/en/Publications/WP/Issues/2023/03/31/Stacking-up-the-Benefits-Lessons-from-Indias-Digital-Journey-531692.)*
 
-[^10]: For more details regarding this event, see “Geopolitics of Technology,” Carnegie India, accessed January 2024, [https://globaltechnologysummit.com.](https://globaltechnologysummit.com./)
+[^10]: *For more details regarding this event, see “Geopolitics of Technology,” Carnegie India, accessed January 2024, [https://globaltechnologysummit.com.](https://globaltechnologysummit.com./)*
 
-[^11]: Massally, Matthan, and Chaudhuri, “What Is the DPI Approach?”
+[^11]: *Massally, Matthan, and Chaudhuri, “What Is the DPI Approach?”*
 
-[^12]: Anit Mukherjee and Shankar Maruwada, “Fast-Tracking Development: A Building Blocks Approach for Digital Public Goods,” Center for Global Development, September 16, 2021, [https://www.cgdev.org/sites/default/files/fast-tracking-development-digital-public-goods.pdf.](https://www.cgdev.org/sites/default/files/fast-tracking-development-digital-public-goods.pdf.)
+[^12]: *Anit Mukherjee and Shankar Maruwada, “Fast-Tracking Development: A Building Blocks Approach for Digital Public Goods,” Center for Global Development, September 16, 2021, [https://www.cgdev.org/sites/default/files/fast-tracking-development-digital-public-goods.pdf.](https://www.cgdev.org/sites/default/files/fast-tracking-development-digital-public-goods.pdf.)*
 
-[^13]: Anshika Kayastha, “UPI Transactions Touch New Record of ₹18.4-Lakh Crore in Jan,” Hindu Businessline, February 2, 2024, [https://www.thehindubusinessline.com/money-and-banking/upi-transactions-touch-new-record-of-184-lakh-crore-in-jan/article67804759.ece.](https://www.thehindubusinessline.com/money-and-banking/upi-transactions-touch-new-record-of-184-lakh-crore-in-jan/article67804759.ece.)
+[^13]: *Anshika Kayastha, “UPI Transactions Touch New Record of ₹18.4-Lakh Crore in Jan,” Hindu Businessline, February 2, 2024, [https://www.thehindubusinessline.com/money-and-banking/upi-transactions-touch-new-record-of-184-lakh-crore-in-jan/article67804759.ece.](https://www.thehindubusinessline.com/money-and-banking/upi-transactions-touch-new-record-of-184-lakh-crore-in-jan/article67804759.ece.)*
 
-[^14]: For more on this, see “DPG and DPI,” Centre for Digital Public Infrastructure, January 2024, [https://docs.cdpi.dev/the-dpi-wikipedia/dpg-and-dpi.](https://docs.cdpi.dev/the-dpi-wikipedia/dpg-and-dpi.)
+[^14]: *For more on this, see “DPG and DPI,” Centre for Digital Public Infrastructure, January 2024, [https://docs.cdpi.dev/the-dpi-wikipedia/dpg-and-dpi.](https://docs.cdpi.dev/the-dpi-wikipedia/dpg-and-dpi.)*
 
-[^15]: Chaudhuri, “Decoding the G20 Consensus on Digital Public Infrastructure.
+[^15]: *Chaudhuri, “Decoding the G20 Consensus on Digital Public Infrastructure.*

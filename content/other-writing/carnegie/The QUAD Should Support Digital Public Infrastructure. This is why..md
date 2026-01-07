@@ -49,8 +49,6 @@ Lastly, a task force could be created in Wilmington under the existing Infrastru
 These outcomes ought to include actual financial commitments to states in the DPI pipeline and different ways to support capacity-building efforts. Not all Quad states need to agree on everything; different lines of effort could be parcelled out and funding need not be pooled. The aim should be to build the architecture for a collective effort to see DPI come to life in parts of the world that are increasingly impatient about their own futures and choices.
 
 
----
-
-[^1]: This is based on our interactions with DPG asset holders, implementers, consults, system integrators, and access providers.
-[^2]: Ibid
+[^1]: *This is based on our interactions with DPG asset holders, implementers, consults, system integrators, and access providers.*
+[^2]: *Ibid*
 
