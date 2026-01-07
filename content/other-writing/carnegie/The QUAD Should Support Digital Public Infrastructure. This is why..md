@@ -30,7 +30,7 @@ For instance, data-sharing infrastructure integrated with digital ID systems can
 
 Almost every large technology firm, from Palo Alto and Rio to Bengaluru and Manila, is actively engaged in or is preparing to engage with some form of DPI. Fast payment products like the Unified Payments Interface (UPI) and PayNow, built on top of DPI systems, would not exist in large markets like India and Singapore had these countries not chosen the DPI approach. There are similar real-world examples in the Philippines, Thailand, Estonia, and elsewhere. The DPI approach has also opened significant opportunities for cloud providers looking to support DPI adoption across the world.
 
-At least fifty countries, many located in the Indo-Pacific, are looking at shareable technologies to build their own democratic public infrastructures and need support.1 We estimate that a pilot in a country with a population under twenty-five million should not cost more than $2–3 million.2
+At least fifty countries, many located in the Indo-Pacific, are looking at shareable technologies to build their own democratic public infrastructures and need support.[^1] We estimate that a pilot in a country with a population under twenty-five million should not cost more than $2–3 million.[^2]
 
 ### The Quad and DPI: Taking Action in Delaware
 
@@ -47,3 +47,10 @@ Second, all four countries could shortlist a set of states actively looking for 
 Lastly, a task force could be created in Wilmington under the existing Infrastructure Working Group with experts and officials from all four countries. This process can also help connect existing hard infrastructure commitments with those on DPI. Announcing an intent for a task force in Wilmington would send the right signals to states wanting to adopt DPI. As ambitious as they may seem, the outcomes of the task force should provide the substantive basis for action by the time the Leader’s Summit in India commences.
 
 These outcomes ought to include actual financial commitments to states in the DPI pipeline and different ways to support capacity-building efforts. Not all Quad states need to agree on everything; different lines of effort could be parcelled out and funding need not be pooled. The aim should be to build the architecture for a collective effort to see DPI come to life in parts of the world that are increasingly impatient about their own futures and choices.
+
+
+---
+
+[^1]: This is based on our interactions with DPG asset holders, implementers, consults, system integrators, and access providers.
+[^2]: Ibid
+
