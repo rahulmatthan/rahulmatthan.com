@@ -9,4 +9,4 @@ created: 2025-10-01T23:41
 date: 2024-04-23
 ---
 
-For the Centre for Digital Public Infrastructure, I sat down to discuss how to legal and governance frameworks can be designed for DPI. I speak of how legal principles can be embedded into code in an innovative approach that!
+The Centre for Digital Public Infrastructure put together a series of videos on various aspects of Digital Public Infrastructure. I helped them understand how legal and governance frameworks can be designed for DPI and my idea that legal principles can be embedded into code.

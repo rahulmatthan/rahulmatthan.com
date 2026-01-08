@@ -2,7 +2,7 @@
 title: Beyond the Prescription
 published: 2025-08-15
 writingStatus: published
-event: IIMBAA Leadership Conclave
+event: Bangalore International Centre
 video: https://www.youtube.com/watch?v=zC4-Vb-reW0
 created: 2025-10-01T23:41
 

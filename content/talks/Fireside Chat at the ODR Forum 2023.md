@@ -2,7 +2,7 @@
 title: Fireside Chat and the Global ODR Forum 2023
 published: 2023-04-25
 writingStatus: published
-event: GenAI Conference 2023
+event: ODR Forum
 video: https://www.youtube.com/watch?v=_USQurnT6rA
 created: 2025-10-01T23:41
 

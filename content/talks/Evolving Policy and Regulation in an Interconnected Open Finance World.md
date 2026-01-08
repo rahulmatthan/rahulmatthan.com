@@ -9,8 +9,4 @@ created: 2025-10-02T13:28
 date: 2024-11-19
 ---
 
-A fireside chat on Open Finance policy and regulations around the world.
-
-Speakers:
-- Mr. Ivan Mortimer Schutts, Financial Sector Development Expert, IFC 
-- Mr. Rahul Matthan, Partner- Trilegal
+At Samvaad 2024, I sat down with Ivan Mortimer Schutts for a fireside chat on Open Finance policy and regulations around the world.
