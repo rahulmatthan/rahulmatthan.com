@@ -6,7 +6,7 @@ tags:
   - regulation
   - data_protection
 urlCanonical:
-category: article
+categories: article
 writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59

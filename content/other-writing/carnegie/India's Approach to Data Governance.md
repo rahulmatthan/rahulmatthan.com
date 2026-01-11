@@ -3,7 +3,7 @@ created: 2024-12-23
 published: 2022-08-31
 tags:
   - data_governance
-category:
+categories:
   - "[[article]]"
 writingStatus: published
 urlCanonical:

@@ -3,7 +3,7 @@ created: 2024-12-23
 published: 2023-05-15
 tags:
   - DPI
-category:
+categories:
   - "[[article]]"
 writingStatus: published
 urlCanonical:
