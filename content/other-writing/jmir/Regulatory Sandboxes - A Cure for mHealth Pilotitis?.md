@@ -5,7 +5,8 @@ tags:
   - data_governance
   - health
   - healthcare
-categories: article
+categories:
+  - "[[article]]"
 writingStatus: published
 urlCanonical:
 publication: Journal of Medical Internet Research
