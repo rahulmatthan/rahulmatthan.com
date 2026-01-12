@@ -37,6 +37,9 @@
 
     {{ $sourceLink := .Params.urlSecondary }}
     {{ $publication := .Params.publication }}
+    {{ if reflect.IsSlice $publication }}
+        {{ $publication = index $publication 0 }}
+    {{ end }}
 
     {{ if $sourceLink }}
     <div class="sources-section">

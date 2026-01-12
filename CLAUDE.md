@@ -34,7 +34,7 @@ Indexes all pages for search functionality. Creates `public/pagefind/` directory
 ```bash
 python build.py
 ```
-Syncs content from Obsidian vault at `/Users/Rahul/Vaults/Eden/Writing/Published` to `mysite/content/`. This script:
+Syncs content from Obsidian vault at `/Users/Rahul/Vaults/Eden/Published` to `mysite/content/`. This script:
 - Cleans and rebuilds the entire `mysite/content/` directory
 - Processes Obsidian markdown files (removes `modified:` frontmatter, converts `[[wikilinks]]` to Hugo links)
 - Maps Obsidian folders to Hugo sections per `SECTION_CONFIG`
@@ -44,7 +44,7 @@ Syncs content from Obsidian vault at `/Users/Rahul/Vaults/Eden/Writing/Published
 An automated file watcher (`auto_deploy.py`) monitors the Obsidian vault and automatically deploys changes to GitHub Pages.
 
 **How it works:**
-1. Watches `/Users/Rahul/Vaults/Eden/Writing/Published` for markdown file changes
+1. Watches `/Users/Rahul/Vaults/Eden/Published` for markdown file changes
 2. Debounces changes (waits 30 seconds after last change)
 3. **Checks frontmatter** of all changed files for `writingStatus: published`
 4. Only deploys if at least one file has `writingStatus: published` (skips drafts)
