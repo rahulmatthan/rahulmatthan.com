@@ -5,13 +5,12 @@ tags:
   - data_governance
   - regulation
   - data_protection
-urlCanonical:
 categories:
   - "[[article]]"
 writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59
-urlSecondary: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
+url: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
 
 date: 2022-11-24
 ---

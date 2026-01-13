@@ -6,9 +6,8 @@ tags:
 categories:
   - "[[article]]"
 writingStatus: published
-urlCanonical:
 publication: Carnegie India
-urlSecondary: https://carnegieendowment.org/research/2023/05/what-is-the-dpi-approach?lang=en
+url: https://carnegieendowment.org/research/2023/05/what-is-the-dpi-approach?lang=en
 
 title: "What is the Digital Public Infrastructure Approach"
 date: 2023-05-15

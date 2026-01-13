@@ -6,9 +6,8 @@ tags:
 categories:
   - "[[article]]"
 writingStatus: published
-urlCanonical:
 publication: Carnegie India
-urlSecondary: https://carnegieendowment.org/posts/2024/09/the-quad-should-support-democratic-public-infrastructure-this-is-why?lang=en
+url: https://carnegieendowment.org/posts/2024/09/the-quad-should-support-democratic-public-infrastructure-this-is-why?lang=en
 
 title: "The QUAD Should Support Digital Public Infrastructure. This is why."
 date: 2024-09-19

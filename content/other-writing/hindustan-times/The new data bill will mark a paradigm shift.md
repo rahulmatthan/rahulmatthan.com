@@ -4,13 +4,12 @@ published: 2023-08-07
 tags:
   - regulation
   - data_protection
-urlCanonical:
 categories:
   - "[[article]]"
 writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59
-urlSecondary: https://www.hindustantimes.com/opinion/the-new-data-bill-will-mark-a-paradigm-shift-101691417117474.html
+url: https://www.hindustantimes.com/opinion/the-new-data-bill-will-mark-a-paradigm-shift-101691417117474.html
 
 date: 2023-08-07
 ---
