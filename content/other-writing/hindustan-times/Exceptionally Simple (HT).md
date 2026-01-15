@@ -10,7 +10,7 @@ categories:
 writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59
-url: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
+externalUrl: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
 
 date: 2022-11-24
 ---

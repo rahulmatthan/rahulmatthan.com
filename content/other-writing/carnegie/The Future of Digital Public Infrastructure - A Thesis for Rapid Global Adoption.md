@@ -7,7 +7,7 @@ categories:
   - "[[article]]"
 writingStatus: published
 publication: Carnegie India
-url: https://carnegieendowment.org/research/2024/02/the-future-of-digital-public-infrastructure-a-thesis-for-rapid-global-adoption?lang=en
+externalUrl: https://carnegieendowment.org/research/2024/02/the-future-of-digital-public-infrastructure-a-thesis-for-rapid-global-adoption?lang=en
 
 title: "The Future of Digital Public Infrastructure - A Thesis for Rapid Global Adoption"
 date: 2024-02-13
