@@ -15,38 +15,12 @@ date: 2021-12-16
 ---
 
 
-
-# **Financing Models for Digital Ecosystems**
-
-*Rahul Matthan, Prakhar Misra and Harshita Agrawal*
+*I co-wrote this article along with Prakhar Misra and Harshita Agrawal*
 
 # **Abstract**
 
 This paper explores various financing models for the digital ecosystem within the Indian setup. It uses the market/non-market failure distinction and applies it to different parts of the ecosystem, outlined in the Open Digital Ecosystems framework. It identifies which form of financing — public, private and philanthropic — is suitable for the relevant component of the digital world — data registries, exchanges, open stacks, marketplaces, co-creation platforms, and information access portals. Finally, it treats philanthropic financing as a special case of financing mechanisms available and analyses their pros and cons in the Indian digital ecosystem.
 
-# **Table of Contents**
-
-| 1. Introduction                                     | 04 |
-|-----------------------------------------------------|----|
-| 2. Conceptual Framework                             | 05 |
-| 2.1 ODE Framework                                   | 05 |
-| a. Data registeries                                 | 06 |
-| b. Data exchanges                                   | 06 |
-| c. Open stacks                                      | 06 |
-| d. End user solutions                               | 06 |
-| 2.2 Operating Principles to Choose Financing Models | 07 |
-| 2.2.1. Market failures                              | 08 |
-| 2.2.2. Non-market failures                          | 09 |
-| 3. Financing different layers of the ecosystem      | 11 |
-| 3.1 Data Registries                                 | 11 |
-| 3.2 Data Exchanges                                  | 12 |
-| 3.3 Open stacks                                     | 13 |
-| 3.4 End User Solutions                              | 14 |
-| 3.5 Community                                       | 17 |
-| 4. The Role of Philanthropic Capital                | 18 |
-| 5. Conclusion                                       | 20 |
-| Appendix I: Relevant Financing models               | 21 |
-| References                                          | 25 |
 
 # **1. Introduction**
 
