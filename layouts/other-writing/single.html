@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article>
+    {{ $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title }}
+    <h1>{{ $cleanTitle }}</h1>
+    <span class="date">{{ .Date.Format "January 2, 2006" }}</span>
+
+    <div class="post-content">
+        {{ .Content }}
+
+        {{ if .Params.externalUrl }}
+        <p style="margin-top: 2em;">The original article can be accessed from this <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener noreferrer">link</a>.</p>
+        {{ end }}
+    </div>
+
+</article>
+{{ end }}
