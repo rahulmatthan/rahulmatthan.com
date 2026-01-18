@@ -15,7 +15,7 @@ date: 2021-12-16
 ---
 
 
-*I co-wrote this article along with Prakhar Misra and Harshita Agrawal*
+*This article was co-written with Prakhar Misra and Harshita Agrawal*
 
 # **Abstract**
 
