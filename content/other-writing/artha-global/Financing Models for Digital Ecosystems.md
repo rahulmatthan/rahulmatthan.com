@@ -461,19 +461,9 @@ World Bank (2019). Main Financing Mechanisms for Infrastructure Projects. Public
 
 Zhao, C., 2017. China's Financial Mechanisms for Industrial Development. *African development Bank Economic Governance and Knowledge Management Vice Presidency*, [online] 1(4). Available at: <https://www.afdb.org/fr/documents/document/policy-brief-how-they-did-it-vol-1-issue-4-chinasfinancial-mechanisms-for-industrial-development-97361> [Accessed 14 June 2021].
 
-# **Acknowledgements**
 
-The authors would like to thank Charles Assisi, Venkatesh Hariharan, Ameya Naik, C.V. Madhukar, Varad Pande and Govind Shivkumar for comments on the paper. We'd also like to acknowledge the participants of the Data Governance Network Roundtable for inputs and comments.
 
-# **About the Authors**
-
-Rahul Matthan is Partner with Technology, Media and Telecommunications practice of Trilegal.
-
-Prakhar Misra is an independent researcher based in Mumbai, India.
-
-Harshita Agrawal is a Chevening Scholar reading for a Master of Public Policy at the London School of Economics and Political Science.
-
-⊕ datagovernance.org
+# Footnotes
 
 [^1]: For more, refer to the Report of the Committee of Members under B.N. Srikrishna. https://www.meity.gov.in/writereaddata/files/Data\_Protection\_Committee\_Report.pdf
 
