@@ -1,0 +1,49 @@
+---
+tags:
+  - AI
+publication:
+  - Ex Machina
+externalUrl: https://www.livemint.com/opinion/online-views/ai-explain-itself-effective-way-humans-accountable-artificial-intelligence-oversight-11768809090935.html
+categories:
+  - "[[article]]"
+writingStatus: published
+published: 2026-01-21
+
+title: "Explain Yourself"
+date: 2026-01-21
+---
+
+
+*Most AI policy initiatives insist on AI models being explainable. While this might intuitively sound like the right direction, understanding exactly why a given AI model did what it did is harder than it seems. We might need to shift our focus.*
+
+---
+
+If there is one thing those who design artificial intelligence (AI) policies insist on, it is that the AI systems we build should be [explainable](https://en.wikipedia.org/wiki/Explainable_artificial_intelligence). It seems to be a reasonable request. After all, if an algorithm denies someone a [loan](https://arxiv.org/abs/2505.13469), misdiagnoses a [disease](https://jme.bmj.com/content/46/3/205) or [autonomously](https://www.forbes.com/councils/forbesbusinesscouncil/2025/01/30/the-dangerous-impact-of-ai-on-decision-making/) executes an action that results in harm, surely those affected have the right to an explanation. But, getting an AI model to explain ‘why’ it behaved the way it did is not as easy as it seems.
+
+### The AI Thought Process
+
+When a traditional software program fails, we can study the error message to identify what went wrong. Since a software program follows a series of logical steps described in code, it’s easy to identify where it failed. In neural networks, on the other hand, the ‘logic’ that powers inference is distributed across billions of parameters in ways that are not immediately evident. To explain a ‘decision,’ we need to understand exactly how millions of different neurons of the network interact to arrive at an outcome.
+
+An AI model’s ‘thought process’ is akin to navigating a massive, hyper-dimensional cloud of data. When you prompt a model for a response, it converts your words into a vector (a coordinate in high-dimensional space) and tries to ascertain the specific plane in the hyper-dimensional construct of the neural network that corresponds to the answer you are looking for. The model doesn’t so much ‘read’ your prompt as locate it within a [landscape of relationships](https://www.youtube.com/shorts/ztdEPCb5HtE).
+
+Since humans communicate using unidimensional word-strings, any explanation of an AI decision requires us to ‘project’ hyper-dimensional coordinates onto a unidimensional line of text. Now, as everyone who has made hand shadow puppets will tell you, projecting a three-dimensional object onto a two-dimensional plane results in the loss of essential information. If that is the case, think of how much detail is lost when an n-dimensional ‘reason’ for why the AI behaved is expressed in simple sentences that humans can understand.
+
+### Workarounds
+
+To overcome this challenge, some AI labs have tried to use ‘[mechanistic](https://www.darioamodei.com/post/the-urgency-of-interpretability) [interpretability](https://en.wikipedia.org/wiki/Mechanistic_interpretability)’—a tedious process of trial-and-error that allows them to identify which specific neurons in the large language model trigger what kinds of responses. By using this approach, they gradually get a sense of what makes large language models respond the way they do. However, this process is tremendously time-consuming and far from reliable, and while it has generated valuable insights in constrained settings, it cannot scale at the pace at which AI models grow, change and are redeployed.
+
+And so, in the end, most AI labs get models to explain themselves. Rather than having human engineers document every decision, they use AI to generate [Model Cards](https://huggingface.co/docs/hub/model-cards) and System Summaries to comply with explainability obligations. The trouble is that AI models are masters of confabulation. Having been trained on human languages and optimized to provide ‘plausible’ responses to human questions, their translations of high-dimensional vector spaces to the low-bandwidth human language are often little more than a presentation of the truth the human wants to hear. As a result, what we are being given is not so much an explanation as something designed to sound like one.
+
+Things get much worse when we move from a single model to a multi-agent ecosystem. In this scenario, ‘decisions’ are no longer the product of a single entity’s logic, but the emergent outputs of a complex system. Insisting on an ‘explanation’ with full knowledge of this reality is a ‘reductionist fallacy.’ Just as you will not be able to understand the behaviour of a beehive by studying the flight path of a [single bee](https://www.museumoftheearth.org/bees/behavior), there is no way to explain the output of an agentic network by seeking an explanation from a single node.
+
+### Shifting the Focus
+
+So how do we maintain safety and accountability in the AI systems we are growing increasingly dependent on? I believe the answer lies in shifting our focus from interpretability to [observability](https://www.geeksforgeeks.org/artificial-intelligence/fully-observable-vs-partially-observable-environment-in-ai/). Instead of insisting on an explanation of the internal reasoning of the model, we should focus on collecting relevant evidence of its external behaviour.
+
+This approach is not new. In complex engineering systems, users often do not understand how every last part of the system they are operating works. And yet they can tell when it starts to fail. What we did, in these circumstances, was define a set of ‘invariant’ truths—rules that must never be broken—that operate as the guardrails of the system. When these guardrails are crossed, operators are given feedback that allows them to take swift remedial action.
+
+We can build similar [guardrails for AI](https://press.princeton.edu/books/hardcover/9780691150680/guardrails). Rather than learning why an autonomous financial agent decided to hedge a particular currency, all we need to be sure of is that it is operating within risk thresholds that we have put in place to ensure that anti-money laundering laws are not violated. We can enforce these invariants through continuous monitoring and audits, and design our autonomous systems to allow human intervention when thresholds are crossed.
+
+None of this is to suggest that explanations have no place at all, but that they are always going to be insufficient in systems whose internal logic is not fully knowable. If we focus our governance efforts on chasing the ghost of explainability, the systems we build will either be too slow to be useful or too dishonest to be trusted.
+
+We need to stop asking AI to ‘explain’ itself and instead ask it to ‘prove’ its performance through outcomes.
