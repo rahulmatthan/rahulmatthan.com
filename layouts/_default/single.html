@@ -35,7 +35,7 @@
     </div>
     {{ end }}
 
-    {{ $sourceLink := .Params.urlSecondary }}
+    {{ $sourceLink := .Params.url }}
     {{ $publication := .Params.publication }}
     {{ if reflect.IsSlice $publication }}
         {{ $publication = index $publication 0 }}
