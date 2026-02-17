@@ -4,7 +4,7 @@ published: 2026-02-16
 writingStatus:
   - published
 event: India AI Summit
-video: https://www.youtube.com/live/5CwyE-MO4XA?si=Zq_96962iQrtBvdW
+video: https://www.youtube.com/embed/5CwyE-MO4XA?si=yeTU_Ovh7rzMpNx4
 created: 2025-10-01T23:41
 
 date: 2026-02-16
