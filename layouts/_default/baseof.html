@@ -11,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=22">
+    <link rel="stylesheet" href="/style.css?v=23">
+
+    <link rel="alternate" type="application/rss+xml" title="Rahul Matthan" href="/index.xml">
 
     <!-- Pagefind Search UI -->
     <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
@@ -115,8 +117,11 @@
                 <a href="/talks" class="{{ if in .RelPermalink "talks" }}active{{ end }}">Talks</a>
             </nav>
 
-            <!-- Search Button -->
-            <button class="search-trigger" aria-label="Search site" title="Search (⌘K)">Search</button>
+            <!-- Bottom sidebar links -->
+            <div class="sidebar-bottom">
+                <button class="search-trigger" aria-label="Search site" title="Search (⌘K)">Search</button>
+                <a href="/index.xml" class="rss-link" title="RSS Feed">RSS</a>
+            </div>
         </aside>
 
         <div class="content-wrapper">

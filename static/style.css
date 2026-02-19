@@ -1090,7 +1090,13 @@ article h3 {
     border-radius: 12px;
 }
 
-/* --- SEARCH BUTTON IN SIDEBAR --- */
+/* --- BOTTOM SIDEBAR LINKS (Search + RSS) --- */
+.sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .search-trigger {
     background: none;
     border: none;
@@ -1098,7 +1104,6 @@ article h3 {
     font-family: var(--font-stack);
     font-size: 0.85rem;
     padding: 4px 0;
-    margin-top: auto;
     display: block;
     width: 100%;
     text-align: left;
@@ -1108,6 +1113,21 @@ article h3 {
 }
 
 .search-trigger:hover {
+    color: var(--accent-color);
+    font-weight: 500;
+    transform: translateX(3px);
+}
+
+.rss-link {
+    color: var(--subtle-color);
+    font-size: 0.85rem;
+    padding: 4px 0;
+    display: block;
+    transition: var(--transition-smooth);
+    transform: translateX(0);
+}
+
+.rss-link:hover {
     color: var(--accent-color);
     font-weight: 500;
     transform: translateX(3px);
@@ -1317,13 +1337,23 @@ article h3 {
 
 /* --- MOBILE SEARCH STYLES --- */
 @media (max-width: 1100px) {
+    .sidebar-bottom {
+        margin-top: 30px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 20px;
+        margin-bottom: 20px;
+    }
+
     .search-trigger {
         font-size: 0.95rem;
         padding: 12px 0;
-        margin-top: 30px;
-        margin-bottom: 20px;
-        border-top: 1px solid #f0f0f0;
-        padding-top: 20px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+    .rss-link {
+        font-size: 0.95rem;
+        padding: 12px 0;
         font-weight: 500;
     }
 
