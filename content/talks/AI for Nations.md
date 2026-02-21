@@ -1,5 +1,5 @@
 ---
-title: AI for Narions
+title: AI for Nations
 published: 2026-02-18
 writingStatus:
   - published
