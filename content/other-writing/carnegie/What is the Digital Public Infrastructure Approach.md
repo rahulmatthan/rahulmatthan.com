@@ -4,7 +4,7 @@ published: 2023-05-15
 tags:
   - DPI
 categories:
-  - "[[article]]"
+  - "[[articles]]"
 writingStatus: published
 publication: Carnegie India
 externalUrl: https://carnegieendowment.org/research/2023/05/what-is-the-dpi-approach?lang=en

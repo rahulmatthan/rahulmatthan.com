@@ -6,7 +6,7 @@ publication:
   - Artha Global
 externalUrl: https://artha.global/wp-content/uploads/2025/01/Financing_Models_Digital_Ecosystems_paper_web.pdf
 categories:
-  - "[[article]]"
+  - "[[articles]]"
 writingStatus: published
 published: 2021-12-16
 

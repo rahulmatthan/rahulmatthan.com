@@ -4,7 +4,7 @@ published: 2022-08-31
 tags:
   - data_governance
 categories:
-  - "[[article]]"
+  - "[[articles]]"
 writingStatus: published
 publication: Carnegie India
 externalUrl: https://carnegieendowment.org/research/2022/08/data-governance-asian-alternatives-how-india-and-korea-are-creating-new-models-and-policies?lang=en#indias-approach-to-data-governance

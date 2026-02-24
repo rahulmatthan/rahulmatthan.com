@@ -4,7 +4,7 @@ published: 2024-09-19
 tags:
   - DPI
 categories:
-  - "[[article]]"
+  - "[[articles]]"
 writingStatus: published
 publication: Carnegie India
 externalUrl: https://carnegieendowment.org/posts/2024/09/the-quad-should-support-democratic-public-infrastructure-this-is-why?lang=en

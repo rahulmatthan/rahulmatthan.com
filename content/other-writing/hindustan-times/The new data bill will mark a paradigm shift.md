@@ -5,7 +5,7 @@ tags:
   - regulation
   - data_protection
 categories:
-  - "[[article]]"
+  - "[[articles]]"
 writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59

@@ -6,7 +6,7 @@ tags:
   - health
   - healthcare
 categories:
-  - "[[article]]"
+  - "[[articles]]"
 writingStatus: published
 publication: Journal of Medical Internet Research
 externalUrl: https://pmc.ncbi.nlm.nih.gov/articles/PMC7525408/
