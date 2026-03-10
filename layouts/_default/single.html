@@ -62,7 +62,7 @@
             {{ range $recs.recommendations }}
             <a href="{{ .url }}" class="also-like-item">
                 <span class="also-like-title">{{ .title }}</span>
-                <span class="also-like-date">{{ dateFormat "January 2006" .date }}</span>
+                {{ if .date }}<span class="also-like-date">{{ dateFormat "January 2006" (time.AsTime .date) }}</span>{{ end }}
             </a>
             {{ end }}
         </div>
