@@ -961,6 +961,44 @@ article h3 {
     border-bottom: 1px solid #000;
 }
 
+/* --- YOU MIGHT ALSO LIKE --- */
+.also-like-list {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    gap: 14px;
+    margin-top: 8px;
+}
+
+.also-like-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.also-like-title {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #333;
+    transition: color 0.2s ease;
+    line-height: 1.4;
+}
+
+.also-like-item:hover .also-like-title {
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.also-like-date {
+    font-size: 0.7rem;
+    color: #bbb;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
 /* --- FIX: Make links inside articles visible --- */
 .post-content a,
 .section-description a {

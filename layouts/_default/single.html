@@ -54,5 +54,20 @@
     </div>
     {{ end }}
 
+    {{ $recs := index site.Data.recommendations .File.TranslationBaseName }}
+    {{ if and $recs $recs.recommendations }}
+    <div class="sources-section also-like-section">
+        <div class="source-label">You might also like</div>
+        <div class="also-like-list">
+            {{ range $recs.recommendations }}
+            <a href="{{ .url }}" class="also-like-item">
+                <span class="also-like-title">{{ .title }}</span>
+                <span class="also-like-date">{{ dateFormat "January 2006" .date }}</span>
+            </a>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
 </article>
 {{ end }}
