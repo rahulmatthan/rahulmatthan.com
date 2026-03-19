@@ -1687,9 +1687,9 @@
         "date": "2024-04-03"
       },
       {
-        "title": "Green Fuel",
-        "url": "https://rahulmatthan.com/ex-machina/2022/307.-green-fuel/",
-        "date": "2022-10-25"
+        "title": "Automating Agriculture",
+        "url": "",
+        "date": "2026-03-18"
       }
     ]
   },
@@ -9905,6 +9905,11 @@
     "date": "2025-10-29",
     "recommendations": [
       {
+        "title": "Cutting Edge AI",
+        "url": "",
+        "date": "2026-03-11"
+      },
+      {
         "title": "AI Governance Guidelines",
         "url": "https://rahulmatthan.com/ex-machina/2025/452.-ai-governance-guidelines/",
         "date": "2025-11-12"
@@ -9913,11 +9918,6 @@
         "title": "Containing AI",
         "url": "https://rahulmatthan.com/ex-machina/2023/324.-containing-ai/",
         "date": "2023-03-22"
-      },
-      {
-        "title": "463. Agentic Liability",
-        "url": "",
-        "date": "2026-02-04"
       }
     ]
   },
@@ -10284,14 +10284,14 @@
         "date": "2026-02-25"
       },
       {
+        "title": "Cutting Edge AI",
+        "url": "",
+        "date": "2026-03-11"
+      },
+      {
         "title": "Future of Technology",
         "url": "https://rahulmatthan.com/ex-machina/2023/326.-future-of-technology/",
         "date": "2023-04-05"
-      },
-      {
-        "title": "Getting AI to Work for You",
-        "url": "https://rahulmatthan.com/ex-machina/2024/376.-getting-ai-to-work-for-you/",
-        "date": "2024-04-17"
       }
     ]
   },
@@ -10314,6 +10314,50 @@
         "title": "The government and Big Tech need to meet halfway",
         "url": "https://rahulmatthan.com/ex-machina/2019/146.-the-government-and-big-tech-need-to-meet-halfway/",
         "date": "2019-06-12"
+      }
+    ]
+  },
+  "467. Cutting Edge AI": {
+    "title": "Cutting Edge AI",
+    "url": "",
+    "date": "2026-03-11",
+    "recommendations": [
+      {
+        "title": "Safe Openness",
+        "url": "https://rahulmatthan.com/ex-machina/2025/450.-safe-openness/",
+        "date": "2025-10-29"
+      },
+      {
+        "title": "AI Governance Guidelines",
+        "url": "https://rahulmatthan.com/ex-machina/2025/452.-ai-governance-guidelines/",
+        "date": "2025-11-12"
+      },
+      {
+        "title": "FREE-AI",
+        "url": "https://rahulmatthan.com/ex-machina/2025/441.-free-ai/",
+        "date": "2025-08-20"
+      }
+    ]
+  },
+  "468. Automating Agriculture": {
+    "title": "Automating Agriculture",
+    "url": "",
+    "date": "2026-03-18",
+    "recommendations": [
+      {
+        "title": "Future of Technology",
+        "url": "https://rahulmatthan.com/ex-machina/2023/326.-future-of-technology/",
+        "date": "2023-04-05"
+      },
+      {
+        "title": "The Opportunity Downstream",
+        "url": "https://rahulmatthan.com/ex-machina/2025/454.-the-opportunity-downstream/",
+        "date": "2025-11-26"
+      },
+      {
+        "title": "AI Tech parks",
+        "url": "https://rahulmatthan.com/ex-machina/2025/443.-ai-tech-parks/",
+        "date": "2025-09-10"
       }
     ]
   }
