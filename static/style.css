@@ -178,7 +178,7 @@ a:hover { color: #000; }
     display: none;  /* Chrome, Safari and Opera */
 }
 
-.ex-machina-nav details {
+.year-accordion {
     margin-bottom: 8px;
 }
 
@@ -186,18 +186,28 @@ a:hover { color: #000; }
     cursor: pointer;
     font-size: 0.85rem;
     color: var(--subtle-color);
-    list-style: none;
     padding: 4px 0;
     font-weight: 500;
-}
-
-.year-nav-heading::-webkit-details-marker {
-    display: none;
+    /* Button reset */
+    background: none;
+    border: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
 }
 
 .year-nav-heading:hover,
-.ex-machina-nav details[open] .year-nav-heading {
+.year-accordion[data-open="true"] .year-nav-heading {
     color: var(--accent-color);
+}
+
+.year-nav-wrapper {
+    overflow: hidden;
+}
+
+.year-accordion[data-open="false"] .year-nav-wrapper {
+    height: 0;
 }
 
 .year-nav-posts {
@@ -867,7 +877,7 @@ article h3 {
     }
 
     /* Better spacing for Ex Machina year accordions on mobile */
-    .ex-machina-nav details {
+    .year-accordion {
         margin-bottom: 4px;
     }
 

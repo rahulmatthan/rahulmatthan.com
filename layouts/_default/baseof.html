@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=23">
+    <link rel="stylesheet" href="/style.css?v=24">
 
     <link rel="alternate" type="application/rss+xml" title="Rahul Matthan" href="/index.xml">
 
@@ -97,17 +97,19 @@
                                 {{ end }}
                             {{ end }}
                         {{ end }}
-                        <details id="year-{{ $year | urlize }}" {{ if $isCurrentYear }}open{{ end }}>
-                            <summary class="year-nav-heading">{{ $year }}</summary>
-                            <ul class="year-nav-posts">
-                                {{ range .Pages.ByDate.Reverse }}
-                                {{ $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title }}
-                                <li>
-                                    <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $.RelPermalink }}active{{ end }}">{{ $cleanTitle }}</a>
-                                </li>
-                                {{ end }}
-                            </ul>
-                        </details>
+                        <div class="year-accordion" id="year-{{ $year | urlize }}" data-open="{{ if $isCurrentYear }}true{{ else }}false{{ end }}">
+                            <button class="year-nav-heading" type="button">{{ $year }}</button>
+                            <div class="year-nav-wrapper">
+                                <ul class="year-nav-posts">
+                                    {{ range .Pages.ByDate.Reverse }}
+                                    {{ $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title }}
+                                    <li>
+                                        <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $.RelPermalink }}active{{ end }}">{{ $cleanTitle }}</a>
+                                    </li>
+                                    {{ end }}
+                                </ul>
+                            </div>
+                        </div>
                         {{ end }}
                     </nav>
                     {{ end }}
@@ -212,35 +214,108 @@
         {{ end }}
 
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Year accordion behavior - only one open at a time
-            var yearAccordions = document.querySelectorAll('details[id^="year-"], details[id^="folder-"]');
-            yearAccordions.forEach(function(details) {
-                details.addEventListener('toggle', function() {
-                    if (!details.open) return;
-                    yearAccordions.forEach(function(other) {
-                        if (other !== details && other.open) {
-                            other.open = false;
-                        }
-                    });
+    <script type="module">
+        import { prepare, layout } from 'https://esm.sh/@chenglou/pretext@0.0.2';
+
+        async function initYearAccordions() {
+            const accordions = document.querySelectorAll('.year-accordion');
+            if (!accordions.length) return;
+
+            // Wait for fonts to load so measurements are accurate
+            await document.fonts.ready;
+
+            // Get computed font properties from an actual link element
+            const sampleLink = document.querySelector('.year-nav-posts a');
+            if (!sampleLink) return;
+
+            const cs = window.getComputedStyle(sampleLink);
+            const font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+            const lineHeightPx = parseFloat(cs.lineHeight);
+            const linkPaddingPx = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+
+            // ul margin and li margin are layout properties unaffected by wrapper height:0
+            const csUl = window.getComputedStyle(document.querySelector('.year-nav-posts'));
+            const csLi = window.getComputedStyle(document.querySelector('.year-nav-posts li'));
+            const ulMarginH = parseFloat(csUl.marginTop) + parseFloat(csUl.marginBottom);
+            const liMarginPx = parseFloat(csLi.marginBottom);
+
+            // Measure each list and cache the open height
+            accordions.forEach(accordion => {
+                const wrapper = accordion.querySelector('.year-nav-wrapper');
+                const list = accordion.querySelector('.year-nav-posts');
+                const links = list.querySelectorAll('a');
+                if (!links.length) return;
+
+                // Use first link's clientWidth as the text wrap width
+                // (clientWidth is based on layout width, unaffected by wrapper's height:0)
+                const textWidth = links[0].clientWidth || 150;
+                let totalHeight = ulMarginH;
+
+                links.forEach(link => {
+                    const text = link.textContent.trim();
+                    const prepared = prepare(text, font, {});
+                    const { height } = layout(prepared, textWidth, lineHeightPx);
+                    totalHeight += height + linkPaddingPx + liMarginPx;
+                });
+
+                accordion.dataset.openHeight = Math.ceil(totalHeight) + 'px';
+
+                // Set initial height without animation
+                wrapper.style.height = accordion.dataset.open === 'true'
+                    ? accordion.dataset.openHeight
+                    : '0px';
+            });
+
+            // Add transitions only after initial heights are set (avoids animation on page load)
+            requestAnimationFrame(() => {
+                accordions.forEach(accordion => {
+                    accordion.querySelector('.year-nav-wrapper').style.transition =
+                        'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
                 });
             });
 
-            // Handle URL hash to open specific year
-            var hash = window.location.hash;
+            // Wire up toggle buttons
+            accordions.forEach(accordion => {
+                const btn = accordion.querySelector('.year-nav-heading');
+                const wrapper = accordion.querySelector('.year-nav-wrapper');
+
+                btn.addEventListener('click', () => {
+                    const isOpen = accordion.dataset.open === 'true';
+
+                    // Close all others (single-open behaviour)
+                    accordions.forEach(other => {
+                        if (other !== accordion && other.dataset.open === 'true') {
+                            other.dataset.open = 'false';
+                            other.querySelector('.year-nav-wrapper').style.height = '0px';
+                        }
+                    });
+
+                    // Toggle this accordion
+                    accordion.dataset.open = isOpen ? 'false' : 'true';
+                    wrapper.style.height = isOpen ? '0px' : accordion.dataset.openHeight;
+                });
+            });
+
+            // Handle URL hash to open a specific year
+            const hash = window.location.hash;
             if (hash) {
-                var targetDetails = document.querySelector(hash);
-                if (targetDetails && targetDetails.tagName === 'DETAILS') {
-                    targetDetails.open = true;
-                    if (targetDetails.closest('.sidebar-left')) {
-                        targetDetails.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                    } else {
-                        targetDetails.scrollIntoView({ behavior: "smooth" });
-                    }
+                const targetAccordion = document.querySelector(hash + '.year-accordion');
+                if (targetAccordion) {
+                    accordions.forEach(other => {
+                        if (other !== targetAccordion && other.dataset.open === 'true') {
+                            other.dataset.open = 'false';
+                            other.querySelector('.year-nav-wrapper').style.height = '0px';
+                        }
+                    });
+                    targetAccordion.dataset.open = 'true';
+                    targetAccordion.querySelector('.year-nav-wrapper').style.height =
+                        targetAccordion.dataset.openHeight;
+                    targetAccordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             }
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', initYearAccordions);
     </script>
 
     <script>
