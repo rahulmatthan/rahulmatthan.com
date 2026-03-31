@@ -11,6 +11,8 @@ externalUrl: https://carnegieendowment.org/research/2022/08/data-governance-asia
 
 title: "India's Approach to Data Governance"
 date: 2022-08-31
+aliases:
+  - "/other-writing/carnegie/india's-approach-to-data-governance/"
 ---
 
 *This is a chapter of a book on the Korean and Indian approach to data governance. I co-wrote this chapter along with Shreya Ramann*
