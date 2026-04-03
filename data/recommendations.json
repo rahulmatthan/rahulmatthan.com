@@ -10382,5 +10382,27 @@
         "date": "2024-03-06"
       }
     ]
+  },
+  "470. Deeply Interdependent": {
+    "title": "Deeply Interdependent",
+    "url": "",
+    "date": "2026-04-01",
+    "recommendations": [
+      {
+        "title": "Neutral Global Infrastructure",
+        "url": "https://rahulmatthan.com/ex-machina/2022/281.-neutral-global-infrastructure/",
+        "date": "2022-03-29"
+      },
+      {
+        "title": "Enhanced Geothermal",
+        "url": "https://rahulmatthan.com/ex-machina/2025/424.-enhanced-geothermal/",
+        "date": "2025-04-23"
+      },
+      {
+        "title": "India’s 21st century dilemma of global non-alignment",
+        "url": "https://rahulmatthan.com/ex-machina/2020/201.-india’s-21st-century-dilemma-of-global-non-alignment/",
+        "date": "2020-07-22"
+      }
+    ]
   }
 }
