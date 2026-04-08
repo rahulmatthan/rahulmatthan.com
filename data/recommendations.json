@@ -3843,9 +3843,9 @@
         "date": "2020-04-15"
       },
       {
-        "title": "Appealing Moderation",
+        "title": "The Digital Media Amendments",
         "url": "",
-        "date": "2022-06-14"
+        "date": "2026-04-08"
       }
     ]
   },
@@ -5339,9 +5339,9 @@
         "date": "2022-06-14"
       },
       {
-        "title": "Shield online platforms for content moderation to work",
+        "title": "The Digital Media Amendments",
         "url": "",
-        "date": "2020-06-03"
+        "date": "2026-04-08"
       }
     ]
   },
@@ -10280,12 +10280,12 @@
     "recommendations": [
       {
         "title": "Exponential Capabilities",
-        "url": "",
+        "url": "https://rahulmatthan.com/ex-machina/2026/466.-exponential-capabilities/",
         "date": "2026-03-04"
       },
       {
         "title": "Exponential Capabilities",
-        "url": "https://rahulmatthan.com/ex-machina/2026/466.-exponential-capabilities/",
+        "url": "",
         "date": "2026-03-04"
       },
       {
@@ -10351,7 +10351,7 @@
       },
       {
         "title": "Do We Need Notaries",
-        "url": "",
+        "url": "https://rahulmatthan.com/ex-machina/2026/470.-do-we-need-notaries/",
         "date": "2026-03-25"
       },
       {
@@ -10390,7 +10390,7 @@
     "recommendations": [
       {
         "title": "Deeply Interdependent",
-        "url": "",
+        "url": "https://rahulmatthan.com/ex-machina/2026/471.-deeply-interdependent/",
         "date": "2026-04-01"
       },
       {
@@ -10412,7 +10412,7 @@
     "recommendations": [
       {
         "title": "Deeply Interdependent",
-        "url": "",
+        "url": "https://rahulmatthan.com/ex-machina/2026/471.-deeply-interdependent/",
         "date": "2026-04-01"
       },
       {
@@ -10456,7 +10456,7 @@
     "recommendations": [
       {
         "title": "Do We Need Notaries",
-        "url": "",
+        "url": "https://rahulmatthan.com/ex-machina/2026/470.-do-we-need-notaries/",
         "date": "2026-03-25"
       },
       {
@@ -11433,9 +11433,9 @@
         "date": "2021-01-19"
       },
       {
-        "title": "Restoring the original vision of the internet",
-        "url": "https://rahulmatthan.com/ex-machina/2018/115.-restoring-the-original-vision-of-the-internet/",
-        "date": "2018-10-10"
+        "title": "The Digital Media Amendments",
+        "url": "",
+        "date": "2026-04-08"
       }
     ]
   },
@@ -11676,7 +11676,7 @@
       },
       {
         "title": "Deeply Interdependent",
-        "url": "",
+        "url": "https://rahulmatthan.com/ex-machina/2026/471.-deeply-interdependent/",
         "date": "2026-04-01"
       }
     ]
@@ -12154,14 +12154,14 @@
         "date": "2022-06-14"
       },
       {
+        "title": "The Digital Media Amendments",
+        "url": "",
+        "date": "2026-04-08"
+      },
+      {
         "title": "Intermediaries Liable",
         "url": "",
         "date": "2021-05-25"
-      },
-      {
-        "title": "Shield online platforms for content moderation to work",
-        "url": "",
-        "date": "2020-06-03"
       }
     ]
   },
@@ -17095,7 +17095,7 @@
   },
   "471. Do We Need Notaries": {
     "title": "Do We Need Notaries",
-    "url": "",
+    "url": "https://rahulmatthan.com/ex-machina/2026/470.-do-we-need-notaries/",
     "date": "2026-03-25",
     "recommendations": [
       {
@@ -17183,7 +17183,7 @@
   },
   "472. Deeply Interdependent": {
     "title": "Deeply Interdependent",
-    "url": "",
+    "url": "https://rahulmatthan.com/ex-machina/2026/471.-deeply-interdependent/",
     "date": "2026-04-01",
     "recommendations": [
       {
@@ -17222,6 +17222,28 @@
         "title": "Free the Skies",
         "url": "https://rahulmatthan.com/ex-machina/2021/245.-free-the-skies/",
         "date": "2021-06-16"
+      }
+    ]
+  },
+  "473. The Digital Media Amendments": {
+    "title": "The Digital Media Amendments",
+    "url": "",
+    "date": "2026-04-08",
+    "recommendations": [
+      {
+        "title": "Appealing Moderation",
+        "url": "https://rahulmatthan.com/ex-machina/2022/290.-appealing-moderation/",
+        "date": "2022-06-14"
+      },
+      {
+        "title": "Intermediaries Liable",
+        "url": "",
+        "date": "2021-05-25"
+      },
+      {
+        "title": "Appealing Moderation",
+        "url": "",
+        "date": "2022-06-14"
       }
     ]
   }
