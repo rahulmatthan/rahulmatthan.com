@@ -155,7 +155,7 @@
     <div class="controls">
       <div class="slider-row">
         <label for="rate">Vulnerabilities found</label>
-        <input type="range" id="rate" min="1" max="500" value="50" step="1" />
+        <input type="range" id="rate" min="1" max="100" value="20" step="1" />
         <span class="value" id="rate-val">50 / day</span>
       </div>
       <p class="caption">Drag the slider — see how the gap between discovery and patching grows over 30 days.</p>
@@ -193,10 +193,11 @@
   // patches per day. The slider varies the discovery side of the equation.
   var PATCH_RATE = 5;
   var DAYS = 30;
-  var MAX_RATE = 500;
-  // Anchoring both bars to the same absolute scale (the worst-case 30-day
-  // total) is what makes the visual honest: "found" grows as the slider
-  // moves up, "patched" stays a thin fixed sliver.
+  var MAX_RATE = 100;
+  // Both bars share this absolute scale so sizes are directly comparable.
+  // Picked so that "patched" at its cap (5 × 30 = 150) is a visible 5% of
+  // the track — enough to read as "held down" rather than "missing" once
+  // the slider passes the patch rate.
   var BAR_MAX = MAX_RATE * DAYS;
 
   var rateEl     = document.getElementById('rate');
@@ -221,10 +222,10 @@
     if (rate <= 15) {
       return 'Discovery has overtaken patching. After 30 days, ' + fmt(backlog) + ' known bugs are still unfixed — a small but real deficit that grows every day.';
     }
-    if (rate <= 50) {
+    if (rate <= 40) {
       return 'The gap is pulling away. ' + fmt(backlog) + ' unpatched bugs after 30 days — more than most teams ship in a year.';
     }
-    if (rate <= 200) {
+    if (rate <= 75) {
       return 'The defender is visibly falling behind. ' + fmt(backlog) + ' unpatched bugs after 30 days, with no realistic path to closure at this rate.';
     }
     return 'An unclosable deficit. ' + fmt(backlog) + ' unpatched bugs after 30 days — the order of magnitude that AI-assisted discovery now produces in a single run.';
