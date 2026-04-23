@@ -193,6 +193,11 @@
   // patches per day. The slider varies the discovery side of the equation.
   var PATCH_RATE = 5;
   var DAYS = 30;
+  var MAX_RATE = 500;
+  // Anchoring both bars to the same absolute scale (the worst-case 30-day
+  // total) is what makes the visual honest: "found" grows as the slider
+  // moves up, "patched" stays a thin fixed sliver.
+  var BAR_MAX = MAX_RATE * DAYS;
 
   var rateEl     = document.getElementById('rate');
   var rateVal    = document.getElementById('rate-val');
@@ -236,11 +241,8 @@
     statFound.textContent   = fmt(found);
     statPatched.textContent = fmt(patched);
 
-    // Linear scale: the larger bar (always "found") spans the full width.
-    // The patched bar's width as a fraction shows visually how much of
-    // discovery the team is able to keep up with.
-    barFound.style.width   = '100%';
-    barPatched.style.width = (patched / found) * 100 + '%';
+    barFound.style.width   = (found   / BAR_MAX) * 100 + '%';
+    barPatched.style.width = (patched / BAR_MAX) * 100 + '%';
 
     insight.textContent = insightFor(rate, found, patched, backlog);
   }
