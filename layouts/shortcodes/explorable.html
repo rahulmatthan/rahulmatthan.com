@@ -1,0 +1,30 @@
+{{- /*
+  explorable shortcode
+  --------------------
+  Embeds an interactive explorable served from /explorables/<slug>/.
+  The HTML for each explorable is authored in ~/Coding/explorables/live/<slug>/
+  and mirrored into mysite/static/explorables/ by build.py on every sync.
+
+  Usage:
+    {{< explorable rsa-factoring >}}
+    {{< explorable rsa-factoring height="820" >}}
+    {{< explorable slug="rsa-factoring" title="How hard is factoring?" >}}
+*/ -}}
+
+{{- $slug   := or (.Get 0) (.Get "slug") -}}
+{{- $height := or (.Get "height") "720" -}}
+{{- $title  := or (.Get "title") "Interactive figure" -}}
+
+{{- if not $slug -}}
+  {{ errorf "explorable shortcode: missing slug (pass as first positional arg or slug=\"...\")" }}
+{{- end }}
+
+<div class="explorable-embed" style="margin: 2rem 0;">
+  <iframe
+    src="/explorables/{{ $slug }}/"
+    title="{{ $title }}"
+    loading="lazy"
+    height="{{ $height }}"
+    style="width: 100%; border: 1px solid #e2e2de; display: block; max-width: 100%;"
+  ></iframe>
+</div>
