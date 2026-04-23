@@ -127,27 +127,6 @@
   body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
   body.lecture .insight { font-size: 18px; }
 
-  /* Embed mode: page is inside an iframe inside an article, so the h1,
-     paragraph, crumbs and byline are redundant. Drop the outer "figure"
-     frame and trim type size so it reads as part of the article, not a
-     nested mini-page. */
-  body.embed .crumbs,
-  body.embed h1,
-  body.embed .explanation,
-  body.embed .byline,
-  body.embed .interactive .figure-label { display: none; }
-  body.embed { font-size: 14px; }
-  body.embed .page { padding: 1.25rem 1.5rem; max-width: 100%; }
-  body.embed .interactive { border: 0; padding: 0; margin: 0; }
-  body.embed .controls { padding-bottom: 16px; margin-bottom: 1.25rem; }
-  body.embed .slider-row label { font-size: 12px; min-width: 80px; }
-  body.embed .slider-row .value { font-size: 16px; }
-  body.embed .caption { font-size: 12px; }
-  body.embed .row-label { font-size: 12px; }
-  body.embed .row-stat { font-size: 12px; }
-  body.embed .scale { font-size: 9px; }
-  body.embed .insight { font-size: 14px; margin-top: 1.25rem; }
-
   @media print { body { background: #fff; color: #000; } }
 </style>
 </head>
@@ -216,12 +195,8 @@
 </div>
 
 <script>
-  var q = new URLSearchParams(location.search);
-  if (q.get('mode') === 'lecture') document.body.classList.add('lecture');
-  if (q.get('embed') === '0') {
-    /* escape hatch: force standalone layout even when iframed */
-  } else if (window.self !== window.top || q.get('embed') === '1') {
-    document.body.classList.add('embed');
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
   }
 </script>
 
