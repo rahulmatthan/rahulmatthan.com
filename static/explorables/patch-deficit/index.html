@@ -34,7 +34,8 @@
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
                font-family: var(--sans); font-size: 16px; line-height: 1.6;
-               -webkit-font-smoothing: antialiased; }
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
   a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
       text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
   a:hover { text-decoration-color: currentColor; }
@@ -52,7 +53,7 @@
        margin: 0 0 1.25rem; letter-spacing: -0.015em; }
 
   .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
-                 color: var(--text); max-width: 62ch; }
+                 color: var(--text); max-width: 62ch; font-style: italic; }
 
   .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
                  padding: 1.75rem; position: relative; }
@@ -65,13 +66,15 @@
 
   .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
               border-bottom: 1px solid var(--rule); }
-  .slider-row { display: flex; align-items: center; gap: 16px; }
-  .slider-row label { font-size: 13px; color: var(--text-2); min-width: 160px; }
+  .slider-row { display: grid; grid-template-columns: auto 1fr auto;
+                gap: 0 14px; align-items: center; }
+  .slider-row label { font-size: 13px; color: var(--text-2); }
   .slider-row .value { font-family: var(--mono); font-size: 18px; font-weight: 500;
-                       min-width: 104px; text-align: right; }
-  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0; line-height: 1.5; }
+                       text-align: right; white-space: nowrap; }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0; line-height: 1.5;
+             font-style: italic; }
 
-  input[type=range] { -webkit-appearance: none; appearance: none; flex: 1;
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; min-width: 0;
                       height: 2px; background: var(--rule-2); outline: none; cursor: pointer; }
   input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
                                             width: 16px; height: 16px; background: var(--ink);
@@ -94,7 +97,8 @@
               color: var(--text); white-space: nowrap; }
 
   .insight { margin-top: 1.5rem; font-size: 15px; line-height: 1.55;
-             color: var(--text); font-weight: 500; max-width: 56ch; }
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; }
   .insight::before { content: ""; display: block; width: 24px; height: 1px;
                      background: var(--ink); margin-bottom: 10px; }
 
@@ -107,13 +111,21 @@
     h1 { font-size: 22px; }
     .interactive { padding: 1.25rem; }
     .interactive .figure-label { left: 1.25rem; }
-    .slider-row label { min-width: 130px; }
-    .slider-row .value { min-width: 90px; font-size: 16px; }
     .rows { grid-template-columns: 72px 1fr;
             grid-auto-flow: row dense; }
     .rows .row-stat { grid-column: 2; padding-left: 0; margin-top: -4px;
-                      font-size: 12px; text-align: left; }
+                      font-size: 12px; text-align: left; white-space: normal; }
     .rows .bar-wrap { grid-column: 2; }
+  }
+  @media (max-width: 520px) {
+    .slider-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "label value" "slider slider";
+      gap: 8px 12px;
+    }
+    .slider-row label { grid-area: label; }
+    .slider-row .value { grid-area: value; font-size: 16px; }
+    .slider-row input[type=range] { grid-area: slider; }
   }
 
   body.lecture .explanation,

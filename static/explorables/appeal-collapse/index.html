@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The collapsing appeal — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  .crumbs { font-size: 13px; color: var(--text-2); margin-bottom: 2.5rem;
+            display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .crumbs a { text-decoration: none; color: var(--text-2); }
+  .crumbs a:hover { color: var(--text); }
+  .crumbs .sep { color: var(--text-3); }
+  .crumbs .current { color: var(--text); }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule); }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0; line-height: 1.5;
+             font-style: italic; }
+
+  .toggle { display: inline-flex; border: 1px solid var(--rule-2); }
+  .toggle button { font-family: var(--sans); font-size: 13px; padding: 9px 16px;
+                   background: transparent; color: var(--text-2); border: 0;
+                   cursor: pointer; letter-spacing: 0.01em; }
+  .toggle button.active { background: var(--ink); color: var(--bg); }
+  .toggle button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* ---------- flowchart ---------- */
+  .flow { list-style: none; margin: 8px 0 0; padding: 0;
+          display: flex; flex-direction: column; }
+  .stage { position: relative; padding: 0 0 26px 52px;
+           transition: opacity 0.22s ease; }
+  .stage:last-child { padding-bottom: 0; }
+  /* connector line */
+  .stage::before {
+    content: ""; position: absolute;
+    left: 15.5px; top: 32px; bottom: 0;
+    width: 1px; background: var(--ink);
+    transition: background 0.22s ease, border-color 0.22s ease;
+  }
+  .stage:last-child::before { display: none; }
+  /* number circle */
+  .stage-num {
+    position: absolute; left: 0; top: 0;
+    width: 32px; height: 32px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--bg);
+    z-index: 1;
+    transition: border-color 0.22s ease, color 0.22s ease, border-style 0.22s ease;
+  }
+  .stage-box {}
+  .stage-label {
+    font-size: 15px; font-weight: 500;
+    color: var(--text); margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .stage-body {
+    font-size: 13px; color: var(--text-2);
+    line-height: 1.5; max-width: 48ch;
+    font-style: italic;
+  }
+
+  /* Proposed mode: skippable stages fade, their connectors dash out */
+  body[data-mode="proposed"] .stage[data-skippable] { opacity: 0.35; }
+  body[data-mode="proposed"] .stage[data-skippable] .stage-num {
+    border-style: dashed;
+  }
+  body[data-mode="proposed"] .stage[data-skippable]::before,
+  body[data-mode="proposed"] .stage[data-skippable-prev]::before {
+    background: transparent;
+    border-left: 1px dashed var(--ink);
+  }
+
+  .insight { margin-top: 1.75rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+    .stage { padding-left: 44px; padding-bottom: 22px; }
+    .stage::before { left: 13.5px; }
+    .stage-num { width: 28px; height: 28px; font-size: 12px; }
+    .stage::before { top: 28px; }
+  }
+  @media (max-width: 520px) {
+    .toggle { flex-wrap: wrap; }
+    .toggle button { padding: 8px 12px; font-size: 12px; }
+    .stage-label { font-size: 14px; }
+    .stage-body { font-size: 12.5px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .crumbs,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body data-mode="today">
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="/">Rahul Matthan</a>
+    <span class="sep">/</span>
+    <a href="/explorables">Explorables</a>
+    <span class="sep">/</span>
+    <span class="current">The collapsing appeal</span>
+  </nav>
+
+  <h1>The collapsing appeal</h1>
+
+  <p class="explanation">
+    India's IT Rules today route a takedown complaint through three stages:
+    the platform's own Grievance Officer, then the Grievance Appellate
+    Committee, then the Inter-Departmental Committee at the top. A proposed
+    amendment lets the ministry refer cases directly to the IDC — skipping
+    the first two stages entirely. What the reader stands to lose is two
+    levels of review before their case reaches the body the ministry itself
+    staffs.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Figure</span>
+
+    <div class="controls">
+      <div class="toggle" role="group" aria-label="Regime">
+        <button class="active" data-mode="today">Today</button>
+        <button data-mode="proposed">If the amendments pass</button>
+      </div>
+      <p class="caption">Flip between the two regimes to see how the appeal path changes for one user's takedown complaint.</p>
+    </div>
+
+    <ol class="flow">
+      <li class="stage" data-stage="complaint">
+        <div class="stage-num">1</div>
+        <div class="stage-box">
+          <div class="stage-label">Your complaint</div>
+          <div class="stage-body">The platform has removed your post. You want to contest the takedown.</div>
+        </div>
+      </li>
+      <li class="stage" data-stage="go" data-skippable data-skippable-prev>
+        <div class="stage-num" data-today="2" data-proposed="—">2</div>
+        <div class="stage-box">
+          <div class="stage-label">Grievance Officer</div>
+          <div class="stage-body">The platform's in-house officer hears your appeal and decides in the first instance.</div>
+        </div>
+      </li>
+      <li class="stage" data-stage="gac" data-skippable data-skippable-prev>
+        <div class="stage-num" data-today="3" data-proposed="—">3</div>
+        <div class="stage-box">
+          <div class="stage-label">Grievance Appellate Committee</div>
+          <div class="stage-body">A cross-platform committee hears appeals against Grievance Officer decisions.</div>
+        </div>
+      </li>
+      <li class="stage" data-stage="idc">
+        <div class="stage-num" data-today="4" data-proposed="2">4</div>
+        <div class="stage-box">
+          <div class="stage-label">Inter-Departmental Committee</div>
+          <div class="stage-body">The apex body — a committee staffed by the ministry itself.</div>
+        </div>
+      </li>
+    </ol>
+
+    <p class="insight" id="insight">—</p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/473.-the-digital-media-amendments/">The Digital Media Amendments</a> in Ex Machina.
+    <a href="/explorables">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  var body = document.body;
+  var buttons = document.querySelectorAll('.toggle button');
+  var nums = document.querySelectorAll('.stage-num[data-today]');
+  var insight = document.getElementById('insight');
+
+  var insights = {
+    today:    'Your complaint passes through three review stages — two of them outside the ministry — before it reaches the apex body. Each stage is a point where the decision can be tested.',
+    proposed: 'The ministry refers your case straight to the apex. The two review stages that would have heard you first are pruned from the path; your first and only real review is the body the ministry itself staffs.'
+  };
+
+  function setMode(mode) {
+    body.setAttribute('data-mode', mode);
+    buttons.forEach(function(b) {
+      b.classList.toggle('active', b.dataset.mode === mode);
+    });
+    nums.forEach(function(n) {
+      n.textContent = (mode === 'today') ? n.dataset.today : n.dataset.proposed;
+    });
+    insight.textContent = insights[mode];
+  }
+
+  buttons.forEach(function(b) {
+    b.addEventListener('click', function() { setMode(b.dataset.mode); });
+  });
+
+  setMode('today');
+})();
+</script>
+</body>
+</html>
