@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Explorables — Rahul Matthan</title>
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; }
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  .crumbs { font-size: 13px; color: var(--text-2); margin-bottom: 2.5rem;
+            display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .crumbs a { text-decoration: none; color: var(--text-2); }
+  .crumbs a:hover { color: var(--text); }
+  .crumbs .sep { color: var(--text-3); }
+  .crumbs .current { color: var(--text); }
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+  .intro { font-size: 17px; line-height: 1.65;
+           margin: 0 0 2.5rem; color: var(--text);
+           max-width: 62ch; font-style: italic; }
+  .intro a { text-decoration: underline; text-decoration-thickness: 1px;
+             text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  .list { list-style: none; padding: 0; margin: 0;
+          border-top: 1px solid var(--rule); }
+  .list li { border-bottom: 1px solid var(--rule); }
+  .card { display: block; padding: 1.5rem 0;
+          text-decoration: none; color: inherit; }
+  .card:hover .card-title { text-decoration: underline;
+                            text-decoration-thickness: 1px;
+                            text-underline-offset: 3px; }
+  .card-meta { font-size: 11px; color: var(--text-3);
+               text-transform: uppercase; letter-spacing: 0.08em;
+               margin-bottom: 0.4rem; }
+  .card-title { font-size: 19px; font-weight: 500;
+                color: var(--text); line-height: 1.3;
+                margin-bottom: 0.4rem; }
+  .card-body { font-size: 14px; color: var(--text-2);
+               line-height: 1.5; font-style: italic;
+               max-width: 60ch; }
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="crumbs">
+    <a href="/">Rahul Matthan</a>
+    <span class="sep">/</span>
+    <span class="current">Explorables</span>
+  </nav>
+  <h1>Explorables</h1>
+  <p class="intro">
+    Small interactive explainers that accompany my
+    <a href="/ex-machina/">Ex Machina</a> column — one concept, one
+    parameter, one insight you can feel by trying it.
+  </p>
+  <ul class="list">
+    <li>
+      <a class="card" href="/explorables/rsa-factoring/">
+        <div class="card-meta">Ex Machina 475 · The Quantum Reckoning</div>
+        <div class="card-title">How hard is factoring?</div>
+        <div class="card-body">RSA hides its secret inside a number that is the product of two very large primes.</div>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="/explorables/patch-deficit/">
+        <div class="card-meta">Ex Machina 474 · A Matter of Sovereignty</div>
+        <div class="card-title">The patch deficit</div>
+        <div class="card-body">Security teams fix vulnerabilities at a roughly fixed rate — a well-resourced team can clear maybe five critical bugs a day.</div>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="/explorables/appeal-collapse/">
+        <div class="card-meta">Ex Machina 473 · The Digital Media Amendments</div>
+        <div class="card-title">The collapsing appeal</div>
+        <div class="card-body">India&#x27;s IT Rules today route a takedown complaint through three stages: the platform&#x27;s own Grievance Officer, then the Grievance Appellate Committee, then the Inter-Departmental Committee at the top.</div>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="/explorables/quantum-harvest/">
+        
+        <div class="card-title">Harvest now, decrypt later</div>
+        <div class="card-body">Adversaries are already collecting encrypted traffic they cannot yet read, in the hope of decrypting it when quantum computers arrive.</div>
+      </a>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
