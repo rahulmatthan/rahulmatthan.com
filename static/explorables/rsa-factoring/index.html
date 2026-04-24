@@ -150,13 +150,11 @@
   <h1>How hard is factoring?</h1>
 
   <p class="explanation">
-    RSA hides its secret inside a number that is the product of two very large
-    primes. Multiplying two primes to get that number is something a computer
-    does in a flash; running the sum backwards — starting with the product and
-    recovering the primes — is so slow that, once the primes are big enough,
-    the fastest machines on earth would run out of time before the universe
-    did. That lopsidedness between the two directions is the only thing
-    keeping RSA secure.
+    RSA hides its secret inside the product of two very large primes.
+    Multiplying them to get that number is instant; factoring it back
+    into primes is so slow that, at today's key sizes, the fastest
+    machines on earth would run out of time before the universe did.
+    That asymmetry is RSA's security.
   </p>
 
   <section class="interactive">
