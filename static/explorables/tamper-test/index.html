@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tamper test — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule); }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0;
+             line-height: 1.5; font-style: italic; }
+
+  .toggle { display: inline-flex; border: 1px solid var(--rule-2); }
+  .toggle button { font-family: var(--sans); font-size: 13px; padding: 9px 16px;
+                   background: transparent; color: var(--text-2); border: 0;
+                   cursor: pointer; letter-spacing: 0.01em; }
+  .toggle button.active { background: var(--ink); color: var(--bg); }
+  .toggle button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* --- credential card --- */
+  .card { border: 1px solid var(--rule-2);
+          padding: 18px 18px 16px;
+          margin: 8px 0 22px;
+          background: var(--bg); }
+  .card-head {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 12px;
+  }
+  .field { display: grid; grid-template-columns: 88px 1fr;
+           gap: 14px; padding: 8px 0;
+           border-top: 1px solid var(--rule);
+           font-size: 14px;
+           align-items: baseline; }
+  .field:first-of-type { border-top: 0; padding-top: 0; }
+  .field-label { color: var(--text-2); font-size: 12px;
+                 text-transform: uppercase; letter-spacing: 0.06em; }
+  .field-val { font-family: var(--mono); color: var(--text);
+               transition: color 0.18s ease; }
+  .field-val.changed {
+    color: var(--text);
+    background: var(--ink-soft);
+    padding: 0 4px;
+    margin: 0 -4px;
+  }
+
+  /* --- verification rows --- */
+  .verify-block { margin-top: 18px; }
+  .verify-head {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 10px;
+  }
+  .verify-row {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    gap: 14px; align-items: baseline;
+    padding: 12px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .verify-row:last-child { border-bottom: 1px solid var(--rule); }
+  .badge {
+    width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    font-family: var(--mono); font-size: 11px; line-height: 1;
+    color: var(--ink); background: var(--bg);
+    transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+  }
+  .badge.ok { background: var(--ink); color: var(--bg); }
+  .badge.fail { border-style: dashed; color: var(--text-2);
+                border-color: var(--text-2); background: var(--bg); }
+  .verify-method {
+    font-size: 14px; font-weight: 500; color: var(--text);
+    line-height: 1.3;
+  }
+  .verify-detail {
+    font-size: 12px; color: var(--text-2);
+    line-height: 1.4; margin-top: 2px;
+    font-style: italic;
+  }
+  .verify-status {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--text-2);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .insight { margin-top: 1.75rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+    .field { grid-template-columns: 78px 1fr; gap: 10px; }
+    .verify-row { grid-template-columns: 20px 1fr; }
+    .verify-status { grid-column: 2; padding-left: 0;
+                     text-align: left; margin-top: 4px; white-space: normal; }
+  }
+  @media (max-width: 520px) {
+    .toggle { flex-wrap: wrap; }
+    .toggle button { padding: 8px 12px; font-size: 12px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body data-state="original">
+<div class="page">
+
+  <h1>Tamper test</h1>
+
+  <p class="explanation">
+    A notary attests that a stamped paper exists. A cryptographic
+    signature attests that an issuer — say, UIDAI — emitted exactly this
+    data. The two look the same when nothing has changed. Tamper with
+    one field and the difference becomes the whole point.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Figure</span>
+
+    <div class="controls">
+      <div class="toggle" role="group" aria-label="Document state">
+        <button class="active" data-state="original">Original</button>
+        <button data-state="tampered">Tampered</button>
+      </div>
+      <p class="caption">Flip the toggle to alter one field of the credential — then watch which attestation catches it and which doesn't.</p>
+    </div>
+
+    <div class="card" aria-label="Credential">
+      <div class="card-head">Aadhaar verifiable credential</div>
+      <div class="field">
+        <div class="field-label">Name</div>
+        <div class="field-val" data-field="name"
+             data-original="Rahul Matthan"
+             data-tampered="Ravi Mathur">Rahul Matthan</div>
+      </div>
+      <div class="field">
+        <div class="field-label">DOB</div>
+        <div class="field-val" data-field="dob"
+             data-original="1972-08-14"
+             data-tampered="1972-08-14">1972-08-14</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Aadhaar</div>
+        <div class="field-val" data-field="aadhaar"
+             data-original="XXXX XXXX 3927"
+             data-tampered="XXXX XXXX 3927">XXXX XXXX 3927</div>
+      </div>
+    </div>
+
+    <div class="verify-block">
+      <div class="verify-head">Verification</div>
+      <div class="verify-row">
+        <span class="badge ok" id="badge-notary" aria-hidden="true">✓</span>
+        <div>
+          <div class="verify-method">Notary's stamp</div>
+          <div class="verify-detail">Attests that the document existed at the time of stamping. The notary cannot revisit it.</div>
+        </div>
+        <div class="verify-status" id="status-notary">Stamped</div>
+      </div>
+      <div class="verify-row">
+        <span class="badge ok" id="badge-crypto" aria-hidden="true">✓</span>
+        <div>
+          <div class="verify-method">UIDAI digital signature</div>
+          <div class="verify-detail">Verifies that the exact contents of this credential were signed by UIDAI.</div>
+        </div>
+        <div class="verify-status" id="status-crypto">Verified</div>
+      </div>
+    </div>
+
+    <p class="insight" id="insight">—</p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/471.-do-we-need-notaries/" target="_top">Do We Need Notaries</a> in Ex Machina.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  var body = document.body;
+  var buttons = document.querySelectorAll('.toggle button');
+  var fields = document.querySelectorAll('.field-val');
+  var badgeCrypto = document.getElementById('badge-crypto');
+  var statusCrypto = document.getElementById('status-crypto');
+  var insight = document.getElementById('insight');
+
+  var insights = {
+    original:
+      'Both attestations check out. So far the two regimes look equivalent — and this is where the analogy with the notary breaks the wrong way around.',
+    tampered:
+      'The notary’s stamp does not move. The signature does. That is the difference between trusting a person and trusting math.'
+  };
+
+  function setState(state) {
+    body.setAttribute('data-state', state);
+    buttons.forEach(function(b) {
+      b.classList.toggle('active', b.dataset.state === state);
+    });
+    fields.forEach(function(f) {
+      var orig = f.dataset.original;
+      var tampered = f.dataset.tampered;
+      var newVal = (state === 'tampered') ? tampered : orig;
+      f.textContent = newVal;
+      f.classList.toggle('changed', state === 'tampered' && tampered !== orig);
+    });
+    if (state === 'tampered') {
+      badgeCrypto.textContent = '×';
+      badgeCrypto.classList.remove('ok');
+      badgeCrypto.classList.add('fail');
+      statusCrypto.textContent = 'Signature mismatch';
+    } else {
+      badgeCrypto.textContent = '✓';
+      badgeCrypto.classList.remove('fail');
+      badgeCrypto.classList.add('ok');
+      statusCrypto.textContent = 'Verified';
+    }
+    insight.textContent = insights[state];
+  }
+
+  buttons.forEach(function(b) {
+    b.addEventListener('click', function() { setState(b.dataset.state); });
+  });
+
+  setState('original');
+})();
+</script>
+</body>
+</html>
