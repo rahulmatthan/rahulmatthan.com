@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The cascade — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule);
+              display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .step-indicator { font-family: var(--mono); font-size: 13px; color: var(--text-2);
+                    min-width: 64px; }
+  .btn { font-family: var(--sans); font-size: 14px; padding: 8px 16px;
+         background: var(--ink); color: var(--bg); border: 0;
+         cursor: pointer; }
+  .btn:hover { opacity: 0.85; }
+  .btn:disabled { background: var(--rule-2); cursor: not-allowed; opacity: 1; }
+  .btn.ghost { background: transparent; color: var(--text-2);
+               border: 1px solid var(--rule-2); }
+  .btn.ghost:hover { color: var(--text); }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0;
+             line-height: 1.5; font-style: italic;
+             flex-basis: 100%; }
+
+  /* --- chain --- */
+  .chain { list-style: none; padding: 0; margin: 8px 0 0;
+           display: flex; flex-direction: column; }
+  .node { position: relative; padding: 0 0 22px 60px;
+          opacity: 0.18;
+          transition: opacity 0.3s ease; }
+  .node:last-child { padding-bottom: 0; }
+  /* connector line down to next node */
+  .node::before {
+    content: ""; position: absolute;
+    left: 17.5px; top: 36px; bottom: -2px;
+    width: 2px; background: var(--ink-soft);
+    transition: background 0.3s ease, height 0.3s ease;
+  }
+  .node:last-child::before { display: none; }
+  /* number disc */
+  .node-num {
+    position: absolute; left: 0; top: 2px;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 13px;
+    background: var(--bg);
+    color: var(--ink-soft);
+    z-index: 1;
+    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  }
+  .node-label { font-size: 15px; font-weight: 500; color: var(--text);
+                line-height: 1.3; margin-bottom: 3px; }
+  .node-body { font-size: 13px; color: var(--text-2);
+               line-height: 1.5; max-width: 48ch; font-style: italic; }
+
+  /* states */
+  .node.visited { opacity: 0.55; }
+  .node.visited .node-num { border-color: var(--ink); color: var(--ink); }
+  .node.visited::before { background: var(--ink); }
+
+  .node.active { opacity: 1; }
+  .node.active .node-num {
+    border-color: var(--ink); background: var(--ink); color: var(--bg);
+  }
+  /* the live cascade — connector to the just-arrived stage glows */
+  .node.active::before { background: var(--ink); }
+
+  .insight { margin-top: 1.75rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; min-height: 3.1em; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+    .node { padding-left: 50px; padding-bottom: 18px; }
+    .node::before { left: 15.5px; top: 32px; width: 2px; }
+    .node-num { width: 32px; height: 32px; font-size: 12px; }
+  }
+  @media (max-width: 520px) {
+    .controls { gap: 10px; }
+    .btn { padding: 7px 12px; font-size: 13px; }
+    .node-label { font-size: 14px; }
+    .node-body { font-size: 12.5px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>The cascade</h1>
+
+  <p class="explanation">
+    A modern supply chain is a sequence of bets on other people's
+    competence. When one link breaks, the disruption travels — often
+    through stages most of the world has never heard of — until it
+    arrives somewhere familiar. Walk one such cascade, step by step.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Figure</span>
+
+    <div class="controls">
+      <span class="step-indicator" id="step-indicator">1 of 5</span>
+      <button class="btn" id="next-btn">Next →</button>
+      <button class="btn ghost" id="reset-btn">Restart</button>
+      <p class="caption">Press Next to follow a single helium shortage as it travels through the chain that ends at your AI cluster.</p>
+    </div>
+
+    <ol class="chain" id="chain">
+      <li class="node" data-step="1">
+        <div class="node-num">1</div>
+        <div class="node-label">Helium production tightens in Qatar</div>
+        <div class="node-body">Qatar supplies roughly a third of the world's helium. A maintenance shutdown reduces output for six months.</div>
+      </li>
+      <li class="node" data-step="2">
+        <div class="node-num">2</div>
+        <div class="node-label">SK Hynix throttles HBM lines</div>
+        <div class="node-body">High-bandwidth memory fabrication uses helium for cooling and leak detection. With supply rationed, output drops.</div>
+      </li>
+      <li class="node" data-step="3">
+        <div class="node-num">3</div>
+        <div class="node-label">NVIDIA's H100 supply contracts</div>
+        <div class="node-body">Each H100 GPU is paired with stacks of HBM. Less HBM means fewer finished GPUs leaving TSMC's packaging plants.</div>
+      </li>
+      <li class="node" data-step="4">
+        <div class="node-num">4</div>
+        <div class="node-label">Hyperscaler cluster build-outs slip</div>
+        <div class="node-body">The cloud providers placing orders months in advance now see deliveries pushed out by two quarters.</div>
+      </li>
+      <li class="node" data-step="5">
+        <div class="node-num">5</div>
+        <div class="node-label">Frontier AI training timelines stretch</div>
+        <div class="node-body">An obscure gas in one country has just decided when the next generation of models arrives, everywhere.</div>
+      </li>
+    </ol>
+
+    <p class="insight" id="insight">—</p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/472.-deeply-interdependent/" target="_top">Deeply Interdependent</a> in Ex Machina.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  var nodes = document.querySelectorAll('.node');
+  var nextBtn = document.getElementById('next-btn');
+  var resetBtn = document.getElementById('reset-btn');
+  var stepInd = document.getElementById('step-indicator');
+  var insight = document.getElementById('insight');
+  var TOTAL = nodes.length;
+
+  var insights = [
+    'A maintenance shutdown at one helium plant. Most industries shrug — helium is rationed every few years and the world goes on.',
+    'The first surprise: cutting-edge memory fabrication needs helium, and there is no substitute on the timescales involved. Output is now the constraint, not demand.',
+    'Two stages in, and the disruption has reached the most expensive, most contested chip in the world. Lead times double overnight.',
+    'Three stages in, and capital expenditure plans worth tens of billions are being reshuffled — by a gas decision in Doha most of the people writing those plans cannot place on a map.',
+    'Five links from the source, the cascade has redrawn the AI build-out calendar of every frontier lab. This is what "deeply interdependent" looks like from the inside.'
+  ];
+
+  var step = 1;
+
+  function render() {
+    nodes.forEach(function(n) {
+      var s = parseInt(n.dataset.step, 10);
+      n.classList.remove('active', 'visited');
+      if (s < step) n.classList.add('visited');
+      else if (s === step) n.classList.add('active');
+    });
+    stepInd.textContent = step + ' of ' + TOTAL;
+    nextBtn.disabled = (step === TOTAL);
+    nextBtn.textContent = (step === TOTAL) ? 'End of chain' : 'Next →';
+    insight.textContent = insights[step - 1];
+  }
+
+  nextBtn.addEventListener('click', function() {
+    if (step < TOTAL) { step++; render(); }
+  });
+  resetBtn.addEventListener('click', function() {
+    step = 1; render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
