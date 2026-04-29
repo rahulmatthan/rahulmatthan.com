@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The death spiral — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule);
+              display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .year-indicator { font-family: var(--mono); font-size: 13px; color: var(--text-2);
+                    min-width: 76px; }
+  .btn { font-family: var(--sans); font-size: 14px; padding: 8px 16px;
+         background: var(--ink); color: var(--bg); border: 0;
+         cursor: pointer; }
+  .btn:hover { opacity: 0.85; }
+  .btn:disabled { background: var(--rule-2); cursor: not-allowed; opacity: 1; }
+  .btn.ghost { background: transparent; color: var(--text-2);
+               border: 1px solid var(--rule-2); }
+  .btn.ghost:hover { color: var(--text); }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0;
+             line-height: 1.5; font-style: italic; flex-basis: 100%; }
+
+  /* --- the pool + readout --- */
+  .stage { display: grid; grid-template-columns: 1fr auto;
+           gap: 28px; align-items: start; margin-top: 8px; }
+
+  .pool {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+  }
+  .dot {
+    width: 100%; aspect-ratio: 1; min-width: 12px;
+    background: var(--ink-soft);
+    border-radius: 50%;
+    transition: background 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+  }
+  .dot.sick { background: var(--ink); }
+  .dot.gone { opacity: 0; transform: scale(0.5); }
+
+  .readout { min-width: 124px; text-align: right; }
+  .stat { margin-bottom: 14px; }
+  .stat:last-child { margin-bottom: 0; }
+  .stat-label {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 4px;
+  }
+  .stat-val {
+    font-family: var(--mono); font-size: 22px; font-weight: 500;
+    color: var(--text); line-height: 1;
+    transition: color 0.25s ease;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-sub { font-size: 11px; color: var(--text-3); margin-top: 4px;
+              font-family: var(--mono); }
+  .stat-val.rising { color: var(--ink); }
+
+  .legend { display: flex; gap: 18px; margin-top: 18px;
+            font-size: 12px; color: var(--text-2); flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .swatch.healthy { background: var(--ink-soft); }
+  .swatch.sick { background: var(--ink); }
+  .swatch.gone { border: 1px dashed var(--rule-2); }
+
+  .insight { margin-top: 1.75rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; min-height: 3.1em; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+    .stage { grid-template-columns: 1fr; gap: 20px; }
+    .readout { text-align: left; min-width: 0; display: flex; gap: 28px; }
+    .pool { gap: 5px; }
+  }
+  @media (max-width: 520px) {
+    .controls { gap: 10px; }
+    .btn { padding: 7px 12px; font-size: 13px; }
+    .stat-val { font-size: 19px; }
+    .pool { gap: 4px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>The death spiral</h1>
+
+  <p class="explanation">
+    When premiums are priced for the average, the healthiest stop buying.
+    The pool that remains is sicker, premiums rise to match, and the next
+    layer of healthy people exits. Watch one such pool decay year by
+    year — the visible logic behind India's stalled insurance market.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Figure</span>
+
+    <div class="controls">
+      <span class="year-indicator" id="year-indicator">Year 0</span>
+      <button class="btn" id="next-btn">Next year →</button>
+      <button class="btn ghost" id="reset-btn">Reset</button>
+      <p class="caption">Each click advances one year — the lowest-risk slice of the pool exits and the premium recalculates against who's left.</p>
+    </div>
+
+    <div class="stage">
+      <div class="pool" id="pool" aria-label="Insured pool"></div>
+      <div class="readout">
+        <div class="stat">
+          <div class="stat-label">Pool size</div>
+          <div class="stat-val" id="size-val">100</div>
+          <div class="stat-sub">people insured</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Premium</div>
+          <div class="stat-val" id="premium-val">₹100</div>
+          <div class="stat-sub" id="premium-delta">baseline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="swatch healthy"></span>healthy</div>
+      <div class="legend-item"><span class="swatch sick"></span>expected claimant</div>
+      <div class="legend-item"><span class="swatch gone"></span>has exited the pool</div>
+    </div>
+
+    <p class="insight" id="insight">—</p>
+  </section>
+
+  <div class="byline">
+    Part of an Ex Machina column on India's health insurance puzzle.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  // Each dot has a "risk score" 0-99. Lower score = healthier.
+  // The premium is set to recover average expected cost from the pool.
+  // Each year, anyone whose private risk score is well below the
+  // current premium's implied break-even rationally exits.
+  var TOTAL = 100;
+  var INITIAL_SICK = 18;          // ~18% expected-claimant baseline
+  var EXIT_PER_YEAR = 12;         // healthiest dozen leave each year
+  var BASE_PREMIUM = 100;         // arbitrary unit — the lesson is the trajectory
+  var MAX_YEARS = 5;
+
+  var poolEl = document.getElementById('pool');
+  var sizeVal = document.getElementById('size-val');
+  var premiumVal = document.getElementById('premium-val');
+  var premiumDelta = document.getElementById('premium-delta');
+  var yearInd = document.getElementById('year-indicator');
+  var nextBtn = document.getElementById('next-btn');
+  var resetBtn = document.getElementById('reset-btn');
+  var insight = document.getElementById('insight');
+
+  // Build dots, each tagged sick or healthy with a random risk score.
+  // Risk scores stay stable across years; what changes is who's in the pool.
+  var dots = [];
+  function buildPool() {
+    poolEl.innerHTML = '';
+    dots = [];
+    for (var i = 0; i < TOTAL; i++) {
+      var sick = i < INITIAL_SICK;
+      // healthy dots get scores 0-49, sick dots 50-99
+      var score = sick ? (50 + Math.floor(Math.random() * 50))
+                       : Math.floor(Math.random() * 50);
+      var d = document.createElement('div');
+      d.className = 'dot' + (sick ? ' sick' : '');
+      poolEl.appendChild(d);
+      dots.push({ el: d, sick: sick, score: score, gone: false });
+    }
+    // shuffle DOM order so the visual isn't sorted by risk
+    var fragOrder = dots.slice().sort(function(){ return Math.random() - 0.5; });
+    fragOrder.forEach(function(d) { poolEl.appendChild(d.el); });
+  }
+
+  var year = 0;
+
+  function premiumFor(activeDots) {
+    if (!activeDots.length) return 0;
+    var sickFraction = activeDots.filter(function(d){ return d.sick; }).length / activeDots.length;
+    // baseline 18% sick → ₹100; scales linearly with sick fraction
+    return BASE_PREMIUM * (sickFraction / (INITIAL_SICK / 100));
+  }
+
+  function insightFor(year, sizePct, premiumPct) {
+    if (year === 0) {
+      return 'Year 0 — a representative pool. Most people are healthy; a smaller cohort drives most of the expected costs. The premium reflects the mix.';
+    }
+    if (year === 1) {
+      return 'A year in. The healthiest sliver has noticed they are paying more than they expect to claim back, and walked. The remaining pool is already sicker.';
+    }
+    if (year === 2) {
+      return 'Two years. The premium is climbing — and each rise sharpens the calculation for the next layer of healthy buyers. The exits accelerate.';
+    }
+    if (year === 3) {
+      return 'Three years. The pool is now dominated by people who expect to claim. Premiums have climbed faster than the actual increase in average risk would justify.';
+    }
+    if (year === 4) {
+      return 'Four years. Most of the healthy population has left. What remains is closer to a pre-paid sickness account than an insurance market.';
+    }
+    return 'Five years from baseline, premiums have nearly doubled and the pool has roughly halved. This is what mispricing does — not all at once, but compounding. The fix is not lower premiums. It is finer-grained data, so the right people pay the right price from the start.';
+  }
+
+  function render() {
+    var active = dots.filter(function(d){ return !d.gone; });
+    var size = active.length;
+    var premium = premiumFor(active);
+
+    sizeVal.textContent = size;
+    premiumVal.textContent = '₹' + Math.round(premium);
+    if (year === 0) {
+      premiumDelta.textContent = 'baseline';
+      premiumVal.classList.remove('rising');
+    } else {
+      var pct = Math.round(((premium - BASE_PREMIUM) / BASE_PREMIUM) * 100);
+      premiumDelta.textContent = (pct >= 0 ? '+' : '') + pct + '% vs year 0';
+      premiumVal.classList.add('rising');
+    }
+
+    yearInd.textContent = 'Year ' + year;
+    nextBtn.disabled = (year >= MAX_YEARS);
+    nextBtn.textContent = (year >= MAX_YEARS) ? 'Spiral complete' : 'Next year →';
+    insight.textContent = insightFor(year, size / TOTAL, premium / BASE_PREMIUM);
+  }
+
+  function nextYear() {
+    if (year >= MAX_YEARS) return;
+    year++;
+    // Lowest-score active dots exit (they're the healthiest, cheapest
+    // for whom the rising premium is the worst deal)
+    var active = dots.filter(function(d){ return !d.gone; });
+    active.sort(function(a, b){ return a.score - b.score; });
+    var exitCount = Math.min(EXIT_PER_YEAR, active.length);
+    for (var i = 0; i < exitCount; i++) {
+      active[i].gone = true;
+      active[i].el.classList.add('gone');
+    }
+    render();
+  }
+
+  function reset() {
+    year = 0;
+    buildPool();
+    render();
+  }
+
+  nextBtn.addEventListener('click', nextYear);
+  resetBtn.addEventListener('click', reset);
+
+  buildPool();
+  render();
+})();
+</script>
+</body>
+</html>
