@@ -3,7 +3,7 @@ title: "The Third Way: India's Approach to Data Governance"
 published: 2023-11-28
 writingStatus:
   - published
-applePodcasts:
+applePodcasts: https://podcasts.apple.com/in/podcast/the-third-way-indias-approach-to-data-governance/id1166552728?i=1000636719464
 spotify:
 created:
 
