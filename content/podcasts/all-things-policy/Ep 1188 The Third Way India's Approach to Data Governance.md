@@ -4,7 +4,7 @@ published: 2023-11-28
 writingStatus:
   - published
 applePodcasts: https://podcasts.apple.com/in/podcast/the-third-way-indias-approach-to-data-governance/id1166552728?i=1000636719464
-spotify:
+spotify: https://open.spotify.com/episode/1tU2OTB23U9A4GtAdQQhdT?si=jas-6oJBSViRE0DTJCU6aA
 created:
 
 date: 2023-11-28
