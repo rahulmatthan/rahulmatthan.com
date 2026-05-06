@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The five conditions — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule);
+              display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .verdict-pill {
+    font-family: var(--mono); font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--ink);
+    background: var(--ink); color: var(--bg);
+    letter-spacing: 0.04em;
+    transition: background 0.22s ease, color 0.22s ease, border-style 0.22s ease;
+  }
+  .verdict-pill.broken {
+    background: var(--bg);
+    color: var(--text-2);
+    border-style: dashed;
+    border-color: var(--text-2);
+  }
+  .btn.ghost { font-family: var(--sans); font-size: 13px; padding: 7px 14px;
+               background: transparent; color: var(--text-2);
+               border: 1px solid var(--rule-2); cursor: pointer; }
+  .btn.ghost:hover { color: var(--text); }
+  .btn.ghost:disabled { opacity: 0.4; cursor: not-allowed; }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0;
+             line-height: 1.5; font-style: italic; flex-basis: 100%; }
+
+  /* --- condition cards --- */
+  .conditions { list-style: none; padding: 0; margin: 8px 0 0;
+                display: grid; gap: 10px; }
+  .cond {
+    display: grid; grid-template-columns: 32px 1fr;
+    gap: 14px; align-items: start;
+    padding: 14px 16px;
+    border: 1px solid var(--rule);
+    background: var(--bg);
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--sans);
+    color: inherit;
+    transition: border-color 0.18s ease, background 0.18s ease;
+  }
+  .cond:hover { border-color: var(--rule-2); }
+  .cond:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  .cond-mark {
+    width: 22px; height: 22px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--ink); color: var(--bg);
+    font-family: var(--mono); font-size: 12px; line-height: 1;
+    transition: background 0.22s ease, color 0.22s ease,
+                border-color 0.22s ease, border-style 0.22s ease;
+    margin-top: 2px;
+  }
+  .cond-label {
+    font-size: 14.5px; font-weight: 500; color: var(--text);
+    line-height: 1.35;
+  }
+  .cond-body {
+    font-size: 12.5px; color: var(--text-2);
+    line-height: 1.5; margin-top: 4px;
+    font-style: italic;
+  }
+
+  .cond.removed { background: transparent; }
+  .cond.removed .cond-mark {
+    background: var(--bg);
+    color: var(--text-2);
+    border-color: var(--text-2);
+    border-style: dashed;
+  }
+  .cond.removed .cond-label { color: var(--text-2); }
+  .cond.removed .cond-body { color: var(--text-3); }
+
+  .insight { margin-top: 1.75rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; min-height: 4.5em; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+    .cond { padding: 12px 14px; gap: 12px; }
+    .cond-label { font-size: 14px; }
+  }
+  @media (max-width: 520px) {
+    .controls { gap: 10px; }
+    .verdict-pill { font-size: 11px; padding: 5px 10px; }
+    .btn.ghost { padding: 6px 12px; font-size: 12px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>The five conditions</h1>
+
+  <p class="explanation">
+    The mirror-life moratorium did not stick because of a single
+    decisive argument. It stuck because five conditions all held
+    simultaneously — and any one of them, missing, would have undone
+    the whole arrangement. Be the counterfactual historian.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Figure</span>
+
+    <div class="controls">
+      <span class="verdict-pill" id="verdict">Moratorium holds</span>
+      <button class="btn ghost" id="reset-btn" disabled>Restore all</button>
+      <p class="caption">Click any condition to imagine it had failed. The other four still hold — but the verdict updates anyway.</p>
+    </div>
+
+    <ul class="conditions" id="conditions">
+      <li>
+        <button class="cond" type="button" data-key="consensus" aria-pressed="false">
+          <span class="cond-mark" aria-hidden="true">✓</span>
+          <span>
+            <span class="cond-label">Scientists agreed the harm would be uncontainable</span>
+            <span class="cond-body">Open letters from researchers across the field warned that mirror-life organisms could not be defended against by any known biological mechanism.</span>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="cond" type="button" data-key="capital" aria-pressed="false">
+          <span class="cond-mark" aria-hidden="true">✓</span>
+          <span>
+            <span class="cond-label">No commercial capital had flowed in</span>
+            <span class="cond-body">Mirror-life had stayed in academic labs. There were no investors, no startups, and no pipeline of paying customers waiting for the technology to mature.</span>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="cond" type="button" data-key="community" aria-pressed="false">
+          <span class="cond-mark" aria-hidden="true">✓</span>
+          <span>
+            <span class="cond-label">The research community was small and well-coordinated</span>
+            <span class="cond-body">Only a few dozen labs had the expertise. Everyone knew everyone, which made a coordinated voluntary pause achievable in a single document.</span>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="cond" type="button" data-key="states" aria-pressed="false">
+          <span class="cond-mark" aria-hidden="true">✓</span>
+          <span>
+            <span class="cond-label">No state had staked its position on the technology</span>
+            <span class="cond-body">No major government had declared mirror-life a strategic priority. There was no race to be first, and so no national-security argument against pausing.</span>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="cond" type="button" data-key="pioneers" aria-pressed="false">
+          <span class="cond-mark" aria-hidden="true">✓</span>
+          <span>
+            <span class="cond-label">The pioneers were willing to abandon their own work</span>
+            <span class="cond-body">The very researchers who had spent years building toward mirror-life publicly walked away. Their credibility carried the field with them.</span>
+          </span>
+        </button>
+      </li>
+    </ul>
+
+    <p class="insight" id="insight">—</p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/477.-mirror-life/" target="_top">Mirror Life</a> in Ex Machina.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  var buttons = document.querySelectorAll('.cond');
+  var resetBtn = document.getElementById('reset-btn');
+  var verdict = document.getElementById('verdict');
+  var insight = document.getElementById('insight');
+
+  var allHold =
+    'All five conditions held in late 2024. The moratorium stuck — not because one argument was decisive, but because every single supporting structure was in place at the same time.';
+
+  var insights = {
+    consensus:
+      'Without scientific agreement that the danger was uncontainable, individual labs would have disputed the risk and continued. The moratorium would have lacked the moral authority that made it self-enforcing.',
+    capital:
+      'If venture funding were already flowing in, no individual scientist abandoning the work would have prevented someone else from picking it up. Capital is patient about consensus.',
+    community:
+      'A larger or more dispersed community would have made coordination impossible. Quiet defectors elsewhere in the world would have continued the work, and there would have been no way to know.',
+    states:
+      'Once a major government had declared mirror-life a strategic capability worth racing for, the moratorium would have collapsed under national-security pressure — which is roughly the position frontier AI is in today.',
+    pioneers:
+      'If the original pioneers had not publicly stepped away from their own work, the rest of the field would have read their continued research as permission. Pioneers are often the only people whose abandonment carries weight.'
+  };
+
+  function update() {
+    var removed = [];
+    buttons.forEach(function(b) {
+      if (b.classList.contains('removed')) {
+        removed.push(b.dataset.key);
+        b.querySelector('.cond-mark').textContent = '×';
+        b.setAttribute('aria-pressed', 'true');
+      } else {
+        b.querySelector('.cond-mark').textContent = '✓';
+        b.setAttribute('aria-pressed', 'false');
+      }
+    });
+
+    resetBtn.disabled = removed.length === 0;
+
+    if (removed.length === 0) {
+      verdict.textContent = 'Moratorium holds';
+      verdict.classList.remove('broken');
+      insight.textContent = allHold;
+    } else if (removed.length === 1) {
+      verdict.textContent = 'Moratorium collapses';
+      verdict.classList.add('broken');
+      insight.textContent = insights[removed[0]];
+    } else {
+      verdict.textContent = 'Moratorium collapses';
+      verdict.classList.add('broken');
+      insight.textContent =
+        'Multiple conditions missing. Any single one would have been enough to break the arrangement; the redundancy is the lesson — five gates, not one.';
+    }
+  }
+
+  buttons.forEach(function(b) {
+    b.addEventListener('click', function() {
+      b.classList.toggle('removed');
+      update();
+    });
+  });
+
+  resetBtn.addEventListener('click', function() {
+    buttons.forEach(function(b) { b.classList.remove('removed'); });
+    update();
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
