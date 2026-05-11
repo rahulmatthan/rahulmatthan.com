@@ -6,21 +6,16 @@
 </div>
 
 <div class="archive-list">
-    {{ range sort .Sections "Title" }}
-    <details id="other-writing-{{ .Title | urlize }}" class="other-writing-accordion">
-        <summary class="year-heading">{{ .Title }}</summary>
-        <ul class="post-list">
-            {{ range .Pages.ByDate.Reverse }}
-            <li>
-                {{ if .Date }}
-                <span class="date-short" style="width: 150px;">{{ .Date.Format "2 January, 2006" }}</span>
-                {{ end }}
-                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </li>
+    <ul class="post-list" style="margin-top: 20px;">
+        {{ range .RegularPagesRecursive.ByDate.Reverse }}
+        <li>
+            {{ if .Date }}
+            <span class="date-short" style="width: 150px;">{{ .Date.Format "2 January, 2006" }}</span>
             {{ end }}
-        </ul>
-    </details>
-    {{ end }}
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+    </ul>
 </div>
 {{ end }}
 

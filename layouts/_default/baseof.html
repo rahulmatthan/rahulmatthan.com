@@ -354,21 +354,6 @@
                 });
             }
 
-            // Single-open accordion behavior for Other Writing
-            var otherWritingAccordions = document.querySelectorAll('.other-writing-accordion');
-            if (otherWritingAccordions.length) {
-                otherWritingAccordions.forEach(function(details) {
-                    details.addEventListener('toggle', function() {
-                        if (!details.open) return;
-                        otherWritingAccordions.forEach(function(other) {
-                            if (other !== details && other.open) {
-                                other.open = false;
-                            }
-                        });
-                    });
-                });
-            }
-
             // Reading Progress Bar
             var progressBar = document.getElementById('reading-progress');
             if (progressBar) {
