@@ -172,13 +172,28 @@ Ex Machina articles include:
 - `title`: Article title
 - `published`: Original publication date
 - `date`: Hugo date (synced from `published`)
-- `tags`: Array of topic tags (e.g., `data_governance`, `privacy`)
+- `tags`: Array of topic tags (e.g., `data_governance`, `privacy`) — must come from the controlled vocabulary in `TAXONOMY.md` (see "Tag taxonomy" below)
 - `urlSecondary`: Link to original publication (usually LiveMint)
 - `urlCanonical`: Canonical URL at exmachina.in
 - `Archive URL`: Archived version of original publication
 - `category`: Content type (usually "article")
 - `writingStatus`: Publication status (usually "published")
 - `publication`: Publication name (usually "Ex Machina")
+
+### Tag taxonomy
+
+Tags are validated against `/Users/rahul/Hugo/rahul-site/TAXONOMY.md` at build time. The list is lower_snake_case only — no spaces, no hashtags, no capitals.
+
+**To add a new tag:**
+1. Edit `TAXONOMY.md`. Add the new tag under the appropriate cluster with a one-line "use this when…" description.
+2. Save the article using the tag. The watcher will rerun `build.py`.
+
+**If you save an article with a tag not in the taxonomy:**
+- `build.py` aborts with a non-zero exit code, listing every offending file and tag.
+- The watcher's deploy will not proceed.
+- Either fix the tag in the article OR add it to `TAXONOMY.md` and re-save.
+
+The validator only checks `writingStatus: published` articles. Drafts can use any tag during work.
 
 ### Deployment
 GitHub Actions workflow at `.github/workflows/deploy.yml`:

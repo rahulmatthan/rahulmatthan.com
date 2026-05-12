@@ -8,11 +8,11 @@ categories:
 writingStatus: published
 publication: Carnegie India
 externalUrl: https://carnegieendowment.org/research/2022/08/data-governance-asian-alternatives-how-india-and-korea-are-creating-new-models-and-policies?lang=en#indias-approach-to-data-governance
+aliases:
+  - "/other-writing/carnegie/indias-approach-to-data-governance/"
 
 title: "India's Approach to Data Governance"
 date: 2022-08-31
-aliases:
-  - "/other-writing/carnegie/india's-approach-to-data-governance/"
 ---
 
 *This is a chapter of a book on the Korean and Indian approach to data governance. I co-wrote this chapter along with Shreya Ramann*

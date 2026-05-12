@@ -3,7 +3,6 @@ title: Exceptionally Simple
 published: 2022-11-24
 tags:
   - data_governance
-  - regulation
   - data_protection
 categories:
   - "[[articles]]"
@@ -11,6 +10,8 @@ writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59
 externalUrl: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
+aliases:
+  - "/other-writing/hindustan-times/exceptionally-simple-ht/"
 
 date: 2022-11-24
 ---

@@ -1,3 +1,0 @@
----
-title: "Hindustan Times"
----

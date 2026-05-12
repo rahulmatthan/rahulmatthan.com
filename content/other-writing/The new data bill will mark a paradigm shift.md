@@ -2,7 +2,6 @@
 title: The new data bill will mark a paradigm shift
 published: 2023-08-07
 tags:
-  - regulation
   - data_protection
 categories:
   - "[[articles]]"
@@ -10,6 +9,8 @@ writingStatus: published
 publication: Hindustan Times
 created: 2023-11-17T08:59
 externalUrl: https://www.hindustantimes.com/opinion/the-new-data-bill-will-mark-a-paradigm-shift-101691417117474.html
+aliases:
+  - "/other-writing/hindustan-times/the-new-data-bill-will-mark-a-paradigm-shift/"
 
 date: 2023-08-07
 ---

@@ -1,7 +1,7 @@
 ---
 tags:
-  - DPI
-  - finance
+  - dpi
+  - dpi_finance
 publication:
   - Artha Global
 externalUrl: https://artha.global/wp-content/uploads/2025/01/Financing_Models_Digital_Ecosystems_paper_web.pdf
@@ -9,6 +9,8 @@ categories:
   - "[[articles]]"
 writingStatus: published
 published: 2021-12-16
+aliases:
+  - "/other-writing/artha-global/financing-models-for-digital-ecosystems/"
 
 title: "Financing Models for Digital Ecosystems"
 date: 2021-12-16
