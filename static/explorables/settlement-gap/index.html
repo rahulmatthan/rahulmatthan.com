@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The settlement gap — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* --- the scenario prose --- */
+  .scenario {
+    font-size: 17px; line-height: 1.75; color: var(--text);
+    margin: 0;
+  }
+  .scenario .regime {
+    display: block; margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .scenario .regime:last-child {
+    border-bottom: 0; margin-bottom: 0; padding-bottom: 0;
+  }
+  .scenario .regime-label {
+    display: inline-block;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.5rem;
+  }
+
+  /* numeric inputs inline in prose */
+  input.numeric {
+    font-family: var(--mono); font-size: 16px;
+    font-weight: 500;
+    color: var(--text); background: var(--bg);
+    border: 1px solid var(--rule-2);
+    padding: 4px 8px;
+    width: 5.5em;
+    text-align: right;
+    -moz-appearance: textfield;
+    transition: border-color 0.15s ease;
+  }
+  input.numeric:hover { border-color: var(--ink); }
+  input.numeric:focus { outline: 2px solid var(--ink); outline-offset: 1px;
+                        border-color: var(--ink); }
+  input.numeric::-webkit-outer-spin-button,
+  input.numeric::-webkit-inner-spin-button {
+    -webkit-appearance: none; margin: 0;
+  }
+
+  /* the computed numbers */
+  .out {
+    font-family: var(--mono); font-weight: 600;
+    color: var(--text);
+    padding: 0 2px;
+    transition: color 0.18s ease;
+  }
+  .out.zero { color: var(--text-2); font-weight: 500; }
+
+  .insight { margin-top: 1.75rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+    .scenario { font-size: 16px; line-height: 1.7; }
+    input.numeric { font-size: 15px; width: 5em; padding: 3px 6px; }
+  }
+  @media (max-width: 520px) {
+    .scenario { font-size: 15px; }
+    input.numeric { width: 4.5em; font-size: 14px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>The settlement gap</h1>
+
+  <p class="explanation">
+    A trade and its payment sit on two different ledgers today, so
+    settlement takes a day. That gap is not free — money moved for a
+    trade that has not yet settled is locked, earning nothing for
+    anyone. Put your own numbers in and see what the gap costs.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Figure</span>
+
+    <div class="scenario">
+      <div class="regime">
+        <span class="regime-label">Under today's T+1 settlement</span>
+        <span>
+          If you trade
+          <input class="numeric" type="number" id="volume" value="500" min="1" max="100000" step="50" aria-label="Trade volume in crore" />
+          crore of CDs per day at a prevailing rate of
+          <input class="numeric" type="number" id="rate" value="7" min="0" max="20" step="0.25" aria-label="Interest rate percent" />
+          %, you have <span class="out" id="locked">₹500 crore</span> of
+          settlement float sitting idle on any given business day. Over a
+          year, that float costs you <span class="out" id="annual">₹35 crore</span> in
+          forgone interest.
+        </span>
+      </div>
+      <div class="regime">
+        <span class="regime-label">Under tokenised settlement</span>
+        <span>
+          The asset and the money change hands in the same atomic operation.
+          The float is <span class="out zero" id="locked-token">₹0</span>.
+          The
+          <span class="out" id="annual-recovered">₹35 crore</span>
+          goes back to your balance sheet.
+        </span>
+      </div>
+    </div>
+
+    <p class="insight" id="insight">—</p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/478.-retail-tokenisation/" target="_top">Retail Tokenisation</a> in Ex Machina.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  // Working in crore. Volume × 1 (one day's float for T+1) × rate × 1
+  // gives the annual interest forgone, since the daily-float is
+  // continuously refreshed by the next day's trade.
+  var volEl    = document.getElementById('volume');
+  var rateEl   = document.getElementById('rate');
+  var locked   = document.getElementById('locked');
+  var annual   = document.getElementById('annual');
+  var lockedTk = document.getElementById('locked-token');
+  var annualRc = document.getElementById('annual-recovered');
+  var insight  = document.getElementById('insight');
+
+  function fmtCrore(n) {
+    if (!isFinite(n) || n <= 0) return '₹0';
+    // Show two decimals for small numbers, integers for larger
+    var rounded = n < 10 ? n.toFixed(2) : Math.round(n);
+    return '₹' + Number(rounded).toLocaleString('en-IN') + ' crore';
+  }
+
+  function clamp(el, lo, hi) {
+    var n = parseFloat(el.value);
+    if (isNaN(n)) n = lo;
+    if (n < lo) n = lo;
+    if (n > hi) n = hi;
+    return n;
+  }
+
+  function insightFor(volume, rate, costCrore) {
+    if (rate === 0) {
+      return 'At a zero interest rate the float costs nothing on paper. Every other cost of the settlement gap — counterparty risk, reconciliation, locked working capital — still applies.';
+    }
+    if (costCrore < 1) {
+      return 'A small book at this rate barely notices the float. The architecture still does the work; the cost only becomes visible at scale.';
+    }
+    if (costCrore < 25) {
+      return 'A meaningful but absorbable carrying cost. Most desks already think of this as a fact of life — until you ask whether it has to be.';
+    }
+    if (costCrore < 250) {
+      return 'A real, recurring line item that the tokenised version removes outright. Across a market, multiples of this become structural drag on capital efficiency.';
+    }
+    return 'A nine-figure annual cost from settlement plumbing alone. This is the order of number the article means when it says tokenised infrastructure frees capital.';
+  }
+
+  function render() {
+    var volume = clamp(volEl, 1, 100000);
+    var rate   = clamp(rateEl, 0, 20);
+    volEl.value  = volume;
+    rateEl.value = rate;
+
+    // T+1 float: one day of trade volume continually outstanding.
+    var float_ = volume;
+    // Annual interest: float × rate / 100 (₹crore basis throughout).
+    var annualCost = float_ * (rate / 100);
+
+    locked.textContent      = fmtCrore(float_);
+    annual.textContent      = fmtCrore(annualCost);
+    lockedTk.textContent    = '₹0';
+    annualRc.textContent    = fmtCrore(annualCost);
+
+    insight.textContent = insightFor(volume, rate, annualCost);
+  }
+
+  volEl.addEventListener('input', render);
+  rateEl.addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>
