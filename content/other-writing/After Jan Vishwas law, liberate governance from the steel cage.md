@@ -1,22 +1,24 @@
 ---
 title: After Jan Vishwas law, liberate governance from the steel cage
-published: 2022-11-24
+published: 2026-04-18
 tags:
-  - data_governance
-  - data_protection
+  - regulation
 categories:
   - "[[articles]]"
-writingStatus: published
+writingStatus:
+  - published
 publication:
   - Indian Express
 created: 2023-11-17T08:59
 url:
-aliases:
-  - /other-writing/hindustan-times/exceptionally-simple-ht/
 
-date: 2022-11-24
+date: 2026-04-18
 ---
 
+
+*Co-authored with Manish Sabharwal.*
+
+---
 
 Only 25+ of the world’s 2500-plus living written languages are read from right to left. India’s citizens are forced to adopt this counterintuitive algorithm when reading our laws. The state reads laws from left to right (acts to rules) and has a blind spot about the punishable obligations it creates. Citizens read from right to left (compliances to administrative instruments to rules to acts), and their blind spot is often acts. The administrative state’s proliferation of non-act/non-rule instruments since Independence defies the spirit of the Constitution and undermines a single source of truth for our laws. Three reforms are overdue and urgent.
 
