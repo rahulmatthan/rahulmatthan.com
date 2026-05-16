@@ -1,5 +1,5 @@
 ---
-title: Exceptionally Simple
+title: After Jan Vishwas law, liberate governance from the steel cage
 published: 2022-11-24
 tags:
   - data_governance
@@ -7,11 +7,12 @@ tags:
 categories:
   - "[[articles]]"
 writingStatus: published
-publication: Hindustan Times
+publication:
+  - Indian Express
 created: 2023-11-17T08:59
-externalUrl: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
+url:
 aliases:
-  - "/other-writing/hindustan-times/exceptionally-simple-ht/"
+  - /other-writing/hindustan-times/exceptionally-simple-ht/
 
 date: 2022-11-24
 ---
