@@ -30,7 +30,8 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        # Pinned to a full SHA (v2) so a moving tag can't break the build.
+        uses: peaceiris/actions-hugo@dc99976453b04b1029527154fc04fef80a4a49cf
         with:
           hugo-version: 'latest'
           extended: true
