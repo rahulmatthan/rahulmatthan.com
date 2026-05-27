@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>When detection breaks down — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  .crumbs { font-size: 13px; color: var(--text-2); margin-bottom: 2.5rem;
+            display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .crumbs a { text-decoration: none; color: var(--text-2); }
+  .crumbs a:hover { color: var(--text); }
+  .crumbs .sep { color: var(--text-3); }
+  .crumbs .current { color: var(--text); }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  /* ---------- interactive ---------- */
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule); }
+  .slider-row { display: grid; grid-template-columns: auto 1fr auto;
+                gap: 0 14px; align-items: center; }
+  .slider-row label { font-size: 13px; color: var(--text-2); }
+  .step-indicator { font-family: var(--mono); font-size: 14px; color: var(--text-2);
+                    text-align: center; white-space: nowrap; }
+  .caption { font-size: 13px; color: var(--text-2); margin: 12px 0 0; line-height: 1.5;
+             font-style: italic; }
+
+  button.step { font-family: var(--sans); font-size: 14px; padding: 8px 16px;
+                background: var(--ink); color: var(--bg); border: 0;
+                cursor: pointer; min-width: 104px; }
+  button.step:hover { opacity: 0.85; }
+
+  .era { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+         color: var(--text-3); margin-bottom: 0.85rem; }
+
+  svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+  svg.chart text { font-family: var(--sans); }
+  .curve-human { fill: var(--ink-soft); }
+  .curve-ai { fill: var(--ink); fill-opacity: 0.16; stroke: var(--ink); stroke-width: 1.5; }
+  .cutoff { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 3 3; }
+  .cut-label { fill: var(--text-2); font-size: 10px; text-anchor: middle; }
+  .axis { stroke: var(--rule-2); stroke-width: 1; }
+  .axis-label { fill: var(--text-3); font-size: 11px; }
+  .c-label { font-size: 11px; }
+  .c-label.human { fill: var(--text-2); text-anchor: middle; }
+  .c-label.ai { fill: var(--text); font-weight: 600; text-anchor: middle; }
+
+  .insight { margin-top: 1.5rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+  }
+  @media (max-width: 520px) {
+    .slider-row { grid-template-columns: 1fr auto;
+                  grid-template-areas: "label step" "btn btn"; gap: 10px 12px; }
+    .slider-row label { grid-area: label; }
+    .step-indicator { grid-area: step; text-align: right; }
+    .slider-row button.step { grid-area: btn; justify-self: start; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .crumbs,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>When detection breaks down</h1>
+
+  <p class="explanation">
+    We used to spot machine-written text at a glance — it had a certain
+    tinniness. As the models improved that tell faded, so we handed the job
+    to detectors that score how "machine-like" a passage reads and flag
+    anything past a cutoff. Step through what happens to that cutoff as the
+    machine learns to write like us.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">Timeline</span>
+
+    <div class="controls">
+      <div class="slider-row">
+        <label>Move through time</label>
+        <span class="step-indicator" id="step-indicator">1 of 3</span>
+        <button class="step" id="next-btn">Next &rarr;</button>
+      </div>
+      <p class="caption">Each step is a moment in the history of telling people from machines.</p>
+    </div>
+
+    <div class="era" id="era">When the tells were obvious</div>
+
+    <svg class="chart" viewBox="0 0 600 244" role="img" aria-labelledby="era">
+      <path id="curve-human" class="curve-human" d="" />
+      <path id="curve-ai" class="curve-ai" d="" />
+      <line id="cutoff" class="cutoff" y1="30" y2="210" style="display:none" />
+      <text id="cutoff-label" class="cut-label" y="24" style="display:none">detector&rsquo;s cutoff</text>
+      <text id="label-human" class="c-label human">Human writing</text>
+      <text id="label-ai" class="c-label ai">AI writing</text>
+      <line class="axis" x1="20" y1="210" x2="580" y2="210" />
+      <text class="axis-label" x="20" y="232">reads human</text>
+      <text class="axis-label" x="580" y="232" text-anchor="end">reads machine</text>
+    </svg>
+
+    <p class="insight" id="insight"></p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/480.-when-ai-writes/" target="_top">When AI Writes</a> in Ex Machina.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function () {
+  var steps = [
+    { era: "Era 1 — when the tells were obvious",
+      human: { mu: 32, sd: 9 },  ai: { mu: 83, sd: 9 },  cutoff: null,
+      insight: "Early AI had tells — clumsy phrasing, giveaway tics, the faint hum of a machine. Any careful reader could sort the two piles by eye. No detector required." },
+    { era: "Era 2 — the age of detectors",
+      human: { mu: 32, sd: 10 }, ai: { mu: 56, sd: 11 }, cutoff: 45,
+      insight: "AI improved until the eye gave up and the piles began to overlap. So we built detectors: a statistical cutoff that scores how machine-like a passage reads and still sorts most of it correctly." },
+    { era: "Era 3 — when detection breaks down",
+      human: { mu: 34, sd: 12 }, ai: { mu: 41, sd: 12 }, cutoff: 38,
+      insight: "Now the piles sit almost on top of each other. Wherever the detector draws its line, it catches the last of the AI only by branding real writers as frauds. The tool we built to save us has run out of room." }
+  ];
+
+  var BASE = 210, TOP = 30;
+  var K = 150 * (9 * Math.sqrt(2 * Math.PI)); // tallest curve (sd 9) peaks ~150px tall
+
+  function sx(score) { return 20 + (score / 100) * 560; }
+  function pdf(x, mu, sd) { return Math.exp(-0.5 * Math.pow((x - mu) / sd, 2)) / (sd * Math.sqrt(2 * Math.PI)); }
+  function sy(p) { return Math.max(TOP, BASE - p * K); }
+
+  function pathFor(d) {
+    var str = "M " + sx(0) + " " + BASE;
+    for (var x = 0; x <= 100; x += 1) str += " L " + sx(x).toFixed(1) + " " + sy(pdf(x, d.mu, d.sd)).toFixed(1);
+    return str + " L " + sx(100) + " " + BASE + " Z";
+  }
+
+  var idx = 0;
+  var els = {
+    human: document.getElementById('curve-human'),
+    ai: document.getElementById('curve-ai'),
+    cutoff: document.getElementById('cutoff'),
+    cutLabel: document.getElementById('cutoff-label'),
+    labelHuman: document.getElementById('label-human'),
+    labelAi: document.getElementById('label-ai'),
+    era: document.getElementById('era'),
+    insight: document.getElementById('insight'),
+    indicator: document.getElementById('step-indicator'),
+    next: document.getElementById('next-btn')
+  };
+
+  // Anchor each label to the outer flank of its curve (human to the left,
+  // AI to the right) so they never collide when the means converge in era 3.
+  function placeLabel(el, d, dir) {
+    var score = d.mu + dir * 0.7 * d.sd;
+    el.setAttribute('x', sx(score).toFixed(1));
+    el.setAttribute('y', (sy(pdf(score, d.mu, d.sd)) - 8).toFixed(1));
+  }
+
+  function render() {
+    var s = steps[idx];
+    els.human.setAttribute('d', pathFor(s.human));
+    els.ai.setAttribute('d', pathFor(s.ai));
+    placeLabel(els.labelHuman, s.human, -1);
+    placeLabel(els.labelAi, s.ai, 1);
+
+    if (s.cutoff == null) {
+      els.cutoff.style.display = 'none';
+      els.cutLabel.style.display = 'none';
+    } else {
+      var cx = sx(s.cutoff);
+      els.cutoff.setAttribute('x1', cx); els.cutoff.setAttribute('x2', cx);
+      els.cutLabel.setAttribute('x', cx);
+      els.cutoff.style.display = ''; els.cutLabel.style.display = '';
+    }
+
+    els.era.textContent = s.era;
+    els.insight.textContent = s.insight;
+    els.indicator.textContent = (idx + 1) + ' of ' + steps.length;
+    els.next.innerHTML = (idx === steps.length - 1) ? 'Restart &#8635;' : 'Next &rarr;';
+  }
+
+  els.next.addEventListener('click', function () {
+    idx = (idx === steps.length - 1) ? 0 : idx + 1;
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
