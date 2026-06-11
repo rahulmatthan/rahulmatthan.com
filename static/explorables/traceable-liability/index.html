@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Traceable liability — Rahul Matthan</title>
+
+<style>
+  :root {
+    --bg:        #f5f5f1;
+    --rule:      #e2e2de;
+    --rule-2:    #cfcfca;
+    --text:      #111111;
+    --text-2:    #585858;
+    --text-3:    #8a8a8a;
+    --ink:       #111111;
+    --ink-soft:  #d8d8d4;
+    --sans:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #161614;
+      --rule:      #2a2a2a;
+      --rule-2:    #3a3a3a;
+      --text:      #f4f4f2;
+      --text-2:    #a8a8a4;
+      --text-3:    #6e6e6a;
+      --ink:       #f4f4f2;
+      --ink-soft:  #2e2e2c;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+               font-family: var(--sans); font-size: 16px; line-height: 1.6;
+               -webkit-font-smoothing: antialiased;
+               overflow-x: hidden; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px;
+      text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+  a:hover { text-decoration-color: currentColor; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+  h1 { font-weight: 600; font-size: 28px; line-height: 1.2;
+       margin: 0 0 1.25rem; letter-spacing: -0.015em; }
+
+  .explanation { font-size: 17px; line-height: 1.65; margin: 0 0 2.5rem;
+                 color: var(--text); max-width: 62ch; font-style: italic; }
+
+  /* ---------- interactive ---------- */
+  .interactive { margin: 0 0 2rem; border: 1px solid var(--rule);
+                 padding: 1.75rem; position: relative; }
+  .interactive .figure-label {
+    position: absolute; top: 0; left: 1.75rem; transform: translateY(-50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .controls { padding: 0 0 20px; margin-bottom: 1.5rem;
+              border-bottom: 1px solid var(--rule); }
+  .caption { font-size: 13px; color: var(--text-2); margin: 14px 0 0; line-height: 1.5;
+             font-style: italic; }
+
+  .toggle { display: inline-flex; border: 1px solid var(--rule-2); flex-wrap: wrap; }
+  .toggle button { font-family: var(--sans); font-size: 13px; padding: 9px 15px;
+                   background: transparent; color: var(--text-2); border: 0;
+                   border-left: 1px solid var(--rule-2); cursor: pointer; }
+  .toggle button:first-child { border-left: 0; }
+  .toggle button.active { background: var(--ink); color: var(--bg); }
+
+  /* ledger: who bears the loss, drawn as a nested spawn chain */
+  .ledger-head { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+                 color: var(--text-3); margin: 0 0 14px; }
+  .row { display: grid; grid-template-columns: minmax(108px, 0.9fr) 1.3fr;
+         gap: 10px 14px; align-items: center; padding: 7px 0; }
+  .row.victim { border-top: 1px solid var(--rule); margin-top: 6px; padding-top: 14px; }
+  .who { min-width: 0; }
+  .who .conn { color: var(--text-3); }
+  .who .name { font-size: 14px; font-weight: 600; }
+  .who .name.harmed::after { content: " \2192 harm"; color: var(--text-2); font-weight: 500; }
+  .who .sub  { display: block; font-size: 11.5px; color: var(--text-3); }
+  .meter { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+  .track { height: 14px; background: var(--ink-soft); }
+  .fill  { height: 100%; width: 0; background: var(--ink); transition: width .4s ease; }
+  .pct   { font-family: var(--mono); font-size: 13px; font-weight: 500; min-width: 34px;
+           text-align: right; color: var(--text); }
+  .pct.zero { color: var(--text-3); }
+
+  .insight { margin-top: 1.5rem; font-size: 15px; line-height: 1.55;
+             color: var(--text); font-weight: 500; max-width: 56ch;
+             font-style: italic; }
+  .insight::before { content: ""; display: block; width: 24px; height: 1px;
+                     background: var(--ink); margin-bottom: 10px; }
+
+  .byline { font-size: 12px; color: var(--text-3); margin-top: 3rem;
+            padding-top: 1.25rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .byline a { color: var(--text-2); }
+
+  @media (max-width: 640px) {
+    .page { padding: 2rem 1.125rem 3rem; }
+    h1 { font-size: 22px; }
+    .interactive { padding: 1.25rem; }
+    .interactive .figure-label { left: 1.25rem; }
+  }
+  @media (max-width: 440px) {
+    .row { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  body.lecture .explanation,
+  body.lecture .byline,
+  body.lecture .crumbs,
+  body.lecture .interactive .figure-label { display: none; }
+  body.lecture .page { padding-top: 2rem; max-width: 900px; }
+  body.lecture h1 { font-size: 36px; margin-bottom: 2rem; }
+  body.lecture .insight { font-size: 18px; }
+
+  @media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Traceable liability</h1>
+
+  <p class="explanation">
+    An AI agent spawns sub-agents that spawn their own, and the harm only
+    surfaces three layers down. Who is responsible? Today's law often finds
+    no one — there is no intent to prove and no agreement to point to.
+    Absolute liability dumps the whole loss on the original deployer, which
+    would make agentic AI commercially unviable. Switch between the regimes
+    and watch where the loss lands.
+  </p>
+
+  <section class="interactive">
+    <span class="figure-label">The same harm, three regimes</span>
+
+    <div class="controls">
+      <div class="toggle" id="toggle">
+        <button data-regime="none" class="active">No liability (today)</button>
+        <button data-regime="absolute">Absolute liability</button>
+        <button data-regime="traceable">Traceable liability</button>
+      </div>
+      <p class="caption">Each agent records who deployed it and the limits it was given. Switch regimes — watch which bar bears the loss.</p>
+    </div>
+
+    <div id="visual">
+      <p class="ledger-head">Share of the loss</p>
+      <div id="ledger"></div>
+    </div>
+
+    <p class="insight" id="insight"></p>
+  </section>
+
+  <div class="byline">
+    Part of <a href="https://rahulmatthan.com/ex-machina/2026/481.-holding-agents-liable/" target="_top">Holding Agents Liable</a> in Ex Machina.
+    <a href="/explorables/" target="_top">Other explorables</a>.
+  </div>
+
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'lecture') {
+    document.body.classList.add('lecture');
+  }
+</script>
+
+<script>
+(function() {
+  // The deployment chain. depth drives the nesting indent; conn shows who
+  // spawned whom; harmed flags the actor whose breach produced the harm.
+  var ACTORS = [
+    { name: 'Deployer', sub: 'set the mandate',                 depth: 0 },
+    { name: 'Agent A',  sub: 'deployed by Deployer, in limits', depth: 1 },
+    { name: 'Agent B',  sub: 'deployed by A, vague mandate',    depth: 2 },
+    { name: 'Agent C',  sub: 'deployed by B, breached limits',  depth: 3, harmed: true },
+    { name: 'Victim',   sub: 'absorbs whatever is unassigned',  depth: 0, victim: true }
+  ];
+
+  var REGIMES = {
+    none: {
+      vals: [0, 0, 0, 0, 100],
+      insight: 'No intent to prove and no agreement to point to — so the law finds no one to blame, and the victim absorbs the entire loss.'
+    },
+    absolute: {
+      vals: [100, 0, 0, 0, 0],
+      insight: 'The deployer is held liable for harm four layers removed from anything it actually did — so no one risks deploying an agent at all.'
+    },
+    traceable: {
+      vals: [10, 0, 30, 60, 0],
+      insight: 'Because each agent carries a record of who deployed it and the limits it was given, the loss is apportioned to the actors who overstepped — proportionally, not absolutely.'
+    }
+  };
+
+  var ledger = document.getElementById('ledger');
+  var insightEl = document.getElementById('insight');
+  var ARROW = '↳';
+
+  var fills = [], pcts = [];
+  ACTORS.forEach(function(a) {
+    var row = document.createElement('div');
+    row.className = 'row' + (a.victim ? ' victim' : '');
+
+    var who = document.createElement('div');
+    who.className = 'who';
+    if (!a.victim) who.style.paddingLeft = (a.depth * 16) + 'px';
+    var conn = a.depth > 0 ? '<span class="conn">' + ARROW + ' </span>' : '';
+    who.innerHTML = conn +
+      '<span class="name' + (a.harmed ? ' harmed' : '') + '">' + a.name + '</span>' +
+      '<span class="sub">' + a.sub + '</span>';
+
+    var meter = document.createElement('div');
+    meter.className = 'meter';
+    var track = document.createElement('div');
+    track.className = 'track';
+    var fill = document.createElement('div');
+    fill.className = 'fill';
+    track.appendChild(fill);
+    var pct = document.createElement('span');
+    pct.className = 'pct';
+    meter.appendChild(track);
+    meter.appendChild(pct);
+
+    row.appendChild(who);
+    row.appendChild(meter);
+    ledger.appendChild(row);
+    fills.push(fill);
+    pcts.push(pct);
+  });
+
+  function render(regime) {
+    var data = REGIMES[regime];
+    data.vals.forEach(function(v, i) {
+      fills[i].style.width = v + '%';
+      pcts[i].textContent = v + '%';
+      pcts[i].className = 'pct' + (v === 0 ? ' zero' : '');
+    });
+    insightEl.textContent = data.insight;
+  }
+
+  var toggle = document.getElementById('toggle');
+  toggle.addEventListener('click', function(e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    toggle.querySelectorAll('button').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    render(btn.getAttribute('data-regime'));
+  });
+
+  render('none');
+})();
+</script>
+</body>
+</html>
