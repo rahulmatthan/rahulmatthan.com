@@ -1,4 +1,5 @@
----created: 2024-12-23
+---
+created: 2024-12-23
 published: 2024-09-19
 tags:
   - dpi
@@ -9,9 +10,11 @@ publication: Carnegie India
 externalUrl: https://carnegieendowment.org/posts/2024/09/the-quad-should-support-democratic-public-infrastructure-this-is-why?lang=en
 aliases:
   - "/other-writing/carnegie/the-quad-should-support-digital-public-infrastructure-this-is-why/"
+
 title: "The QUAD Should Support Digital Public Infrastructure. This is why."
 date: 2024-09-19
 ---
+
 When it comes to digital transformation, representatives from across regions—from the Caribbean to the Indo-Pacific, often ask, “What choices do we have?” These countries are faced with a difficult decision—either pay the high cost charged by global vendors for deploying these systems or opt for significantly cheaper solutions from firms sometimes subsidized by undemocratic states. For nations where price is an important factor, there is often no option but the latter, despite the democratic risk and lack of clarity on how these firms operate and manage their data. These systems are becoming increasingly embedded in the digital transformation of governance across the world.
 
 What can be done to tilt the scales away from this geotechnical challenge to a more democratic infrastructure—away from the risk of external control and towards a more transparent digital transformation? How do we build digital infrastructure that strengthens rather than weakens sovereign rights in Big Ocean states and others that are increasingly at the center of the ever-sharpening geopolitics of sensitive regions?

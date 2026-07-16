@@ -1,4 +1,5 @@
----title: After Jan Vishwas law, liberate governance from the steel cage
+---
+title: After Jan Vishwas law, liberate governance from the steel cage
 published: 2026-04-18
 tags:
   - regulation
@@ -10,8 +11,10 @@ publication:
   - Indian Express
 created: 2023-11-17T08:59
 url:
+
 date: 2026-04-18
 ---
+
 
 *Co-authored with Manish Sabharwal.*
 

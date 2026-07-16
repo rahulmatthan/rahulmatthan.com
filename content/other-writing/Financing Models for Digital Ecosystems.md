@@ -1,4 +1,5 @@
----tags:
+---
+tags:
   - dpi
   - dpi_finance
 publication:
@@ -10,9 +11,11 @@ writingStatus: published
 published: 2021-12-16
 aliases:
   - "/other-writing/artha-global/financing-models-for-digital-ecosystems/"
+
 title: "Financing Models for Digital Ecosystems"
 date: 2021-12-16
 ---
+
 
 *This article was co-written with Prakhar Misra and Harshita Agrawal*
 

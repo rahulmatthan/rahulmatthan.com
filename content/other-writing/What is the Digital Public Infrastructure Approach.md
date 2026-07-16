@@ -1,4 +1,5 @@
----created: 2024-12-23
+---
+created: 2024-12-23
 published: 2023-05-15
 tags:
   - dpi
@@ -9,9 +10,11 @@ publication: Carnegie India
 externalUrl: https://carnegieendowment.org/research/2023/05/what-is-the-dpi-approach?lang=en
 aliases:
   - "/other-writing/carnegie/what-is-the-digital-public-infrastructure-approach/"
+
 title: "What is the Digital Public Infrastructure Approach"
 date: 2023-05-15
 ---
+
 Digital public infrastructure (DPI) is a brand-new approach to the digitization of large-scale systems. It has the potential to revolutionize the way in which public services are delivered, since it is much more than a software or a technology infrastructure—it is a framework that encompasses technology, markets, and governance. It offers nation states unprecedented agency over their own digital journeys. It is designed to ensure the sovereignty of core public services, enabling capabilities that are critical to national growth. Crucially, it helps governments unlock the power of market innovation and entrepreneurship, creating competition and strengthening local and potentially global digital ecosystems.
 
 Certain properties of DPI are instinctively understood in nations that have adopted the approach, even if they themselves do not as yet use the abbreviation “DPI.” Whether it is Brazil, Estonia, or India, there is an intuitive appreciation for the vast potential of DPI. Yet, for many parts of the world, this language is only beginning to be understood in its entirety.

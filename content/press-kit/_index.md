@@ -1,8 +1,11 @@
----title: Press Kit
+---
+title: Press Kit
 date: 2026-01-04
 writingStatus: published
 created: 2026-01-04T21:58
+
 ---
+
 
 This is the consolidated repository of media resources for Rahul Matthan. In these pages, you will find links to different versions of his biography as well as photographs in various resolutions that can be used in print and web collaterals.
 

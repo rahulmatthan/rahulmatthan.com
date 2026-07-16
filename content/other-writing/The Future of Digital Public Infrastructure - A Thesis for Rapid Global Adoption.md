@@ -1,4 +1,5 @@
----created: 2024-12-23
+---
+created: 2024-12-23
 published: 2024-02-13
 tags:
   - dpi
@@ -9,9 +10,11 @@ publication: Carnegie India
 externalUrl: https://carnegieendowment.org/research/2024/02/the-future-of-digital-public-infrastructure-a-thesis-for-rapid-global-adoption?lang=en
 aliases:
   - "/other-writing/carnegie/the-future-of-digital-public-infrastructure-a-thesis-for-rapid-global-adoption/"
+
 title: "The Future of Digital Public Infrastructure - A Thesis for Rapid Global Adoption"
 date: 2024-02-13
 ---
+
 ### Introduction
 
 India’s presidency of the G20 in 2023 placed digital public infrastructure (DPI) on the global map.[^1] Until November 2022, DPI as a term did not exist for most people around the world. In a period of nine months, between December 2022 and August 2023, not only was the grammar and syntax of DPI created, but a suggested framework for DPI was also accepted by the G20 member states.[^2]
