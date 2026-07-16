@@ -1,5 +1,4 @@
----
-title: A Single Source of Truth
+---title: A Single Source of Truth
 published: 2026-06-24
 tags:
   - open_data
@@ -12,10 +11,8 @@ publication:
   - The Mint
 created: 2026-06-24
 externalUrl: https://www.livemint.com/opinion/online-views/india-code-indian-laws-gazette-court-crime-rules-regulations-ms-sahoo-jan-vishwas-11782194559770.html
-
 date: 2026-06-24
 ---
-
 _Ignorance of the law is no excuse only if the State first makes the law knowable. India has never held up that side of the bargain, and the single, authoritative source of truth for every rule is the reform Jan Vishwas left unfinished._
 
 *This article was co-authored with Manish Sabharwal*

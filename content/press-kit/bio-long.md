@@ -1,11 +1,8 @@
----
-title: Long Bio
+---title: Long Bio
 date: 2026-01-04
 writingStatus: published
 created: 2026-01-04T22:17
-
 ---
-
 Rahul Matthan is partner with Trilegal and leads the technology practice of the firm. He advises clients on the full range of technology issues - from e-commerce, internet and social media law to cryptocurrency, telecommunications regulation, and technology M&A. After having served, for many years, on its Management Committee, Rahul is currently a member of the Board of Trilegal. 
 
 Rahul has increasingly played an active role in shaping technology policy in the country. He has served on the Kris Gopalakrishnan committee on Non-Personal Data, the RBI's Committee on establishing a Framework for Responsible and Ethical Enablement of AI (FREE-AI), the MeITy Committee for drafting the India AI Governance Guidelines and the National Health Authority's committee on the Strategy for Artificial Intelligence in Healthcare. He is an Expert Panel member of NITI Aayog's Frontier Tech Hub, the Expert Advisory Group to the Department of Posts for the Digital Address DPI, the Expert Committee for Aadhaar Vision 2032, the SEBI Working Group on Technology Roadmap of MIIs, and the Committee for Harmonisation of DigiLocker and Aadhaar framework.

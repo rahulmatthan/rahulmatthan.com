@@ -1,5 +1,4 @@
----
-title: The new data bill will mark a paradigm shift
+---title: The new data bill will mark a paradigm shift
 published: 2023-08-07
 tags:
   - data_protection
@@ -11,10 +10,8 @@ created: 2023-11-17T08:59
 externalUrl: https://www.hindustantimes.com/opinion/the-new-data-bill-will-mark-a-paradigm-shift-101691417117474.html
 aliases:
   - "/other-writing/hindustan-times/the-new-data-bill-will-mark-a-paradigm-shift/"
-
 date: 2023-08-07
 ---
-
 
 The Digital Personal Data Protection Bill was passed by the Lok Sabha yesterday. Even though there are a few provisions in this draft that I’d have preferred were left out, I believe this is the closest we have ever come to a law that is appropriate for our current stage of maturity in data protection.
 

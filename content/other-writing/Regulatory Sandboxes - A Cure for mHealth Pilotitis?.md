@@ -1,5 +1,4 @@
----
-created: 2024-12-23
+---created: 2024-12-23
 published: 2020-09-15
 tags:
   - data_governance
@@ -11,11 +10,9 @@ publication: Journal of Medical Internet Research
 externalUrl: https://pmc.ncbi.nlm.nih.gov/articles/PMC7525408/
 aliases:
   - "/other-writing/jmir/regulatory-sandboxes-a-cure-for-mhealth-pilotitis/"
-
 title: "Regulatory Sandboxes - A Cure for mHealth Pilotitis?"
 date: 2020-09-15
 ---
-
 *This is an article co-authored along with Satchit Balsari, Tarun Khanna and Abhishek Bhatia*
 
 ### Abstract

@@ -1,5 +1,4 @@
----
-title: Exceptionally Simple
+---title: Exceptionally Simple
 published: 2022-11-24
 tags:
   - data_governance
@@ -12,10 +11,8 @@ created: 2023-11-17T08:59
 externalUrl: https://www.hindustantimes.com/opinion/the-hits-and-misses-of-data-protection-bill-101669220222943.html
 aliases:
   - "/other-writing/hindustan-times/exceptionally-simple-ht/"
-
 date: 2022-11-24
 ---
-
 
 *The new draft of India's digital data protection bill is praised for its simplicity and relatability, although it has raised concerns for its lack of detail and government exemptions. The draft also misses key concepts like data portability and uses non-standard terminology.*
 
