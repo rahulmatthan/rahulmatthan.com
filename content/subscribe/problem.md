@@ -1,7 +1,6 @@
 ---
 title: "Something went wrong"
-cascade: {}
-_build:
+build:
   list: never
   render: always
 ---

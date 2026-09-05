@@ -1,7 +1,6 @@
 ---
 title: "You are subscribed"
-cascade: {}
-_build:
+build:
   list: never
   render: always
 ---
