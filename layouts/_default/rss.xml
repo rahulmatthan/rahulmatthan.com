@@ -1,0 +1,29 @@
+{{- /* Hugo's built-in feed uses .RegularPages, which is empty for a section
+       whose posts live in year sub-sections — that is why /ex-machina/index.xml
+       was blank. RegularPagesRecursive walks into them. */ -}}
+{{- $pages := .RegularPagesRecursive -}}
+{{- if .IsHome }}{{ $pages = .Site.RegularPages }}{{ end -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 }}{{ $pages = $pages | first $limit }}{{ end -}}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ if .Description }}{{ .Description }}{{ else }}Recent content{{ with .Title }} in {{ . }}{{ end }} on {{ .Site.Title }}{{ end }}</description>
+    <generator>Hugo</generator>
+    <language>{{ .Site.LanguageCode }}</language>
+    {{- with $pages }}{{ with index . 0 }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+    {{- end }}{{ end }}
+    <atom:link href="{{ .Permalink }}index.xml" rel="self" type="application/rss+xml" />
+    {{- range $pages }}
+    <item>
+      <title>{{ replaceRE "^\\d+\\.\\s*" "" .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ .Summary | html }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

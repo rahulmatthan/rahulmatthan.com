@@ -54,5 +54,9 @@
     </div>
     {{ end }}
 
+    {{ if eq .Section "ex-machina" }}
+    {{ partial "subscribe.html" . }}
+    {{ end }}
+
 </article>
 {{ end }}

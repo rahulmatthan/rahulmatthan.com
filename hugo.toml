@@ -2,3 +2,8 @@ baseURL = 'https://rahulmatthan.com/'
 pluralizeListTitles = false
 languageCode = 'en-us'
 title = 'Rahul Matthan'
+
+[params]
+  # The Ex Machina sign-up function (AWS Lambda, ap-south-1).
+  # Source and deploy script live in ~/Coding/mailingapp.
+  subscribeEndpoint = "https://e2ok24fwjmeft3ythjed7hyc5e0uxxog.lambda-url.ap-south-1.on.aws/"

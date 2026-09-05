@@ -1,0 +1,39 @@
+{{/* Ex Machina sign-up. Posts straight to the Lambda, which emails a
+     confirmation link and redirects to /subscribe/check-email/. No JavaScript,
+     so it still works if scripts are blocked. */}}
+<section class="subscribe-box" aria-labelledby="subscribe-heading">
+  <h2 id="subscribe-heading" class="subscribe-title">Get Ex Machina by email</h2>
+  <p class="subscribe-blurb">
+    One essay a week on technology, law and society. Free, and you can leave whenever you like.
+  </p>
+  <form class="subscribe-form" action="{{ .Site.Params.subscribeEndpoint }}" method="post">
+    <label class="subscribe-label" for="subscribe-email">Email address</label>
+    <input class="subscribe-input" id="subscribe-email" type="email" name="email"
+           placeholder="you@example.com" required autocomplete="email" spellcheck="false">
+    {{/* Honeypot: hidden from people, irresistible to bots. */}}
+    <div class="subscribe-hp" aria-hidden="true">
+      <label for="subscribe-website">Leave this empty</label>
+      <input id="subscribe-website" type="text" name="website" tabindex="-1" autocomplete="off">
+    </div>
+    <button class="subscribe-button" type="submit">Subscribe</button>
+  </form>
+  <p class="subscribe-note">You will get one email asking you to confirm.</p>
+</section>
+
+<style>
+.subscribe-box{margin:64px 0 8px;padding:28px 0 0;border-top:1px solid #e6e6e6;}
+.subscribe-title{font-size:1.15rem;font-weight:600;margin:0 0 6px;letter-spacing:-0.01em;}
+.subscribe-blurb{margin:0 0 18px;color:#666;font-size:.95rem;line-height:1.55;max-width:46ch;}
+.subscribe-form{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;max-width:460px;}
+.subscribe-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.subscribe-input{flex:1 1 240px;min-width:0;padding:11px 13px;font:inherit;font-size:.95rem;
+  color:#1a1a1a;background:#fff;border:1px solid #ccc;border-radius:4px;}
+.subscribe-input:focus{outline:none;border-color:#1a1a1a;box-shadow:0 0 0 2px rgba(0,0,0,.08);}
+.subscribe-button{flex:0 0 auto;padding:11px 20px;font:inherit;font-size:.95rem;font-weight:500;
+  color:#fff;background:#1a1a1a;border:1px solid #1a1a1a;border-radius:4px;cursor:pointer;
+  transition:opacity .15s ease;}
+.subscribe-button:hover{opacity:.82;}
+.subscribe-note{margin:12px 0 0;color:#999;font-size:.85rem;}
+.subscribe-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+@media (max-width:520px){.subscribe-form{flex-direction:column;}.subscribe-button{width:100%;}}
+</style>
