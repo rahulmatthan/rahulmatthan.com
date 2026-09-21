@@ -1,0 +1,16 @@
+{{- /*
+  One-line description for meta tags. Uses the italic standfirst that opens
+  each column (a paragraph wrapped in underscores); falls back to the summary.
+*/ -}}
+{{- $desc := "" -}}
+{{- if .IsPage -}}
+  {{- $m := findRE `(?m)^_([^_\n]+)_\s*$` .RawContent 1 -}}
+  {{- with $m -}}
+    {{- $desc = strings.Trim (index . 0) "_ \n\r" -}}
+  {{- else -}}
+    {{- $desc = .Summary | plainify | htmlUnescape | truncate 200 -}}
+  {{- end -}}
+{{- else -}}
+  {{- $desc = "Rahul Matthan is a technology lawyer. Ex Machina, his weekly Mint column on law, technology and society, has run since 2016." -}}
+{{- end -}}
+{{- return (replaceRE `\s+` " " $desc | strings.TrimSpace) -}}

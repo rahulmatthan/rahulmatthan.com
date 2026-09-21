@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }} | Rahul</title>
+
+    {{- /* Social sharing: Open Graph + Twitter Card, with a build-time generated card image */ -}}
+    {{ $shareTitle := cond .IsPage (replaceRE "^\\d+\\.\\s*" "" .Title) .Site.Title }}
+    {{ $shareDesc := partial "share-description.html" . }}
+    {{ $shareCard := partial "share-card.html" . }}
+    <meta name="description" content="{{ $shareDesc }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    <meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:title" content="{{ $shareTitle }}">
+    <meta property="og:description" content="{{ $shareDesc }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:image" content="{{ $shareCard.Permalink }}">
+    <meta property="og:image:width" content="{{ $shareCard.Width }}">
+    <meta property="og:image:height" content="{{ $shareCard.Height }}">
+    <meta property="og:image:alt" content="{{ $shareTitle }}">
+    {{ if .IsPage }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02" }}">{{ end }}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@matthan">
+    <meta name="twitter:creator" content="@matthan">
+    <meta name="twitter:title" content="{{ $shareTitle }}">
+    <meta name="twitter:description" content="{{ $shareDesc }}">
+    <meta name="twitter:image" content="{{ $shareCard.Permalink }}">
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -11,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=24">
+    <link rel="stylesheet" href="/style.css?v=25">
 
     <link rel="alternate" type="application/rss+xml" title="Rahul Matthan" href="/index.xml">
 
@@ -601,6 +624,35 @@
     </script>
 
     <!-- Cloudflare Web Analytics -->
+    <script>
+    // Share row: copy the article link to the clipboard
+    document.querySelectorAll('.copy-link').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var url = btn.dataset.url || location.href;
+            var label = btn.dataset.label || (btn.dataset.label = btn.textContent);
+            var flash = function (text) {
+                btn.textContent = text;
+                btn.classList.add('copied');
+                setTimeout(function () { btn.textContent = label; btn.classList.remove('copied'); }, 2000);
+            };
+            var fallback = function () {
+                var ta = document.createElement('textarea');
+                ta.value = url; ta.setAttribute('readonly', '');
+                ta.style.position = 'absolute'; ta.style.left = '-9999px';
+                document.body.appendChild(ta); ta.select();
+                var ok = false;
+                try { ok = document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(ta);
+                flash(ok ? 'Copied' : 'Copy failed');
+            };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(function () { flash('Copied'); }, fallback);
+            } else {
+                fallback();
+            }
+        });
+    });
+    </script>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "632374d3299e4a45827f286fecfaa697"}'></script>
     <!-- End Cloudflare Web Analytics -->
 </body>

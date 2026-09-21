@@ -1,0 +1,45 @@
+{{- /*
+  Generates a 1200x630 share image for the given page at build time.
+  White ground, black Inter title, grey label above and name below.
+  Returns the image resource; used by the og:image tags in baseof.html.
+*/ -}}
+{{- $base := resources.Get "share-card-base.png" -}}
+{{- $bold := resources.Get "fonts/Inter-SemiBold.ttf" -}}
+{{- $regular := resources.Get "fonts/Inter-Regular.ttf" -}}
+
+{{- $title := "Rahul Matthan" -}}
+{{- $label := "rahulmatthan.com" -}}
+{{- $byline := "" -}}
+
+{{- if .IsPage -}}
+  {{- $title = replaceRE "^\\d+\\.\\s*" "" .Title -}}
+  {{- $byline = "Rahul Matthan" -}}
+  {{- $pub := .Params.publication -}}
+  {{- if reflect.IsSlice $pub }}{{ $pub = index $pub 0 }}{{ end -}}
+  {{- if eq .Section "ex-machina" -}}
+    {{- $label = "Ex Machina" -}}
+  {{- else if $pub -}}
+    {{- $label = $pub -}}
+  {{- else -}}
+    {{- $label = .Section | humanize -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Scale the title down for long headlines so it never runs into the byline. */ -}}
+{{- $size := 68 -}}
+{{- $n := len $title -}}
+{{- if gt $n 110 }}{{ $size = 48 }}{{ else if gt $n 75 }}{{ $size = 56 }}{{ end -}}
+
+{{- /* The title is drawn on a narrower canvas and overlaid, so it wraps with equal margins. */ -}}
+{{- $titleBlock := resources.Get "share-card-title.png" | images.Filter
+      (images.Text $title (dict "font" $bold "size" $size "linespacing" 10 "color" "#111111" "x" 0 "y" 0)) -}}
+{{- $filters := slice
+      (images.Text (upper $label) (dict "font" $regular "size" 24 "color" "#999999" "x" 90 "y" 84))
+      (images.Overlay $titleBlock 90 150)
+-}}
+{{- if $byline -}}
+  {{- $filters = $filters | append (images.Text $byline (dict "font" $regular "size" 28 "color" "#555555" "x" 90 "y" 540)) -}}
+{{- end -}}
+
+{{- $img := $base | images.Filter $filters -}}
+{{- return $img -}}

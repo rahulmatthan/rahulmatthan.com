@@ -1,0 +1,12 @@
+{{- $cleanTitle := replaceRE "^\\d+\\.\\s*" "" .Title -}}
+{{- $url := .Permalink -}}
+{{- $x := printf "https://x.com/intent/post?text=%s&url=%s" (printf "%s by @matthan" $cleanTitle | urlquery) ($url | urlquery) -}}
+{{- $li := printf "https://www.linkedin.com/sharing/share-offsite/?url=%s" ($url | urlquery) -}}
+<div class="sources-section share-section">
+    <div class="source-label">Share</div>
+    <nav class="source-links">
+        <a href="{{ $x | safeURL }}" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="{{ $li | safeURL }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <button type="button" class="copy-link" data-url="{{ $url }}">Copy link</button>
+    </nav>
+</div>
