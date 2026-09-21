@@ -54,11 +54,7 @@
     </div>
     {{ end }}
 
-    {{ partial "share.html" . }}
-
-    {{ if eq .Section "ex-machina" }}
-    {{ partial "subscribe-line.html" . }}
-    {{ end }}
+    {{ partial "article-footer.html" . }}
 
 </article>
 {{ end }}

@@ -1,0 +1,13 @@
+{{- /* One footer line for every article: the quiet subscribe sentence on the
+       left (Ex Machina only) and the share icons on the right. */ -}}
+<div class="article-footer">
+    {{ if eq .Section "ex-machina" }}
+    <p class="subscribe-line">
+        Ex Machina arrives by email once a week.
+        <a href="/subscribe/">Subscribe</a>.
+    </p>
+    {{ else }}
+    <span class="article-footer-spacer"></span>
+    {{ end }}
+    {{ partial "share.html" . }}
+</div>
