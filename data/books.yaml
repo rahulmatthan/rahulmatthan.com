@@ -1,0 +1,43 @@
+# Books shown on /books/, newest first.
+# Covers live in static/books/. The page itself is layouts/books/list.html;
+# build.py writes content/books/_index.md (the content dir is wiped on every build).
+# Set `status` to show a line above the title (e.g. "Out 28 September 2026"); leave empty once published.
+
+- title: "Ex Machina"
+  subtitle: "Essays on a Decade of Tech Policy"
+  publisher: "Westland"
+  year: 2026
+  status: "In stores 28 September 2026 · available to pre-order"
+  cover: "/books/ex-machina.jpg"
+  description: |
+    Essays from the first ten years of Ex Machina, arranged thematically to present the narrative arc of developments in Tech Policy in India on digital public infrastructure, map and drone reform, data protection and artificial intelligence.
+  links:
+    - label: "Buy on Amazon.in"
+      url: "https://www.amazon.in/dp/8168170113"
+
+- title: "The Third Way"
+  subtitle: "India's Revolutionary Approach to Data Governance"
+  publisher: "Juggernaut"
+  year: 2023
+  cover: "/books/the-third-way.jpg"
+  description: |
+    How India chose a path between the market-led approach of the United
+    States and the state-led approach of China, and built digital public
+    infrastructure that offers the world a new way to govern data.
+  links:
+    - label: "Buy on Amazon.in"
+      url: "https://www.amazon.in/dp/9353452635"
+
+- title: "Privacy 3.0"
+  subtitle: "Unlocking Our Data-Driven Future"
+  publisher: "HarperCollins"
+  year: 2018
+  cover: "/books/privacy-3-0.jpg"
+  description: |
+    The evolution of privacy in India and the world, and why the frameworks
+    we inherited need to be rethought for a world run on data. I also
+    recorded the audiobook myself, in case you prefer listening to authors
+    read their books to you.
+  links:
+    - label: "Buy on Amazon.in"
+      url: "https://www.amazon.in/dp/9352779886"

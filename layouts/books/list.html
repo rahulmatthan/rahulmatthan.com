@@ -1,0 +1,34 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+{{ if .Content }}
+<div class="section-description">
+    {{ .Content }}
+</div>
+{{ end }}
+
+<div class="book-list">
+    {{ range site.Data.books }}
+    <article class="book" id="{{ .title | urlize }}">
+        <div class="book-cover">
+            <img src="{{ .cover }}" alt="Cover of {{ .title }}: {{ .subtitle }}" loading="lazy">
+        </div>
+        <div class="book-body">
+            {{ with .status }}<div class="book-status">{{ . }}</div>{{ end }}
+            <h2 class="book-title">{{ .title }}</h2>
+            <div class="book-subtitle">{{ .subtitle }}</div>
+            <div class="book-meta">{{ .publisher }} · {{ .year }}</div>
+            <div class="book-description">{{ .description | markdownify }}</div>
+            <div class="book-links">
+                {{ range .links }}
+                <a class="book-link" href="{{ .url }}" target="_blank" rel="noopener">
+                    <span class="book-link-label">{{ .label }}{{ if not .store }} ↗{{ end }}</span>
+                    {{ with .store }}<span class="book-link-store">{{ . }} ↗</span>{{ end }}
+                </a>
+                {{ end }}
+            </div>
+        </div>
+    </article>
+    {{ end }}
+</div>
+{{ end }}

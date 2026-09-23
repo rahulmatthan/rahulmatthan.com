@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css?v=27">
+    <link rel="stylesheet" href="/style.css?v=28">
 
     <link rel="alternate" type="application/rss+xml" title="Rahul Matthan" href="/index.xml">
 
@@ -138,6 +138,7 @@
                     {{ end }}
                 </details>
                 <a href="/explorables/" class="{{ if in .RelPermalink "explorables" }}active{{ end }}">Explorables</a>
+                <a href="/books/" class="{{ if in .RelPermalink "/books" }}active{{ end }}">Books</a>
                 <a href="/other-writing" class="{{ if in .RelPermalink "other-writing" }}active{{ end }}">Other Writing</a>
                 <a href="/podcasts" class="{{ if in .RelPermalink "podcasts" }}active{{ end }}">Podcasts</a>
                 <a href="/talks" class="{{ if in .RelPermalink "talks" }}active{{ end }}">Talks</a>
