@@ -16,7 +16,7 @@ externalUrl: https://www.orfonline.org/research/the-absorption-frontier
 date: 2026-10-01
 ---
 
-### Abstract
+I### Abstract
 
 Every transformative technology has succeeded by making a scarce factor of production abundant. However, its benefits only arrive downstream of invention—once society has reorganised itself to take advantage of that abundance. AI will make intelligence abundant. To realise its potential, society must reorganise itself around what this makes possible. The AI absorption frontier for a sector is the point at which it has reorganised itself sufficiently to convert abundant intelligence into productive gains. Crossing it requires three things: data must be legible to AI, actionable, and outputs generated must be verifiable against ground truth. Of these, verifiability is hardest. Software has already crossed the absorption frontier through version control systems, interoperable interfaces, and automated testing built well before AI arrived. Other sectors will need to deliberately achieve this to derive value from this technology. AI supremacy, therefore, will depend not on who builds the most advanced models, but on which sectors—and ultimately which nations—can absorb AI.
 
