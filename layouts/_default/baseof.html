@@ -174,7 +174,10 @@
             </header>
             {{ end }}
 
-            <main>
+            {{- /* Pagefind indexes only the page body, never the Related sidebar,
+                   nav or section listings, so a search hits only articles that
+                   actually contain the word. */ -}}
+            <main{{ if .IsPage }} data-pagefind-body{{ end }}>
                 {{ block "main" . }}{{ end }}
             </main>
         </div>
