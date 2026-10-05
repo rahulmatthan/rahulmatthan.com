@@ -147,7 +147,25 @@ npx pagefind --site public    # Generate search index
 hugo server                   # Serve with search enabled
 ```
 
-The search indexes all HTML files in `public/` and creates a `/pagefind/` directory with:
+**What gets indexed — do not undo this.** `<main>` in `baseof.html` carries
+`data-pagefind-body` on pages (`.IsPage`), so Pagefind indexes only the article
+itself. Without it Pagefind indexes whole pages, including the right-hand
+**Related** sidebar, which prints the title and teaser of every other article
+sharing a tag. That made a search for "bitchat" return ~80 articles that never
+mention it (fixed 4 Oct 2026, commit b6ac4eb). Consequences:
+- Section/list pages and the home page are deliberately left out of search.
+- Any new layout whose content should be searchable must render inside `<main>`
+  (via `{{ define "main" }}`); anything rendered outside it is invisible to search.
+- New per-page chrome inside `<main>` that repeats other articles' text (cards,
+  "read next", teasers) needs `data-pagefind-ignore`, or the bug comes back.
+- Pagefind matches word prefixes and stems ("data" also finds "database"); that
+  is expected, not a bug.
+
+**Checking it:** build to a scratch folder (`hugo -d /tmp/x && npx pagefind --site /tmp/x`),
+then query the index — the live site's `https://rahulmatthan.com/pagefind/pagefind.js`
+can be imported from Node with `options({basePath})` to test real results.
+
+Pagefind writes a `/pagefind/` directory with:
 - Search index files
 - Pagefind UI JavaScript and CSS
 - Language-specific search data
