@@ -1,9 +1,11 @@
 /* Easter egg for Ex Machina #500, "The Only Test That Matters".
  *
  * The first letters of the nine paragraphs spell EX MACHINA. Type 5-0-0 on
- * the page (or triple-tap the title on a phone) and those letters light up,
- * fly to the middle of the screen to spell it out, and burst into colour.
- * Esc or a click ends it early. Loaded on this one page only (single.html).
+ * the page (or triple-tap the title on a phone) and those letters slowly grow,
+ * hold for a few seconds so readers can scroll and read the word, wobble as
+ * if about to go, then fly to the middle of the screen to spell it out and
+ * burst into colour. Afterwards the page is as it was. Esc or a click ends it
+ * early. Loaded on this one page only (single.html).
  */
 (function () {
   "use strict";
@@ -13,6 +15,11 @@
   const COLOURS = ["#ff3b30", "#ff9500", "#ffcc00", "#34c759", "#00c7be",
                    "#007aff", "#5856d6", "#af52de", "#ff2d55"];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The pacing, in milliseconds.
+  const GROW = 4000, STAGGER = 400;              // each letter grows over GROW
+  const GROWN = GROW + STAGGER * (WORD.length - 1);
+  const HOLD = 5000;                             // big and still, to read
+  const WOBBLE = 5000;                           // the sense that something is coming
 
   const body = document.querySelector(".post-content");
   if (!body) return;
@@ -43,9 +50,25 @@
   const css = document.createElement("style");
   css.textContent = `
     .egg-cap { display: inline-block; transform-origin: 50% 85%;
-      transition: transform .5s cubic-bezier(.34,1.56,.64,1), font-weight .3s, color .3s; }
+      transition: transform ${GROW}ms cubic-bezier(.45,0,.55,1), margin ${GROW}ms ease,
+                  font-weight ${GROW}ms ease, color ${GROW}ms ease; }
     .egg-on .egg-cap { transform: scale(2.1); font-weight: 900; margin: 0 .28em 0 .1em; color: #000; }
-    .egg-on > hr ~ p { transition: color .6s; color: #bbb; }
+    .egg-on > hr ~ p, .egg-off > hr ~ p { transition: color 3s; }
+    .egg-on > hr ~ p { color: #bbb; }
+    @keyframes egg-wobble {
+      0%, 100% { transform: scale(2.1) rotate(0deg) translateY(0); }
+      25% { transform: scale(2.1) rotate(-3deg) translateY(-1px); }
+      75% { transform: scale(2.1) rotate(3deg) translateY(1px); }
+    }
+    @keyframes egg-shake {
+      0%, 100% { transform: scale(2.15) rotate(0deg) translate(0, 0); }
+      20% { transform: scale(2.15) rotate(-7deg) translate(-1px, -2px); }
+      40% { transform: scale(2.2) rotate(5deg) translate(1px, 1px); }
+      60% { transform: scale(2.15) rotate(-5deg) translate(-1px, 1px); }
+      80% { transform: scale(2.2) rotate(7deg) translate(1px, -2px); }
+    }
+    .egg-wobble .egg-cap { animation: egg-wobble .7s ease-in-out infinite; }
+    .egg-shake .egg-cap { animation: egg-shake .32s linear infinite; }
     .egg-on > hr ~ p a { color: inherit; }
     .egg-stage { position: fixed; inset: 0; z-index: 9999; pointer-events: auto;
       background: rgba(255,255,255,0); transition: background .6s; cursor: pointer; }
@@ -68,9 +91,17 @@
     body.classList.add("egg-on");
   }
 
+  // Back to the page as it was: letters shrink, text comes back.
+  function restore() {
+    body.classList.remove("egg-on", "egg-wobble", "egg-shake");
+    body.classList.add("egg-off");
+    setTimeout(() => body.classList.remove("egg-off"), 1600);
+  }
+
   function end() {
     timers.forEach(clearTimeout);
     timers = [];
+    restore();
     if (stage) {
       const s = stage;
       stage = null;
@@ -85,9 +116,16 @@
   function play() {
     if (running) return;
     running = true;
+    caps.forEach((c, i) => (c.style.transitionDelay = i * STAGGER + "ms"));
     reveal();
-    if (reduced) { running = false; return; }   // the reveal alone, no motion
-    later(1600, fly);
+    // Reduced motion: the reveal alone, held, then the page comes back.
+    if (reduced) { later(GROWN + HOLD * 2, end); return; }
+    later(GROWN, () => caps.forEach(c => (c.style.transitionDelay = "")));
+    // Out of sync, so they wobble like nine things, not one.
+    caps.forEach(c => (c.style.animationDelay = -Math.random() + "s"));
+    later(GROWN + HOLD, () => body.classList.add("egg-wobble"));
+    later(GROWN + HOLD + WOBBLE * 0.6, () => body.classList.replace("egg-wobble", "egg-shake"));
+    later(GROWN + HOLD + WOBBLE, fly);
   }
 
   // Step two: clones of the letters leave the page and line up in the middle.
@@ -128,7 +166,7 @@
         { transform: `translate(${(r.left + tx) / 2}px, ${Math.min(r.top, ty) - H * 0.18}px) scale(${(s0 + 1) / 2}) rotate(${i % 2 ? 14 : -14}deg)`, offset: 0.55 },
         { transform: `translate(${tx}px, ${ty}px) scale(1)`, offset: 1 },
       ], { duration: 1300, delay: i * 140, easing: "cubic-bezier(.45,.05,.25,1)", fill: "both" });
-      later(i * 140, () => (cap.style.visibility = "hidden"));
+      later(i * 140, () => { cap.style.visibility = "hidden"; });
       return { el, x: tx + widths[i] / 2, y: ty + size / 2, i };
     });
 
