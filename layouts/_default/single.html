@@ -56,5 +56,11 @@
 
     {{ partial "article-footer.html" . }}
 
+    {{- /* Ex Machina #500 only: the paragraph initials spell EX MACHINA, and
+           typing 500 on the page shows it (static/eggs/ex-machina-500.js). */ -}}
+    {{ if eq .RelPermalink "/ex-machina/2026/500.-the-only-test-that-matters/" }}
+    <script src="/eggs/ex-machina-500.js" defer></script>
+    {{ end }}
+
 </article>
 {{ end }}
