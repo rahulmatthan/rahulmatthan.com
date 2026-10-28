@@ -3,8 +3,9 @@
  * The first letters of the nine paragraphs spell EX MACHINA. Type 5-0-0 on
  * the page (or triple-tap the title on a phone) and those letters slowly grow,
  * hold for a few seconds so readers can scroll and read the word, wobble as
- * if about to go, then fly to the middle of the screen to spell it out and
- * burst into colour. Afterwards the page is as it was. Esc or a click ends it
+ * if about to go, then leap off the page and bounce around the screen as it
+ * fades to black, settling into EX MACHINA in the middle, and burst into
+ * colour. Wherever the reader has scrolled to, the letters come into view. Afterwards the page is as it was. Esc or a click ends it
  * early. Loaded on this one page only (single.html).
  */
 (function () {
@@ -20,6 +21,8 @@
   const GROWN = GROW + STAGGER * (WORD.length - 1);
   const HOLD = 5000;                             // big and still, to read
   const WOBBLE = 5000;                           // the sense that something is coming
+  const FREE = 1800;                             // letters bounce around the screen
+  const SETTLE = 5500;                           // by now they spell it, and it is dark
 
   const body = document.querySelector(".post-content");
   if (!body) return;
@@ -71,12 +74,15 @@
     .egg-shake .egg-cap { animation: egg-shake .32s linear infinite; }
     .egg-on > hr ~ p a { color: inherit; }
     .egg-stage { position: fixed; inset: 0; z-index: 9999; pointer-events: auto;
-      background: rgba(255,255,255,0); transition: background .6s; cursor: pointer; }
-    .egg-stage.dim { background: rgba(255,255,255,.88); }
-    .egg-stage.dark { background: rgba(8,8,12,.94); transition: background .5s; }
+      background: rgba(8,8,12,0); transition: background ${SETTLE}ms cubic-bezier(.5,0,.6,1);
+      cursor: pointer; }
+    .egg-stage.dark { background: rgba(8,8,12,.96); }
     .egg-letter { position: fixed; left: 0; top: 0; margin: 0; line-height: 1;
       font-family: var(--font-stack, sans-serif); font-weight: 900; color: #000;
-      will-change: transform; transition: color .4s, text-shadow .4s; }
+      will-change: transform;
+      /* Black on the light half, white on the dark half: a quick flip in the
+         middle, so they never fade into the grey in between. */
+      transition: color 500ms ease ${SETTLE * 0.42}ms, text-shadow ${SETTLE * 0.6}ms ease-in ${SETTLE * 0.4}ms; }
     .egg-stage.dark .egg-letter { color: #fff; text-shadow: 0 0 24px rgba(255,255,255,.6); }
     .egg-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   `;
@@ -129,12 +135,16 @@
   }
 
   // Step two: clones of the letters leave the page and line up in the middle.
+  // Step two: the letters leap off the page together and bounce around the
+  // screen while it fades to black, and are drawn, more strongly as it
+  // darkens, into EX MACHINA in the middle. A letter scrolled out of view
+  // starts just past the edge it is beyond, so it comes in from there.
   function fly() {
     stage = document.createElement("div");
     stage.className = "egg-stage";
     stage.addEventListener("click", end);
     document.body.appendChild(stage);
-    requestAnimationFrame(() => stage.classList.add("dim"));
+    requestAnimationFrame(() => requestAnimationFrame(() => stage && stage.classList.add("dark")));
 
     const W = innerWidth, H = innerHeight;
     const size = Math.min(W / 8.2, 150);
@@ -149,34 +159,64 @@
     const total = widths.reduce((a, b) => a + b, 0) + gap * (WORD.length - 1) + space;
     let x = (W - total) / 2;
     const y = H / 2 - size * 0.55;
+    const speed = Math.max(W, H) * 0.55;          // px per second while free
 
     const letters = caps.map((cap, i) => {
       const r = cap.getBoundingClientRect();
-      const fromSize = parseFloat(getComputedStyle(cap).fontSize) * 2.1;
+      const s0 = parseFloat(getComputedStyle(cap).fontSize) * 2.1 / size;
       const el = document.createElement("span");
       el.className = "egg-letter";
       el.textContent = WORD[i];
       el.style.fontSize = size + "px";
       stage.appendChild(el);
+      cap.style.visibility = "hidden";
       const tx = x, ty = y;
       x += widths[i] + gap + (i === 1 ? space : 0);   // the space after EX
-      const s0 = fromSize / size;
-      el.animate([
-        { transform: `translate(${r.left}px, ${r.top - fromSize * 0.2}px) scale(${s0})`, offset: 0 },
-        { transform: `translate(${(r.left + tx) / 2}px, ${Math.min(r.top, ty) - H * 0.18}px) scale(${(s0 + 1) / 2}) rotate(${i % 2 ? 14 : -14}deg)`, offset: 0.55 },
-        { transform: `translate(${tx}px, ${ty}px) scale(1)`, offset: 1 },
-      ], { duration: 1300, delay: i * 140, easing: "cubic-bezier(.45,.05,.25,1)", fill: "both" });
-      later(i * 140, () => { cap.style.visibility = "hidden"; });
-      return { el, x: tx + widths[i] / 2, y: ty + size / 2, i };
+      // Start where the letter was, or just past the edge if out of view,
+      // heading into the screen.
+      const px = Math.min(Math.max(r.left, -size * s0), W);
+      const py = Math.min(Math.max(r.top - size * s0 * 0.2, -size), H);
+      const into = Math.atan2(H / 2 - py, W / 2 - px);
+      const a = into + (Math.random() - 0.5) * 1.6;
+      return { el, i, w: widths[i], tx, ty, x: tx + widths[i] / 2, y: ty + size / 2,
+               px, py, vx: Math.cos(a) * speed * (0.7 + Math.random() * 0.6),
+               vy: Math.sin(a) * speed * (0.7 + Math.random() * 0.6),
+               rot: 0, spin: (Math.random() - 0.5) * 540, s0 };
     });
 
-    const landed = 1300 + (WORD.length - 1) * 140;
-    later(landed + 150, () => stage && stage.classList.add("dark"));
-    later(landed + 300, () => letters.forEach(l => l.el.animate(
-      [{ transform: getComputedStyle(l.el).transform }, { transform: getComputedStyle(l.el).transform + " scale(1.12)" },
-       { transform: getComputedStyle(l.el).transform }],
+    const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const t0 = performance.now();
+    let last = t0;
+    const step = now => {
+      if (!stage) return;
+      const t = now - t0, dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      // How far each letter has given in to its place: none while free, all by SETTLE.
+      const pull = ease(Math.min(Math.max((t - FREE * 0.4) / (SETTLE - FREE * 0.4), 0), 1));
+      const grow = ease(Math.min(t / SETTLE, 1));
+      for (const l of letters) {
+        // Free flight, bouncing off the edges of the screen.
+        l.px += l.vx * dt; l.py += l.vy * dt; l.rot += l.spin * dt;
+        const sc = l.s0 + (1 - l.s0) * grow, wpx = l.w * sc, hpx = size * sc;
+        if (l.px < 0 && l.vx < 0) l.vx = -l.vx;
+        if (l.px + wpx > W && l.vx > 0) l.vx = -l.vx;
+        if (l.py < 0 && l.vy < 0) l.vy = -l.vy;
+        if (l.py + hpx > H && l.vy > 0) l.vy = -l.vy;
+        const x = l.px + (l.tx - l.px) * pull, y = l.py + (l.ty - l.py) * pull;
+        const rot = l.rot * (1 - pull);
+        l.el.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${sc})`;
+      }
+      if (t < SETTLE) requestAnimationFrame(step);
+      else letters.forEach(l => (l.el.style.transform = `translate(${l.tx}px, ${l.ty}px) scale(1)`));
+    };
+    letters.forEach(l => (l.el.style.transformOrigin = "0 0"));
+    requestAnimationFrame(step);
+
+    later(SETTLE + 300, () => letters.forEach(l => l.el.animate(
+      [{ transform: l.el.style.transform }, { transform: l.el.style.transform + " scale(1.08)" },
+       { transform: l.el.style.transform }],
       { duration: 420, delay: l.i * 60, easing: "ease-in-out" })));
-    later(landed + 1500, () => celebrate(letters, size));
+    later(SETTLE + 1500, () => celebrate(letters, size));
   }
 
   // Step three: the letters burst, then fireworks and confetti, in colour.
