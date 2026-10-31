@@ -54,6 +54,16 @@
     </div>
     {{ end }}
 
+    {{- /* Ex Machina: link back to the column as it ran in Mint. */ -}}
+    {{ if and (eq .Section "ex-machina") (strings.Contains .Params.externalUrl "livemint.com") }}
+    <div class="sources-section">
+        <div class="source-label">Published in</div>
+        <nav class="source-links">
+            <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener">Mint</a>
+        </nav>
+    </div>
+    {{ end }}
+
     {{ partial "article-footer.html" . }}
 
     {{- /* Ex Machina #500 only: the paragraph initials spell EX MACHINA, and
