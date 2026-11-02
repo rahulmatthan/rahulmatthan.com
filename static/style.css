@@ -1424,6 +1424,22 @@ article h3 {
 .article-footer .subscribe-line a { color: #666; text-decoration: underline; text-underline-offset: 2px; }
 .article-footer .subscribe-line a:hover { color: #000; }
 
+.article-footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-left: auto;
+}
+.article-footer .mint-link {
+    font-size: .85rem;
+    font-weight: 300;
+    color: #999;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.article-footer .mint-link:hover { color: #000; }
+
 .share-icons {
     display: flex;
     align-items: center;

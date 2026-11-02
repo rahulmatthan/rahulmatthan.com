@@ -9,5 +9,11 @@
     {{ else }}
     <span class="article-footer-spacer"></span>
     {{ end }}
-    {{ partial "share.html" . }}
+    <div class="article-footer-right">
+        {{ partial "share.html" . }}
+        {{- /* Ex Machina: the column as it ran in Mint. */ -}}
+        {{ if and (eq .Section "ex-machina") (strings.Contains .Params.externalUrl "livemint.com") }}
+        <a class="mint-link" href="{{ .Params.externalUrl }}" target="_blank" rel="noopener">Mint</a>
+        {{ end }}
+    </div>
 </div>
