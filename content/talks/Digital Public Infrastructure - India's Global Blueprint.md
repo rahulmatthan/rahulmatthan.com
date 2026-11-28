@@ -3,7 +3,7 @@ title: "Digital Public Infrastructure: India's Global Blueprint"
 published: 2025-08-15
 writingStatus: published
 event: IIMBAA Leadership Conclave
-video: https://www.youtube.com/watch?v=kJBEGHluWT4&pp=ygUNcmFodWwgbWF0dGhhbg%3D%3D
+video: https://www.youtube.com/watch?v=eSomEcAD5zw
 created: 2025-10-01T23:41
 
 date: 2025-08-15
